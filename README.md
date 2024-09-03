@@ -4,6 +4,10 @@ Installs and configures control plane node or worker node with latest stable k8s
 
 Suitable Environment : Development & Testing
 
+System Requirement : Minimum 2 GM RAM & 2 vCPU & 10GB Storage
+
+Platform : Baremetal, Virtual Machines, Cloud Instances
+
 Supported distributions : 
 * Red Hat based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
 * Debian based  ( Debian, Ubuntu )
