@@ -87,7 +87,10 @@ Example Usage :
 ```
 Note :
 
-> kubectl is not installed on worker nodes as it is unnecessary on worker nodes.  
-> ( kubelet and kubeadm is enough for worker node functionality and management )  
-> kubectl tool is installed on control plane node where we manage the cluster.  
-> Also, it can be installed anywhere providing we have access to the cluster API server.  
+1) kubectl is not installed on worker nodes as it is unnecessary on worker nodes.  
+   ( kubelet and kubeadm is enough for worker node functionality and management )  
+2) kubectl tool is installed on control plane node where we manage the cluster.  
+3) Also, it can be installed anywhere providing we have access to the cluster API server.  
+
+
+> Have lots of fun!
