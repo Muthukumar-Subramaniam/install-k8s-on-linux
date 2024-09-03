@@ -59,11 +59,12 @@ Example Usage :
 ./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16 --calico-with-tigera
 ```
 Important notes on option --pod-network-cidr :  
-        1) Only accepts networks that falls within private address space ( RFC 1918 ).  
-           ( https://datatracker.ietf.org/doc/html/rfc1918 )  
-        2) As a best practice, CIDR prefixes /16 to /28 are only allowed.  
-        4) Please make sure it doen't overlap with any other networks in your infrastructure.  
-        5) Please choose a CIDR block that is large enough for your environment.  
+
+1) Only accepts networks that falls within private address space ( RFC 1918 ).  
+   ( https://datatracker.ietf.org/doc/html/rfc1918 )  
+2) As a best practice, CIDR prefixes /16 to /28 are only allowed.  
+3) Please make sure it doen't overlap with any other networks in your infrastructure.  
+4) Please choose a CIDR block that is large enough for your environment.  
 
 ## Worker Nodes :
 --worker-node   installs and configures worker node with latest k8s version.  
