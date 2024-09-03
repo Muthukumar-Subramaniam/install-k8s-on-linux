@@ -5,10 +5,10 @@ Installs and configures control plane node or worker node with latest stable k8s
 Supported distributions : Red Hat based, Debian based, SUSE based).
 
 Also latest versions of below components are installed,  
-         Container runtime used : containerd  
-         Low-level container runtime : runc ( dependency of containerd )  
-         CNI plugin used : calico (default) (or) calico tigera (optional)  
-         Storage Driver : csi smb driver  
+> Container runtime used : containerd  
+> Low-level container runtime : runc ( dependency of containerd )  
+> CNI plugin used : calico (default) (or) calico tigera (optional)  
+> Storage Driver : csi smb driver  
 
 1) To Run this script the user needs to have sudo access without password ( NOPASSWD ).
 2) Running the script as root user is not supported as a best practice.
