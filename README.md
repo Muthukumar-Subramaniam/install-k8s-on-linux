@@ -1,8 +1,7 @@
 # install-k8s-on-linux
-Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux ( Red Hat based, Debian based and SUSE based ) for development and testing.
-
-Installs and configures control plane node or worker node with latest stable k8s version available.
-Supported distributions : Red Hat based, Debian based, SUSE based).
+Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
+Installs and configures control plane node or worker node with latest stable k8s version available.  
+Supported distributions : Red Hat based, Debian based, SUSE based).  
 
 Also latest versions of below components are installed,  
 - Container runtime used : containerd  
@@ -10,7 +9,7 @@ Also latest versions of below components are installed,
 - CNI plugin used : calico (default) (or) calico tigera (optional)  
 - Storage Driver : csi smb driver
 
-Download the latest release of the script to the linux users account's home directory which is going to manage the k8s cluster.
+Download the latest release of the script to the linux users account's home directory which is going to manage the k8s cluster.  
 ```
 var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
 ```
@@ -20,29 +19,29 @@ wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/dow
 ```
 chmod +x install-k8s-on-linux.sh
 ```
-1) To Run this script the user account needs to have sudo access without password ( NOPASSWD ).
-2) Running the script as root user is not supported as a best practice.
-3) Please don't execute the script with sudo command in front of the script.
+1) To Run this script the user account needs to have sudo access without password ( NOPASSWD ).  
+2) Running the script as root user is not supported as a best practice.  
+3) Please don't execute the script with sudo command in front of the script.  
 
 ## Checking whether the user has sudo access with NOPASSWD:
 ```        
 sudo -l | grep -i NOPASSWD
 ```
-Example : Lets say the username is k8suser1,
+Example : Lets say the username is k8suser1,  
 > [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
 >       (ALL) NOPASSWD: ALL  
 
 If there is no output, then the user doesn't have sudo access with NOPASSWD.      
 
         
-If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.
+If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.  
 ```           
 sudo echo "<your linux user's name> ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/<your linux user's name>
 ```
 ```
 sudo -l | grep -i NOPASSWD
 ```
-Example : Lets say the username is k8suser2,
+Example : Lets say the username is k8suser2,  
 > [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
 > [k8suser2@somelinuxhost ~]$  
 > [k8suser2@somelinuxhost ~]$ sudo echo "k8suser2 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/k8suser2  
