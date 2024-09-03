@@ -1,5 +1,5 @@
 #!/bin/bash
-## SemVer : v1.0.0-beta
+## SemVer : v1.0.0
 
 fn_execution_denied_message() {
 cat << EOF
@@ -475,11 +475,6 @@ baseurl=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/
 enabled=1
 gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/repodata/repomd.xml.key
-[conntrack-for-suse]
-name=conntrack-for-suse
-baseurl=https://ks-manager-provided-web-server-name/k8s-install/suse/rpm/
-enabled=1
-gpgcheck=0
 EOF
 		
 		fn_check_internet_connectivity
