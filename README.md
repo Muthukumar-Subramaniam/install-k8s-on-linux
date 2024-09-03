@@ -1,4 +1,4 @@
-# install-k8s-on-linux
+## install-k8s-on-linux
 Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux ( Red Hat based, Debian based and SUSE based ) for development and testing.
 
 Installs and configures control plane node or worker node with latest stable k8s version available.
@@ -14,7 +14,7 @@ Also latest versions of below components are installed,
 2) Running the script as root user is not supported as a best practice.
 3) Please don't execute the script with sudo command in front of the script.
 
-* Checking whether the user has sudo access with NOPASSWD:
+# Checking whether the user has sudo access with NOPASSWD:
 Example : Lets say the username is k8suser1,
 ```
 [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
@@ -43,41 +43,42 @@ sudo -l | grep -i NOPASSWD
 ```
 
 
-Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
+# Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
 
-Control Plane Node :
+# Control Plane Node :
+--ctrl-plane-node       installs and configures control plane node with latest k8s version.
+--pod-network-cidr      this option sets the CIDR of your choice for the pod network.
+--calico-with-tigera    optional - calico with tigera is installed instead of basic calico CNI setup.
 
-        --ctrl-plane-node       installs and configures control plane node with latest k8s version.
-        --pod-network-cidr      this option sets the CIDR of your choice for the pod network.
-        --calico-with-tigera    optional - calico with tigera is installed instead of basic calico CNI setup.
+Example Usage : 
+```
+./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16
+```
+(OR)
+```
+./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16 --calico-with-tigera
+```
+Important notes on option --pod-network-cidr :
+        1) Only accepts networks that falls within private address space ( RFC 1918 ).
+           ( https://datatracker.ietf.org/doc/html/rfc1918 )
+        2) As a best practice, CIDR prefixes /16 to /28 are only allowed.
+        4) Please make sure it doen't overlap with any other networks in your infrastructure.
+        5) Please choose a CIDR block that is large enough for your environment.
 
-        Example Usage : ./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16
+# Worker Nodes :
+--worker-node   installs and configures worker node with latest k8s version.
+--install-kubectl       optional - install kubectl tool on the worker node.
 
-        (OR)
-
-        Example Usage : ./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16 --calico-with-tigera
-
-        Important notes on option --pod-network-cidr :
-
-                1) Only accepts networks that falls within private address space ( RFC 1918 ).
-                   ( https://datatracker.ietf.org/doc/html/rfc1918 )
-                2) As a best practice, CIDR prefixes /16 to /28 are only allowed.
-                4) Please make sure it doen't overlap with any other networks in your infrastructure.
-                5) Please choose a CIDR block that is large enough for your environment.
-
-Worker Nodes :
-
-        --worker-node   installs and configures worker node with latest k8s version.
-        --install-kubectl       optional - install kubectl tool on the worker node.
-
-        Example Usage : ./install-k8s-on-linux.sh --worker-node
-
-        (OR)
-
-        Example Usage : ./install-k8s-on-linux.sh --worker-node --install-kubectl
-
-        Note :
-                kubectl is not installed on worker nodes as it is unnecessary on worker nodes.
-                ( kubelet and kubeadm is enough for worker node functionality and management )
-                kubectl tool is installed on control plane node where we manage the cluster.
-                Also, it can be installed anywhere providing we have access to the cluster API server.
+Example Usage : 
+```
+./install-k8s-on-linux.sh --worker-node
+```
+(OR)
+```
+./install-k8s-on-linux.sh --worker-node --install-kubectl
+```
+Note :
+        kubectl is not installed on worker nodes as it is unnecessary on worker nodes.
+        ( kubelet and kubeadm is enough for worker node functionality and management )
+        kubectl tool is installed on control plane node where we manage the cluster.
+        Also, it can be installed anywhere providing we have access to the cluster API server.
