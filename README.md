@@ -53,11 +53,11 @@ Example : Lets say the username is k8suser2,
 
 ## Control Plane Node Options  :
 * --ctrl-plane-node  
-  installs and configures control plane node with latest k8s version.  
+  * installs and configures control plane node with latest k8s version.  
 * --pod-network-cidr  
-  this option sets the CIDR of your choice for the pod network.  
+  * this option sets the CIDR of your choice for the pod network.  
 * --calico-with-tigera
-  optional - calico with tigera is installed instead of basic calico CNI setup.  
+  * optional - calico with tigera is installed instead of basic calico CNI setup.  
 
 Example Usage : 
 ```
