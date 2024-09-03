@@ -7,12 +7,11 @@ Supported distributions :
 * Debian based  (Debian, Ubuntu )
 * SUSE based  ( OpenSUSE, SLES )
 
-
 Also latest versions of below components are installed,  
-- Container runtime used : containerd  
-- Low-level container runtime : runc ( dependency of containerd )  
-- CNI plugin used : calico (default) (or) calico tigera (optional)  
-- Storage Driver : csi smb driver
+* Container runtime used : containerd  
+* Low-level container runtime : runc ( dependency of containerd )  
+* CNI plugin used : calico (default) (or) calico tigera (optional)  
+* Storage Driver : csi smb driver
 
 Download the latest release of the script to the linux user account's home directory.
 ( User should have sudo access with NOPASSWD, if required create a new user with this previleges)
