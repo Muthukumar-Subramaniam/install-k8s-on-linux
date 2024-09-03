@@ -1,0 +1,13 @@
+[Unit]
+Description=Service to install and configure k8s worker node
+After=multi-user.target
+
+[Service]
+#User should have sudo access with NOPASSWD
+#Change the User name muthuks as as per your environment
+User=muthuks
+Environment="HOME=/home/muthuks"
+ExecStart=/usr/bin/bash "${HOME}"/install-k8s-on-linux/install-k8s-on-linux.sh --worker-node
+
+[Install]
+WantedBy=multi-user.target

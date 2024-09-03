@@ -2,6 +2,8 @@
 Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
 Installs and configures control plane node or worker node with latest stable k8s version available.  
 
+Suitable Environment : Development & Testing
+
 Supported distributions : 
 * Red Hat based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
 * Debian based  ( Debian, Ubuntu )
