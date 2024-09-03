@@ -8,9 +8,19 @@ Also latest versions of below components are installed,
 - Container runtime used : containerd  
 - Low-level container runtime : runc ( dependency of containerd )  
 - CNI plugin used : calico (default) (or) calico tigera (optional)  
-- Storage Driver : csi smb driver  
+- Storage Driver : csi smb driver
 
-1) To Run this script the user needs to have sudo access without password ( NOPASSWD ).
+Download the script to the linux users account's home directory which is going to manage the k8s cluster.
+```
+var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
+```
+```
+wget https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/install-k8s-on-linux.sh
+```
+```
+chmod +x install-k8s-on-linux.sh
+```
+1) To Run this script the user account needs to have sudo access without password ( NOPASSWD ).
 2) Running the script as root user is not supported as a best practice.
 3) Please don't execute the script with sudo command in front of the script.
 
