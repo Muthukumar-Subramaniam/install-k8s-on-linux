@@ -15,7 +15,7 @@ Download the script to the linux users account's home directory which is going t
 var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
 ```
 ```
-wget https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/install-k8s-on-linux.sh
+wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/install-k8s-on-linux.sh
 ```
 ```
 chmod +x install-k8s-on-linux.sh
