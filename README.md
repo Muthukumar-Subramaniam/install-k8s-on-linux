@@ -1,4 +1,4 @@
-## install-k8s-on-linux
+# install-k8s-on-linux
 Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux ( Red Hat based, Debian based and SUSE based ) for development and testing.
 
 Installs and configures control plane node or worker node with latest stable k8s version available.
@@ -14,7 +14,7 @@ Also latest versions of below components are installed,
 2) Running the script as root user is not supported as a best practice.
 3) Please don't execute the script with sudo command in front of the script.
 
-# Checking whether the user has sudo access with NOPASSWD:
+## Checking whether the user has sudo access with NOPASSWD:
 Example : Lets say the username is k8suser1,
 ```
 [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
@@ -43,9 +43,9 @@ sudo -l | grep -i NOPASSWD
 ```
 
 
-# Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
+## Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
 
-# Control Plane Node :
+## Control Plane Node :
 --ctrl-plane-node       installs and configures control plane node with latest k8s version.
 --pod-network-cidr      this option sets the CIDR of your choice for the pod network.
 --calico-with-tigera    optional - calico with tigera is installed instead of basic calico CNI setup.
@@ -65,7 +65,7 @@ Important notes on option --pod-network-cidr :
         4) Please make sure it doen't overlap with any other networks in your infrastructure.
         5) Please choose a CIDR block that is large enough for your environment.
 
-# Worker Nodes :
+## Worker Nodes :
 --worker-node   installs and configures worker node with latest k8s version.
 --install-kubectl       optional - install kubectl tool on the worker node.
 
