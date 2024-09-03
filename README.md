@@ -76,8 +76,10 @@ Important notes on option --pod-network-cidr :
 4) Please choose a CIDR block that is large enough for your environment.  
 
 ## Worker Nodes Option :
-* --worker-node        installs and configures worker node with latest k8s version.  
-* --install-kubectl        optional - install kubectl tool on the worker node.  
+* --worker-node
+  * installs and configures worker node with latest k8s version.  
+* --install-kubectl
+  * optional - install kubectl tool on the worker node.  
 
 Example Usage : 
 ```
