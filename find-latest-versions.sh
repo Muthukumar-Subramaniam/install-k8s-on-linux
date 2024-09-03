@@ -20,7 +20,7 @@ fn_get_latest_version() {
 	fi
 }
 
-var_versions_store_dir='/var/www/muthuks-web-server.ms.local/k8s-install'
+var_versions_store_dir='/scripts_by_muthu/install-k8s-on-linux'
 
 fn_get_latest_version "https://api.github.com/repos/kubernetes/kubernetes/releases/latest" "k8s" "${var_versions_store_dir}/latest-k8s-version.txt"
 

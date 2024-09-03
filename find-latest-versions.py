@@ -34,7 +34,7 @@ def fn_store_latest_tag_version(var_software_name, api_url_latest, version_file_
 
 print("\nFetching latest version information of k8s, containerd, runc, calico and csi-driver-smb.")
 
-var_versions_store_dir = "/var/www/muthuks-web-server.ms.local/k8s-install"
+var_versions_store_dir = "/scripts_by_muthu/install-k8s-on-linux"
 
 var_software_name = "k8s"
 api_url_k8s_latest = "https://api.github.com/repos/kubernetes/kubernetes/releases/latest" 
