@@ -52,9 +52,12 @@ Example : Lets say the username is k8suser2,
 ## Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
 
 ## Control Plane Node Options  :
-- --ctrl-plane-node        installs and configures control plane node with latest k8s version.  
-- --pod-network-cidr        this option sets the CIDR of your choice for the pod network.  
-- --calico-with-tigera        optional - calico with tigera is installed instead of basic calico CNI setup.  
+* --ctrl-plane-node  
+  installs and configures control plane node with latest k8s version.  
+* --pod-network-cidr  
+  this option sets the CIDR of your choice for the pod network.  
+* --calico-with-tigera
+  optional - calico with tigera is installed instead of basic calico CNI setup.  
 
 Example Usage : 
 ```
@@ -73,8 +76,8 @@ Important notes on option --pod-network-cidr :
 4) Please choose a CIDR block that is large enough for your environment.  
 
 ## Worker Nodes Option :
-- --worker-node        installs and configures worker node with latest k8s version.  
-- --install-kubectl        optional - install kubectl tool on the worker node.  
+* --worker-node        installs and configures worker node with latest k8s version.  
+* --install-kubectl        optional - install kubectl tool on the worker node.  
 
 Example Usage : 
 ```
