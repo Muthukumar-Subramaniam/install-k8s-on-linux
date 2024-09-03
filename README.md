@@ -36,7 +36,7 @@ If there is no output, then the user doesn't have sudo access with NOPASSWD.
         
 If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.  
 ```           
-sudo echo "<your linux user's name> ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/<your linux user's name>
+sudo sh -c "echo '<your linux user's name> ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/<your linux user's name>"
 ```
 ```
 sudo -l | grep -i NOPASSWD
@@ -44,7 +44,7 @@ sudo -l | grep -i NOPASSWD
 Example : Lets say the username is k8suser2,  
 > [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
 > [k8suser2@somelinuxhost ~]$  
-> [k8suser2@somelinuxhost ~]$ sudo echo "k8suser2 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/k8suser2  
+> [k8suser2@somelinuxhost ~]$ sudo sh -c "echo 'k8suser2 ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/k8suser2"
 > [k8suser2@somelinuxhost ~]$  
 > [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
 >        (ALL) NOPASSWD: ALL  
