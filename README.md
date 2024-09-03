@@ -4,7 +4,7 @@ Installs and configures control plane node or worker node with latest stable k8s
 
 Supported distributions : 
 * Red Hat based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
-* Debian based  (Debian, Ubuntu )
+* Debian based  ( Debian, Ubuntu )
 * SUSE based  ( OpenSUSE, SLES )
 
 Also latest versions of below components are installed,  
