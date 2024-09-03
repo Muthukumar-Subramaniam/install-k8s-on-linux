@@ -16,25 +16,31 @@ Also latest versions of below components are installed,
 
 * Checking whether the user has sudo access with NOPASSWD:
 Example : Lets say the username is k8suser1,
-> [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
->         (ALL) NOPASSWD: ALL
-            
+```
+[k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
+         (ALL) NOPASSWD: ALL
+```
 If there is no output, then the user doesn't have sudo access with NOPASSWD.      
-        
-        sudo -l | grep -i NOPASSWD
+```        
+sudo -l | grep -i NOPASSWD
+```
         
 If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.
 Example : Lets say the username is k8suser2,
-> [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
-> [k8suser2@somelinuxhost ~]$
-> [k8suser2@somelinuxhost ~]$ sudo echo "k8suser2 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/k8suser2
-> [k8suser2@somelinuxhost ~]$
-> [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
->       (ALL) NOPASSWD: ALL
-           
-        sudo echo "<your-linux-user-name> ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/<your-linux-user-name>
-
-        sudo -l | grep -i NOPASSWD
+```
+[k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
+[k8suser2@somelinuxhost ~]$
+[k8suser2@somelinuxhost ~]$ sudo echo "k8suser2 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/k8suser2
+[k8suser2@somelinuxhost ~]$
+[k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
+        (ALL) NOPASSWD: ALL
+```
+```           
+sudo echo "<your-linux-user-name> ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/<your-linux-user-name>
+```
+```
+sudo -l | grep -i NOPASSWD
+```
 
 
 Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
