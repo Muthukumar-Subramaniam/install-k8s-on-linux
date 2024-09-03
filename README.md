@@ -46,9 +46,9 @@ sudo -l | grep -i NOPASSWD
 ## Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
 
 ## Control Plane Node :
---ctrl-plane-node       installs and configures control plane node with latest k8s version.  
---pod-network-cidr      this option sets the CIDR of your choice for the pod network.  
---calico-with-tigera    optional - calico with tigera is installed instead of basic calico CNI setup.  
+> --ctrl-plane-node       installs and configures control plane node with latest k8s version.  
+> --pod-network-cidr      this option sets the CIDR of your choice for the pod network.  
+> --calico-with-tigera    optional - calico with tigera is installed instead of basic calico CNI setup.  
 
 Example Usage : 
 ```
@@ -67,8 +67,8 @@ Important notes on option --pod-network-cidr :
 4) Please choose a CIDR block that is large enough for your environment.  
 
 ## Worker Nodes :
---worker-node   installs and configures worker node with latest k8s version.  
---install-kubectl       optional - install kubectl tool on the worker node.  
+> --worker-node   installs and configures worker node with latest k8s version.  
+> --install-kubectl       optional - install kubectl tool on the worker node.  
 
 Example Usage : 
 ```
@@ -78,8 +78,9 @@ Example Usage :
 ```
 ./install-k8s-on-linux.sh --worker-node --install-kubectl
 ```
-Note :  
-        kubectl is not installed on worker nodes as it is unnecessary on worker nodes.  
-        ( kubelet and kubeadm is enough for worker node functionality and management )  
-        kubectl tool is installed on control plane node where we manage the cluster.  
-        Also, it can be installed anywhere providing we have access to the cluster API server.  
+Note :
+
+> kubectl is not installed on worker nodes as it is unnecessary on worker nodes.  
+> ( kubelet and kubeadm is enough for worker node functionality and management )  
+> kubectl tool is installed on control plane node where we manage the cluster.  
+> Also, it can be installed anywhere providing we have access to the cluster API server.  
