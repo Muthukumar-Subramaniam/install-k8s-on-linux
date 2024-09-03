@@ -15,15 +15,14 @@ Also latest versions of below components are installed,
 3) Please don't execute the script with sudo command in front of the script.
 
 ## Checking whether the user has sudo access with NOPASSWD:
-Example : Lets say the username is k8suser1,
-```
-[k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD
-         (ALL) NOPASSWD: ALL
-```
-If there is no output, then the user doesn't have sudo access with NOPASSWD.      
 ```        
 sudo -l | grep -i NOPASSWD
 ```
+Example : Lets say the username is k8suser1,
+> [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
+>       (ALL) NOPASSWD: ALL  
+If there is no output, then the user doesn't have sudo access with NOPASSWD.      
+
         
 If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.
 Example : Lets say the username is k8suser2,
