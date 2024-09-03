@@ -10,7 +10,7 @@ Also latest versions of below components are installed,
 - CNI plugin used : calico (default) (or) calico tigera (optional)  
 - Storage Driver : csi smb driver
 
-Download the script to the linux users account's home directory which is going to manage the k8s cluster.
+Download the latest release of the script to the linux users account's home directory which is going to manage the k8s cluster.
 ```
 var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
 ```
