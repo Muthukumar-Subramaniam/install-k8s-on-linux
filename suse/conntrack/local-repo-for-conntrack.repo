@@ -1,5 +1,0 @@
-[local-repo-for-conntrack]
-name=local-repo-for-conntrack
-baseurl=https://prod-web.ms.local/k8s-install/suse/conntrack/
-enabled=1
-gpgcheck=0
