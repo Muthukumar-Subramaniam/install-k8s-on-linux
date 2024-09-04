@@ -1,5 +1,5 @@
 #!/bin/bash
-## SemVer : v1.0.0
+## SemVer : v1.0.1
 
 fn_execution_denied_message() {
 cat << EOF
