@@ -483,9 +483,7 @@ EOF
 
 		fn_check_internet_connectivity
 
-		wget -P "${var_k8s_cfg_dir}"/  https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack-1.4.5-1.46.x86_64.rpm -a "${var_logs_file}"
-
-		#tar Cxzvf "${var_k8s_cfg_dir}"/  "${var_k8s_cfg_dir}"/conntrack-rpm.tar.gz
+		wget -P "${var_k8s_cfg_dir}"/  https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm -a "${var_logs_file}"
 
 		fn_check_internet_connectivity
 
