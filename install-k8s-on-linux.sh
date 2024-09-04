@@ -467,17 +467,8 @@ fn_stage2_for_suse_based() {
 		var_k8s_version_major=$(echo "${var_k8s_version}" | cut -d "." -f 1)
 		var_k8s_version_minor=$(echo "${var_k8s_version}" | cut -d "." -f 2)
 		var_k8s_version_major_minor="${var_k8s_version_major}.${var_k8s_version_minor}"
-		
-cat <<EOF | sudo tee /etc/zypp/repos.d/k8s.repo
-[k8s-${var_k8s_version_major_minor}]
-name=k8s-${var_k8s_version_major_minor}
-baseurl=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/repodata/repomd.xml.key
-EOF
-		
-		echo -e "\nDownloading conntrack rpm rebuilt from conntrack-tools ( Dependency issue fix for kubelet ) . . .\n"
+
+		echo -e "\nDownloading conntrack rpm rebuilt from conntrack-tools ( Dependency issue fix for kubelet ) . . .\n"	
 		echo -e "( This workaround for SUSE will be removed after v1.31.1 k8s patch release )"
 		echo -e "( Reported GitHub Issue : https://github.com/kubernetes/release/issues/3714 )\n"
 
@@ -488,7 +479,16 @@ EOF
 		fn_check_internet_connectivity
 
 		sudo zypper install -y --force-resolution --allow-unsigned-rpm "${var_k8s_cfg_dir}"/conntrack-1.4.5-1.46.x86_64.rpm
-
+		
+cat <<EOF | sudo tee /etc/zypp/repos.d/k8s.repo
+[k8s-${var_k8s_version_major_minor}]
+name=k8s-${var_k8s_version_major_minor}
+baseurl=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/${var_k8s_version_major_minor}/rpm/repodata/repomd.xml.key
+EOF
+		
 		fn_check_internet_connectivity
 		
 		sudo zypper --gpg-auto-import-keys refresh
