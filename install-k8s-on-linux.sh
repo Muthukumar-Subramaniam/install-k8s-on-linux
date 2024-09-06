@@ -544,9 +544,15 @@ fn_stage3_configuration() {
 		echo -e "\nStarting the cluster configuration . . .\n"
 
 		echo -e "Updating kubectl configs under ${var_k8s_user_home} for user ${var_k8s_user} . . ."
+
+		if sudo [ -f /root/.bashrc ] ## If root account is enabled
+		then
 		
-		#echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> /root/.bashrc     ## For root user only
-		#echo 'source <(kubectl completion bash)' >> /root/.bashrc               ## For root user only
+			echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' | sudo tee -a /root/.bashrc
+
+			echo 'source <(kubectl completion bash)' | sudo tee -a /root/.bashrc
+
+		fi
 
 		echo 'source <(kubectl completion bash)' >> "${var_k8s_user_home}"/.bashrc
 		# shellcheck disable=SC1091
@@ -558,8 +564,11 @@ fn_stage3_configuration() {
 		
 		while :
 		do
-			echo -e "\nWaiting for API Server pod to come online . . .\n"
-        		if ! kubectl get pods -n kube-system | grep -P '^kube-apiserver.*1/1.*Running*' &>/dev/null
+			echo -e "\nWaiting for k8s cluster API Server to come online . . .\n"
+
+			var_k8s_kube_api_server_health=$(curl -skL https://localhost:6443/healthz)
+
+			if [[ "${var_k8s_kube_api_server_health}" != "ok" ]]
         		then
 				kubectl get pods -n kube-system | grep 'kube-apiserver'
                 		sleep 2
@@ -612,14 +621,6 @@ fn_stage3_configuration() {
 			kubectl apply -f "${var_k8s_cfg_dir}"/calico.yaml
 		fi
 		
-		kubectl get nodes
-		
-		echo -e "\nCommand to join worker nodes is located in ${var_k8s_cfg_dir}/worker-node-join-command !! \n"
-		
-		sleep 2
-		
-		clear
-		
 		echo -e "\nProceeding with post-installation configurations . . .\n"
 		
 		# Waiting for control plane to become ready
@@ -650,20 +651,20 @@ fn_stage3_configuration() {
 		while :
 		do
 			echo -e "\nWaiting for CSI SMB pods creation to start . . .\n"
-			if kubectl get pods -A | grep csi-smb;then break;fi
+			if kubectl get pods -A | grep -i 'csi-smb';then break;fi
 			sleep 2
 		done
 			
 		while :
 		do
 			echo -e "\nWaiting for all the required ${var_k8s_node_type} pods to come online . . .\n"
-			if kubectl get pods --all-namespaces -o jsonpath='{.items[*].status.containerStatuses[*].ready}' | grep false &>/dev/nul
+			if kubectl get pods -A -o jsonpath='{.items[*].status.containerStatuses[*].ready}' | grep false &>/dev/nul
 			then 
-				kubectl get pods --all-namespaces
+				kubectl get pods -A
 				sleep 5
 				continue
 			else 
-				kubectl get pods --all-namespaces
+				kubectl get pods -A
 				break
 			fi
 		done
@@ -826,7 +827,7 @@ EOF
 
 		sudo sed -i '/swap/s/^/#/' /etc/fstab
 
-		if grep -i -E "rhel|fedora" /etc/os-release &>/dev/null
+		if grep -i -E '(rhel|fedora)' /etc/os-release &>/dev/null
 		then
 			echo -e "\nUpgrading all installed packages in the system if required . . .\n"
 			fn_check_internet_connectivity
@@ -840,7 +841,7 @@ EOF
 			fn_stage2_for_redhat_based
 		fi
 
-		if grep -i -E "ubuntu|debian" /etc/os-release &>/dev/null
+		if grep -i -E '(ubuntu|debian)' /etc/os-release &>/dev/null
 		then
 			echo -e "\nUpgrading all installed packages in the system if required . . .\n"
 			fn_check_internet_connectivity
@@ -856,7 +857,7 @@ EOF
 			fn_stage2_for_debian_based
 		fi
 
-		if grep -i "suse" /etc/os-release &>/dev/null
+		if grep -i 'suse' /etc/os-release &>/dev/null
 		then
 			echo -e "\nUpgrading all installed packages in the system if required . . .\n"
 			fn_check_internet_connectivity
@@ -901,17 +902,17 @@ EOF
 		fi
 	else
 
-		sleep 3
-		
 		if [[ "${var_k8s_node_type}" == "ctrl-plane" ]]
 		then
-			echo -e "\nWaiting for API Server pod to come online . . .\n"
-
 			while true :
 			do
+				echo -e "\nWaiting for k8s cluster API Server to come online . . .\n"
 
-				if ! kubectl get pods -n kube-system | grep -P '^kube-apiserver.*1/1.*Running*' &>/dev/null
+				var_k8s_kube_api_server_health=$(curl -skL https://localhost:6443/healthz)
+
+				if [[ "${var_k8s_kube_api_server_health}" != "ok" ]]
         			then
+					kubectl get pods -n kube-system | grep 'kube-apiserver'
                 			sleep 2
                 			continue
         			else
@@ -921,15 +922,31 @@ EOF
         			fi
 			done
 
-			echo -e "\nWaiting for all the control-plane pods to come online . . .\n"
+			while :
+			do
+				echo -e "\nWaiting for all the required ${var_k8s_node_type} pods to come online . . .\n"
+				if kubectl get pods -A -o jsonpath='{.items[*].status.containerStatuses[*].ready}' | grep false &>/dev/nul
+				then 
+					kubectl get pods -A
+					sleep 5
+					continue
+				else 
+					kubectl get pods -A
+					break
+				fi
+			done
 
 			var_k8s_kube_system_pods_total=$(kubectl get pods -A | tail -n +2  | wc -l)
 
 			while :
 			do
+				echo -e "\nWaiting for all the required ${var_k8s_node_type} pods to come online . . .\n"
+
 				var_k8s_kube_system_pods_running=$(kubectl get pods -A | tail -n +2  | grep " Running " | wc -l)
+
 				if [[ "${var_k8s_kube_system_pods_total}" -ne "${var_k8s_kube_system_pods_running}" ]]
 				then
+					kubectl get pods -A
 					sleep 2
 					continue
 				else
