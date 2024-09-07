@@ -57,10 +57,11 @@ ansible-playbook inst-k8s-ansible.yaml
 
 kind note:  
 * This is for testing and learning purpose, tailor it as per your need if required.
+* Firewall and Selinux are not managed by the template, either disable it or configure it as per your requirement.
 * The template uses github API to fetch latest stable release of all software components.
-* It is well tested on different linux distros.
 * There is a dependency issue in SUSE, work around is applied within the template.
   ( To be fixed in upcoming patch release v1.31.1 of k8s, Ref: https://github.com/kubernetes/release/issues/3711 ) 
+* It is well tested on different linux distros.
 * Please feel free to provide your suggestions and bug reports if any.
 
 > Have lots of fun!

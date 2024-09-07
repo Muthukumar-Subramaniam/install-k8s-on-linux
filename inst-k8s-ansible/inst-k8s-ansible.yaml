@@ -141,9 +141,9 @@
 
     - debug:
         msg: |-
-          {{ var_SystemdCgroup_output }}
+          {{ var_SystemdCgroup_output.stdout_lines }}
 
-    - name: Download containerd.service file from GitHub and save it as /etc/systemd/system/containerd.service
+    - name: Download containerd.service file from GitHub
       get_url:
         url: "https://raw.githubusercontent.com/containerd/containerd/main/containerd.service"
         dest: /etc/systemd/system/containerd.service
@@ -377,7 +377,7 @@
         msg: |-
           Latest stable version of calico CNI is {{ var_calico_latest_version }}
 
-    - name: Applying calico CNI manifest using GitHub URL 
+    - name: Applying calico CNI manifest using from GitHub 
       command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
 
     - name: Wait for control-plane to get Ready"
@@ -411,7 +411,7 @@
         msg: |-
           {{ var_kubeadm_join_command.stdout_lines }}
 
-    - name: Copy join command to local file /tmp/kubernetes_join_command.sh 
+    - name: Copy join command as /tmp/kubernetes_join_command.sh to Ansible Host
       become: true
       local_action: shell echo "{{ var_kubeadm_join_command.stdout_lines[0] }}" > /tmp/kubernetes_join_command.sh
 
@@ -420,13 +420,13 @@
   hosts: k8s_cluster_worker_nodes
   become: true
   tasks:
-    - name: Copy join command from Ansiblehost to the worker nodes.
+    - name: Copy join command from Ansibl Host to the worker nodes
       copy:
         src: /tmp/kubernetes_join_command.sh
         dest: /tmp/kubernetes_join_command.sh
         mode: 0755
 
-    - name: Join the worker node with k8s cluster
+    - name: Join the worker nodes with k8s cluster
       command: sh /tmp/kubernetes_join_command.sh
 
 - name: Successfully completed installation of k8s cluster with single control plane node and worker nodes provided
