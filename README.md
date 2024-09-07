@@ -24,15 +24,15 @@ If you don't have a machine with ansible already installed, please do install it
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html  
 
 
-Create a common user in all the nodes to be used for the cluster.
-Enable passwordless authentication from the ansible host to all the cluster nodes to be.
-Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.
-Do ansible ping test from ansible host to all the all the cluster nodes to be.
+> Create a common user in all the nodes to be used for the cluster.  
+> Enable passwordless authentication from the ansible host to all the cluster nodes to be.  
+> Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.  
+> Do ansible ping test from ansible host to all the all the cluster nodes to be.  
 
-Download the latest release the tarball containing ansible template and configs to the linux user account's home directory.
+Download the tarball of latest release containing ansible template and configs to the linux user account's home directory.
 
 ```
-var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
+var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
 ```
 ```
 wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/inst-k8s-ansible.tar.gz
@@ -56,7 +56,7 @@ ansible-playbook inst-k8s-ansible.yaml
 ```
 
 kind note:  
-* This is for testing and learning purpose, tailor it as per your need if required.
+* The template can be utilized for testing and learning purpose, tailor it as per your need if required.
 * Firewall and Selinux are not managed by the template, either disable it or configure it as per your requirement.
 * The template uses github API to fetch latest stable release of all software components.
 * There is a dependency issue in SUSE, work around is applied within the template.

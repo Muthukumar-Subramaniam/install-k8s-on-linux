@@ -73,7 +73,7 @@
   vars:
     var_containerd_temp_dir: "/tmp/containerd"
   tasks:
-    - name: Get latest version information of containerd from github API
+    - name: Get latest version information of containerd from GitHub API
       uri:
         url: https://api.github.com/repos/containerd/containerd/releases/latest
         return_content: true
@@ -92,7 +92,7 @@
         state: directory
         mode: 0755
 
-    - name: Download tarball of containerd binary from their official github repository
+    - name: Download tarball of containerd binary from their official GitHub repository
       get_url:
         url: https://github.com/containerd/containerd/releases/download/{{ var_containerd_version }}/containerd-{{ var_containerd_version | regex_replace('v', '') }}-linux-amd64.tar.gz
         dest: "{{ var_containerd_temp_dir }}/containerd.tar.gz"
@@ -158,7 +158,7 @@
         enabled: yes
         state: started
     
-    - name: Check containerd service status
+    - name: Verify status of containerd service
       command: systemctl is-active containerd
       register: containerd_service_info
 
@@ -180,7 +180,7 @@
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
-    - name: Get latest version information of runc from github API
+    - name: Get latest version information of runc from GitHub API
       uri:
         url: https://api.github.com/repos/opencontainers/runc/releases/latest
         return_content: true
@@ -208,11 +208,11 @@
         msg: |-
           {{ runc_info.stdout_lines }}
 
-- name: Configure official k8s repository and install kubelet, kubeadm and kubectl packages.
+- name: Configure k8s repository to install kubelet, kubeadm and kubectl packages
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
-    - name: Get latest version information of kubernetes from github API
+    - name: Get latest version information of kubernetes from GitHub API
       uri:
         url: https://api.github.com/repos/kubernetes/kubernetes/releases/latest
         return_content: true
@@ -332,7 +332,7 @@
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
-    - name: Reboot the systems and wait for the systems to come back online
+    - name: Reboot executed and waiting for nodes to come online
       reboot:
         msg: Reboot initiated by Ansible Host
         connect_timeout: 30

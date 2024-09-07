@@ -1,11 +1,10 @@
 ##Version : v2.0.0
-[k8s_cluster_ctrl_plane_node]   ## Keep this group name as it is, utilized by the playbook
-prod-k8s-cp1.ms.local           ##<----- Change it as per your setup     
+[k8s_cluster_ctrl_plane_node]
+prod-k8s-cp1.ms.local
 
-[k8s_cluster_worker_nodes]      ## Keep this group name as it is, utilized by the playbook
-prod-k8s-n1.ms.local               ##<----- Change it as per your setup
-prod-k8s-n2.ms.local               ##<----- Change it as per your setup 
-				##<----- Add as many workers as you need
+[k8s_cluster_worker_nodes]
+prod-k8s-n1.ms.local
+prod-k8s-n2.ms.local
 
-[k8s_cluster_ctrl_plane_node:vars]    ## Keep it as it is, utilized by the playbook
-var_k8s_pod_network_cidr=10.8.0.0/16  ## Change the CIDR value 10.8.0.0/16 if required as per your requirement
+[k8s_cluster_ctrl_plane_node:vars]
+var_k8s_pod_network_cidr=10.8.0.0/16
