@@ -3,8 +3,8 @@
 prod-k8s-cp1.ms.local           ##<----- Change it as per your setup     
 
 [k8s_cluster_worker_nodes]      ## Keep this group name as it is, utilized by the playbook
-prod-k8s-n1.local               ##<----- Change it as per your setup
-prod-k8s-n2.local               ##<----- Change it as per your setup 
+prod-k8s-n1.ms.local               ##<----- Change it as per your setup
+prod-k8s-n2.ms.local               ##<----- Change it as per your setup 
 				##<----- Add as many workers as you need
 
 [k8s_cluster_ctrl_plane_node:vars]    ## Keep it as it is, utilized by the playbook
