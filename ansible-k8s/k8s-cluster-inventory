@@ -1,8 +1,0 @@
-[k8s_cluster_ctrl_plane_node]
-#Keep the above group name as it is, update below host as per your infra setup
-prod-vm1.ms.local
-
-[k8s_cluster_worker_nodes]
-#Keep the above group name as it is, update below hosts as per your infra setup
-prod-vm2.ms.local
-prod-vm3.ms.local

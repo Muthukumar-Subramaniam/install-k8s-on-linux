@@ -1,10 +1,10 @@
 # install-k8s-on-linux
-Bash script automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
-Installs and configures control plane node or worker node with latest stable k8s version available.  
+ansible automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
+Installs and configures single control plane node and worker nodes with latest stable k8s version available.  
 
 Suitable Environment : Development & Testing
 
-System Requirement : Minimum 2 GM RAM & 2 vCPU & 10GB Storage
+System Requirement : Minimum 2 GM RAM & 2 vCPU
 
 Platform : Baremetal, Virtual Machines, Cloud Instances
 
@@ -13,99 +13,54 @@ Supported distributions :
 * Debian based  ( Debian, Ubuntu )
 * SUSE based  ( OpenSUSE, SLES )
 
-Also latest versions of below components are installed,  
+Also latest versions of below components will be installed,  
 * Container runtime used : containerd  
 * Low-level container runtime : runc ( dependency of containerd )  
-* CNI plugin used : calico (default) (or) calico tigera (optional)  
-* Storage Driver : csi smb driver
+* CNI plugin used : calico CNI 
+* Add-on k8s storage Driver : csi smb driver
 
-Download the latest release of the script to the linux user account's home directory.
-( User should have sudo access with NOPASSWD, if required create a new user with this previleges)
+
+If you don't have a machine with ansible already installed, please do install it.  
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html  
+
+
+Create a common user in all the nodes to be used for the cluster.
+Enable passwordless authentication from the ansible host to all the cluster nodes to be.
+Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.
+Do ansible ping test from ansible host to all the all the cluster nodes to be.
+
+Download the latest release the tarball containing ansible template and configs to the linux user account's home directory.
+
 ```
 var_latest_version=$(curl -s -L https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
 ```
 ```
-wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/install-k8s-on-linux.sh
+wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/inst-k8s-ansible.tar.gz
 ```
 ```
-chmod +x install-k8s-on-linux.sh
+tar -xzvf inst-k8s-ansible.tar.gz
 ```
-1) To Run this script the user account needs to have sudo access without password ( NOPASSWD ).  
-2) Running the script as root user is not supported as a best practice.  
-3) Please don't execute the script with sudo command in front of the script.  
+```
+cd inst-k8s-ansible
+```
+1) Change the hostnames of k8s cluster nodes in the k8s-cluster-inventory file as per your setup.   
+2) Change the var_k8s_pod_network_cidr variable value in k8s-cluster-inventory as per your requirement.  
+   * Currently the value of var_k8s_pod_network_cidr is set to 10.8.0.0/16    
+   * Ensure that the CIDR block you choose does not overlap with any of your existing network infra    
+3) Please do not change the group names as it is utilized by the template.    
+4) Change the ansible user name in ansible.cfg as per your setup.   
 
-## Checking whether the user has sudo access with NOPASSWD:
-```        
-sudo -l | grep -i NOPASSWD
+That's it, you are good to go!
 ```
-Example : Lets say the username is k8suser1,  
-> [k8suser1@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
->       (ALL) NOPASSWD: ALL  
+ansible-playbook inst-k8s-ansible.yaml
+```
 
-If there is no output, then the user doesn't have sudo access with NOPASSWD.      
-
-        
-If you already have a sudo user but with password, you can run the below command to gain NOPASSWD sudo access.  
-```           
-sudo sh -c "echo '<your linux user's name> ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/<your linux user's name>"
-```
-```
-sudo -l | grep -i NOPASSWD
-```
-Example : Lets say the username is k8suser2,  
-> [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
-> [k8suser2@somelinuxhost ~]$  
-> [k8suser2@somelinuxhost ~]$ sudo sh -c "echo 'k8suser2 ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/k8suser2"
-> [k8suser2@somelinuxhost ~]$  
-> [k8suser2@somelinuxhost ~]$ sudo -l | grep -i NOPASSWD  
->        (ALL) NOPASSWD: ALL  
-
-## Usage: ./install-k8s-on-linux.sh [OPTIONS for control plane node or worker node]
-
-## Control Plane Node Options  :
-* --ctrl-plane-node  
-  * installs and configures control plane node with latest k8s version.  
-* --pod-network-cidr  
-  * this option sets the CIDR of your choice for the pod network.  
-* --calico-with-tigera
-  * optional - calico with tigera is installed instead of basic calico CNI setup.  
-
-Example Usage : 
-```
-./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16
-```
-(OR)
-```
-./install-k8s-on-linux.sh --ctrl-plane-node --pod-network-cidr 10.8.0.0/16 --calico-with-tigera
-```
-Important notes on option --pod-network-cidr :  
-
-1) Only accepts networks that falls within private address space ( RFC 1918 ).  
-   ( https://datatracker.ietf.org/doc/html/rfc1918 )  
-2) As a best practice, CIDR prefixes /16 to /28 are only allowed.  
-3) Please make sure it doen't overlap with any other networks in your infrastructure.  
-4) Please choose a CIDR block that is large enough for your environment.  
-
-## Worker Nodes Option :
-* --worker-node
-  * installs and configures worker node with latest k8s version.  
-* --install-kubectl
-  * optional - install kubectl tool on the worker node.  
-
-Example Usage : 
-```
-./install-k8s-on-linux.sh --worker-node
-```
-(OR)
-```
-./install-k8s-on-linux.sh --worker-node --install-kubectl
-```
-Note :
-
-1) kubectl is not installed on worker nodes as it is unnecessary on worker nodes.  
-   ( kubelet and kubeadm is enough for worker node functionality and management )  
-2) kubectl tool is installed on control plane node where we manage the cluster.  
-3) Also, it can be installed anywhere providing we have access to the cluster API server.  
-
+kind note:  
+* This is for testing and learning purpose, tailor it as per your need if required.
+* The template uses github API to fetch latest stable release of all software components.
+* It is well tested on different linux distros.
+* There is a dependency issue in SUSE, work around is applied within the template.
+  ( To be fixed in upcoming patch release v1.31.1 of k8s, Ref: https://github.com/kubernetes/release/issues/3711 ) 
+* Please feel free to provide your suggestions and bug reports if any.
 
 > Have lots of fun!

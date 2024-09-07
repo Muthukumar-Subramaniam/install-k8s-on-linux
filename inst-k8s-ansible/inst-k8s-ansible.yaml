@@ -1,3 +1,4 @@
+##Version : v2.0.0
 - name: Upgrade system packages of all the cluster nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
@@ -38,11 +39,10 @@
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
-    - name: Load overlay kernel module
-      command: modprobe overlay
-
-    - name: Load br_netfilter kernel module
-      command: modprobe br_netfilter
+    - name: Load overlay and br_netfilter kernel modules
+      shell: |
+        modprobe overlay
+        modprobe br_netfilter
 
     - name: Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent
       blockinfile:
@@ -141,7 +141,7 @@
 
     - debug:
         msg: |-
-          {{ var_SystemdCgroup_output.stdout }}
+          {{ var_SystemdCgroup_output }}
 
     - name: Download containerd.service file from GitHub and save it as /etc/systemd/system/containerd.service
       get_url:
@@ -163,7 +163,8 @@
       register: containerd_service_info
 
     - debug:
-        msg: "containerd.service status: {{ containerd_service_info }}"
+        msg: |-
+          {{ containerd_service_info.stdout_lines }}
 
     - name: Verify containerd version
       become: false
@@ -172,7 +173,7 @@
 
     - debug:
         msg: |-
-          {{ containerd_info.stdout }}
+          {{ containerd_info.stdout_lines }}
 
 
 - name: Download and install latest version of runc
@@ -205,7 +206,7 @@
 
     - debug:
         msg: |-
-          {{ runc_info.stdout }}
+          {{ runc_info.stdout_lines }}
 
 - name: Configure official k8s repository and install kubelet, kubeadm and kubectl packages.
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
@@ -228,87 +229,84 @@
         var_k8s_version_strip_patch: "{{ var_k8s_latest_version | regex_replace('.[0-9]+$', '') }}"
 
     - when: ansible_os_family == "RedHat"
-      name: Add k8s rpm repository ( RedHat based systems ).
-      yum_repository:
-        description: k8s-{{ var_k8s_version_strip_patch }}
-        name: k8s-{{ var_k8s_version_strip_patch }}
-        baseurl: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/
-        gpgcheck: 1
-        gpgkey: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/repodata/repomd.xml.key
-        enabled: true
-        exclude:
-          - kubelet
-          - kubeadm
-          - kubectl
-        state: present
+      block:
+        - name: Add k8s rpm repository ( RedHat based systems ).
+          yum_repository:
+            description: k8s-{{ var_k8s_version_strip_patch }}
+            name: k8s-{{ var_k8s_version_strip_patch }}
+            baseurl: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/
+            gpgcheck: 1
+            gpgkey: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/repodata/repomd.xml.key
+            enabled: true
+            exclude:
+              - kubelet
+              - kubeadm
+              - kubectl
+            state: present
 
-    - when: ansible_os_family == "RedHat"
-      name: Install latest versions of kubelet, kubeadm and kubectl packages ( RedHat based systems ).
-      dnf:
-        update_cache: true
-        name:
-          - kubelet
-          - kubectl 
-          - kubeadm
-        disable_excludes: k8s-{{ var_k8s_version_strip_patch }}
-        state: latest
+        - name: Install latest versions of kubelet, kubeadm and kubectl packages ( RedHat based systems ).
+          dnf:
+            update_cache: true
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            disable_excludes: k8s-{{ var_k8s_version_strip_patch }}
+            state: latest
 
 
     - when: ansible_os_family == "Debian"
-      name: Add k8s gpg apt-key ( Debian based systems ).
-      apt_key:
-        keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_strip_patch }}.gpg
-        url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/deb/Release.key
-        state: present
+      block:
+        - name: Add k8s gpg apt-key ( Debian based systems ).
+          apt_key:
+            keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_strip_patch }}.gpg
+            url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/deb/Release.key
+            state: present
 
-    - when: ansible_os_family == "Debian"
-      name: Add k8s deb repository ( Debian based systems ).
-      apt_repository:
-        filename: k8s-{{ var_k8s_version_strip_patch }}
-        repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_strip_patch }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/deb/ /
-        state: present
-        update-cache: true
+        - name: Add k8s deb repository ( Debian based systems ).
+          apt_repository:
+            filename: k8s-{{ var_k8s_version_strip_patch }}
+            repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_strip_patch }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/deb/ /
+            state: present
+            update-cache: true
 
-    - when: ansible_os_family == "Debian"
-      name: Install latest versions kubelet, kubeadm and kubectl packages ( Debian based systems ).
-      apt:
-        name:
-          - kubelet
-          - kubectl 
-          - kubeadm
-        state: latest
-    - when: ansible_os_family == "Debian"
-      name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).
-      command: apt-mark hold kubelet kubeadm kubectl
+        - name: Install latest versions kubelet, kubeadm and kubectl packages ( Debian based systems ).
+          apt:
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            state: latest
 
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).
+          command: apt-mark hold kubelet kubeadm kubectl
 
-    - when: ansible_os_family == "Suse"
-      name: Add k8s rpm repository and install kubelet, kubeadm and kubectl packages ( Suse based systems ).
-      zypper_repository:
-        description: k8s-{{ var_k8s_version_strip_patch }}
-        name: k8s-{{ var_k8s_version_strip_patch }}
-        repo: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/
-        auto_import_keys: true
-        enabled: true
-        state: present
 
     - when: ansible_os_family == "Suse"
-      name: Work-around for conntrack dependency issue with kubelet ( Suse based systems ).
-      command: zypper install -y --force-resolution --allow-unsigned-rpm https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm
+      block:
+        - name: Add k8s rpm repository and install kubelet, kubeadm and kubectl packages ( Suse based systems ).
+          zypper_repository:
+            description: k8s-{{ var_k8s_version_strip_patch }}
+            name: k8s-{{ var_k8s_version_strip_patch }}
+            repo: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_strip_patch }}/rpm/
+            auto_import_keys: true
+            enabled: true
+            state: present
 
-    - when: ansible_os_family == "Suse"
-      name: Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).
-      zypper:
-        update_cache: true
-        name:
-          - kubelet
-          - kubectl 
-          - kubeadm
-        state: latest
+        - name: Work-around for conntrack dependency issue with kubelet ( Suse based systems ).
+          command: zypper install -y --force-resolution --allow-unsigned-rpm https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm
 
-    - when: ansible_os_family == "Suse"
-      name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).
-      command: zypper addlock kubelet kubeadm kubectl
+        - name: Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).
+          zypper:
+            update_cache: true
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            state: latest
+
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).
+          command: zypper addlock kubelet kubeadm kubectl
 
 
 - name: Enabling and starting kubelet service
@@ -327,7 +325,7 @@
 
     - debug:
         msg: |-
-          {{ kubelet_service_info }}
+          {{ kubelet_service_info.stdout_lines }}
 
 
 - name: Reboot all the systems for some upgrades and configuration changes to take effect
@@ -336,7 +334,7 @@
   tasks:
     - name: Reboot the systems and wait for the systems to come back online
       reboot:
-        msg: Reboot initiated by Ansible Controller Host
+        msg: Reboot initiated by Ansible Host
         connect_timeout: 30
         post_reboot_delay: 60
         reboot_command: reboot
@@ -350,8 +348,8 @@
     - name: Pull core images to install k8s cluster
       command: sudo kubeadm config images pull
 
-    - name: Create k8s cluster with kubeadm init --pod-network-cidr=10.8.0.0/16
-      command: sudo kubeadm init --pod-network-cidr=10.8.0.0/16
+    - name: Create k8s cluster with kubeadm init
+      command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
 
     - name: Copy /etc/kubernetes/admin.conf to ~/.kube 
       shell: |
@@ -361,9 +359,9 @@
 
     - name: Wait for Kubernetes API server to be healthy
       shell: curl -skL https://localhost:6443/healthz
-      register: var_api_server_health_check_result
-      until: var_api_server_health_check_result.stdout.find("ok") != -1
-      retries: 10000
+      register: var_api_server_health_status
+      until: var_api_server_health_status.stdout.find("ok") != -1
+      retries: 100
       delay: 5
 
     - name: Get latest version information of calico CNI from github API
@@ -385,8 +383,8 @@
     - name: Wait for control-plane to get Ready"
       shell: kubectl get nodes | grep -w " Ready "
       register: var_control_plane_ready_status
-      retries: 100000
-      until: var_control_plane_ready_status.stdout.find("Ready") != -1
+      retries: 100
+      until: var_control_plane_ready_status.stdout.find(" Ready") != -1
       delay: 5
 
     - name: Get latest version information of k8s csi-smb-driver from github API
@@ -411,7 +409,7 @@
 
     - debug:
         msg: |-
-          {{ var_kubeadm_join_command.stdout }}
+          {{ var_kubeadm_join_command.stdout_lines }}
 
     - name: Copy join command to local file /tmp/kubernetes_join_command.sh 
       become: true
@@ -435,12 +433,27 @@
   hosts: k8s_cluster_ctrl_plane_node
   become: false
   tasks:
-    - name: worker nodes have already joinded the cluster, will be ready in few minutes
-      command: kubectl get nodes
-      register: var_k8s_nodes_status
+  - name: worker nodes have already joinded the cluster, will be Ready in few minutes
+    shell: kubectl get nodes
+    register: var_nodes_status
 
-    - debug:
-        msg: |-
-          {{ var_k8s_nodes_status.stdout_lines }}
+  - debug:
+      msg: |-
+          {{ var_nodes_status.stdout_lines }}
+
+  - name: Wait for all worker nodes to get Ready
+    shell: kubectl get nodes | grep -w "NotReady" | wc -l
+    register: var_number_of_nodes_not_ready
+    until: var_number_of_nodes_not_ready.stdout.find("0") != -1
+    retries: 100
+    delay: 5
+
+  - name: k8s cluster nodes are Ready
+    shell: kubectl get nodes
+    register: var_nodes_status
+
+  - debug:
+      msg: |-
+          {{ var_nodes_status.stdout_lines }}
 
 ########################### EOF ##########################################
