@@ -55,6 +55,11 @@ That's it, you are good to go!
 ansible-playbook inst-k8s-ansible.yaml
 ```
 
+Sample Execution Result :    
+
+<img width="719" alt="sample-output-execution-results" src="https://github.com/user-attachments/assets/77014e4c-8c4e-471d-b62d-bd09231ed77f">
+
+
 kind note:  
 * The template can be utilized for testing and learning purpose, tailor it as per your need if required.
 * Firewall and Selinux are not managed by the template, either disable it or configure it as per your requirement.
