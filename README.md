@@ -1,4 +1,4 @@
-# install-k8s-on-linux
+# Install k8s cluster on linux nodes with ansible-playbook
 ansible automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
 Installs and configures single control plane node and worker nodes with latest stable k8s version available.  
 
@@ -17,17 +17,17 @@ Also latest versions of below components will be installed,
 * Container runtime used : containerd  
 * Low-level container runtime : runc ( dependency of containerd )  
 * CNI plugin used : calico CNI 
-* Add-on k8s storage Driver : csi smb driver
+Optional,
+* k8s CSI drivers : csi-driver-nfs and csi-driver-smb
 
 
 If you don't have a machine with ansible already installed, please do install it.  
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html  
 
-
-> Create a common user in all the nodes to be used for the cluster.  
-> Enable passwordless authentication from the ansible host to all the cluster nodes to be.  
-> Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.  
-> Do ansible ping test from ansible host to all the all the cluster nodes to be.  
+* Create a common user in all the nodes to be used for the cluster.  
+* Enable passwordless authentication from the ansible host to all the cluster nodes to be.  
+* Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.  
+* Do ansible ping test from ansible host to all the all the cluster nodes to be.  
 
 Download the tarball of latest release containing ansible template and configs to the linux user account's home directory.
 
@@ -55,7 +55,15 @@ That's it, you are good to go!
 ansible-playbook inst-k8s-ansible.yaml
 ```
 
-Sample Execution Result :    
+After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
+```
+ansible-playbook optional-k8s-csi-nfs-driver.yaml 
+```
+```
+ansible-playbook optional-k8s-csi-smb-driver.yaml
+```
+
+Sample Execution Result of ansible-playbook inst-k8s-ansible.yaml :    
 
 <img width="719" alt="sample-output-execution-results" src="https://github.com/user-attachments/assets/77014e4c-8c4e-471d-b62d-bd09231ed77f">
 

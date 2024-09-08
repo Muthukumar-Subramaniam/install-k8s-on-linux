@@ -1,0 +1,1154 @@
+2024-09-09 02:06:51,630 p=7064 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 02:06:51,644 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:06:53,665 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:06:53,886 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:06:53,930 p=7064 u=muthuks n=ansible | TASK [Upgrade the system packages ( RedHat based systems )] *********************************************************************
+2024-09-09 02:06:53,971 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:07:05,064 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:05,075 p=7064 u=muthuks n=ansible | TASK [Upgrade the system packages ( Debian based systems )] *********************************************************************
+2024-09-09 02:07:05,097 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:07:42,450 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:42,462 p=7064 u=muthuks n=ansible | TASK [Upgrade the system package ( Suse based systems )] ************************************************************************
+2024-09-09 02:07:42,484 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:07:42,496 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:07:42,574 p=7064 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 02:07:42,585 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:07:43,874 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:44,074 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:07:44,126 p=7064 u=muthuks n=ansible | TASK [Turn off swap if active] **************************************************************************************************
+2024-09-09 02:07:44,834 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:44,918 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:44,931 p=7064 u=muthuks n=ansible | TASK [Disable swap in fstab] ****************************************************************************************************
+2024-09-09 02:07:45,516 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:45,668 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:45,757 p=7064 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 02:07:45,770 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:07:47,123 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:07:47,214 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:47,262 p=7064 u=muthuks n=ansible | TASK [Load overlay and br_netfilter kernel modules] *****************************************************************************
+2024-09-09 02:07:47,876 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:48,077 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:48,088 p=7064 u=muthuks n=ansible | TASK [Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ****************************************
+2024-09-09 02:07:48,810 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:48,920 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:48,933 p=7064 u=muthuks n=ansible | TASK [Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *************************************
+2024-09-09 02:07:49,499 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:49,658 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:49,672 p=7064 u=muthuks n=ansible | TASK [Re-load the system kernel parameters] *************************************************************************************
+2024-09-09 02:07:50,249 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:50,433 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:50,518 p=7064 u=muthuks n=ansible | PLAY [Install and configure latest version of containered using official binaries] **********************************************
+2024-09-09 02:07:50,530 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:07:51,989 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:07:52,034 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:52,091 p=7064 u=muthuks n=ansible | TASK [Get latest version information of containerd from GitHub API] *************************************************************
+2024-09-09 02:07:53,630 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:07:53,634 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:53,648 p=7064 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:07:53,674 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:07:53,692 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:07:53,703 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:07:53,735 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 02:07:53,751 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 02:07:53,763 p=7064 u=muthuks n=ansible | TASK [Create /tmp/containerd to download the containerd binary] *****************************************************************
+2024-09-09 02:07:54,502 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:07:54,632 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:07:54,647 p=7064 u=muthuks n=ansible | TASK [Download tarball of containerd binary from their official GitHub repo] ****************************************************
+2024-09-09 02:08:09,548 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:17,347 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:17,363 p=7064 u=muthuks n=ansible | TASK [Extract containerd bin under /usr/local] **********************************************************************************
+2024-09-09 02:08:22,423 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:22,750 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:22,764 p=7064 u=muthuks n=ansible | TASK [Clean up /tmp/containerd] *************************************************************************************************
+2024-09-09 02:08:23,483 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:23,530 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:23,545 p=7064 u=muthuks n=ansible | TASK [Create containerd configuration directory /etc/containerd] ****************************************************************
+2024-09-09 02:08:24,156 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:24,294 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:24,312 p=7064 u=muthuks n=ansible | TASK [Create /etc/containerd/config.toml] ***************************************************************************************
+2024-09-09 02:08:24,884 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:25,061 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:25,074 p=7064 u=muthuks n=ansible | TASK [Generate containerd config and write it to /etc/containerd/config.toml] ***************************************************
+2024-09-09 02:08:25,689 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:25,922 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:25,936 p=7064 u=muthuks n=ansible | TASK [Set SystemdCgroup as true in /etc/containerd/config.toml] *****************************************************************
+2024-09-09 02:08:26,652 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:26,780 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:26,798 p=7064 u=muthuks n=ansible | TASK [Verify SystemdCgroup setting] *********************************************************************************************
+2024-09-09 02:08:27,350 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:27,580 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:27,598 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:27,652 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 02:08:27,680 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 02:08:27,703 p=7064 u=muthuks n=ansible | TASK [Download containerd.service file from GitHub] *****************************************************************************
+2024-09-09 02:08:29,077 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:29,097 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:29,111 p=7064 u=muthuks n=ansible | TASK [Reload systemd daemon] ****************************************************************************************************
+2024-09-09 02:08:30,173 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:30,264 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:30,280 p=7064 u=muthuks n=ansible | TASK [Enable and start containerd.service] **************************************************************************************
+2024-09-09 02:08:31,741 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:31,807 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:31,825 p=7064 u=muthuks n=ansible | TASK [Verify status of containerd service] **************************************************************************************
+2024-09-09 02:08:32,505 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:32,712 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:32,723 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:32,759 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 02:08:32,776 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 02:08:32,791 p=7064 u=muthuks n=ansible | TASK [Verify containerd version] ************************************************************************************************
+2024-09-09 02:08:33,362 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:33,635 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:33,647 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:33,684 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 02:08:33,708 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 02:08:33,801 p=7064 u=muthuks n=ansible | PLAY [Install latest version of runc using official binaries] *******************************************************************
+2024-09-09 02:08:33,822 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:08:35,418 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:35,597 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:35,651 p=7064 u=muthuks n=ansible | TASK [Get latest version information of runc from GitHub API] *******************************************************************
+2024-09-09 02:08:36,879 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:37,000 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:37,014 p=7064 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:08:37,041 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:37,062 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:37,076 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:37,108 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 02:08:37,127 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 02:08:37,141 p=7064 u=muthuks n=ansible | TASK [Download runc binary and save it as /usr/local/bin/runc] ******************************************************************
+2024-09-09 02:08:43,092 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:44,183 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:44,194 p=7064 u=muthuks n=ansible | TASK [Verify runc version] ******************************************************************************************************
+2024-09-09 02:08:44,639 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:08:44,786 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:44,798 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:44,826 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 02:08:44,839 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 02:08:44,912 p=7064 u=muthuks n=ansible | PLAY [Configure k8s repository to install kubelet, kubeadm and kubectl packages] ************************************************
+2024-09-09 02:08:44,924 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:08:46,280 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:46,282 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:46,333 p=7064 u=muthuks n=ansible | TASK [Get latest version information of kubernetes from GitHub API] *************************************************************
+2024-09-09 02:08:47,560 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:47,573 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:47,587 p=7064 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:08:47,616 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:47,631 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:47,643 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:08:47,675 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 02:08:47,689 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 02:08:47,701 p=7064 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:08:47,738 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:08:47,762 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:08:47,776 p=7064 u=muthuks n=ansible | TASK [Add k8s rpm repository ( RedHat based systems ).] *************************************************************************
+2024-09-09 02:08:47,827 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:08:48,510 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:08:48,522 p=7064 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( RedHat based systems ).] *******************************
+2024-09-09 02:08:48,560 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:09:22,694 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:09:22,715 p=7064 u=muthuks n=ansible | TASK [Add k8s gpg apt-key ( Debian based systems ).] ****************************************************************************
+2024-09-09 02:09:22,754 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:09:24,504 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:09:24,521 p=7064 u=muthuks n=ansible | TASK [Add k8s deb repository ( Debian based systems ).] *************************************************************************
+2024-09-09 02:09:24,556 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:09:28,212 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:09:28,227 p=7064 u=muthuks n=ansible | TASK [Install latest versions kubelet, kubeadm and kubectl packages ( Debian based systems ).] **********************************
+2024-09-09 02:09:28,255 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:02,923 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:10:02,935 p=7064 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).] ***************************************
+2024-09-09 02:10:02,963 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:03,433 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:10:03,444 p=7064 u=muthuks n=ansible | TASK [Add k8s rpm repository and install kubelet, kubeadm and kubectl packages ( Suse based systems ).] *************************
+2024-09-09 02:10:03,469 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:03,480 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:10:03,490 p=7064 u=muthuks n=ansible | TASK [Work-around for conntrack dependency issue with kubelet ( Suse based systems ).] ******************************************
+2024-09-09 02:10:03,522 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:03,534 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:10:03,546 p=7064 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).] *********************************
+2024-09-09 02:10:03,568 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:03,579 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:10:03,590 p=7064 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).] *****************************************
+2024-09-09 02:10:03,614 p=7064 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:10:03,626 p=7064 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:10:03,716 p=7064 u=muthuks n=ansible | PLAY [Enabling and starting kubelet service] ************************************************************************************
+2024-09-09 02:10:03,727 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:10:05,077 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:10:05,232 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:10:05,280 p=7064 u=muthuks n=ansible | TASK [Enable and start kubelet.service] *****************************************************************************************
+2024-09-09 02:10:06,124 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:10:06,576 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:10:06,594 p=7064 u=muthuks n=ansible | TASK [Check kubelet service status] *********************************************************************************************
+2024-09-09 02:10:07,272 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:10:07,436 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:10:07,448 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:10:07,481 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 02:10:07,497 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 02:10:07,615 p=7064 u=muthuks n=ansible | PLAY [Reboot all the systems for some upgrades and configuration changes to take effect] ****************************************
+2024-09-09 02:10:07,627 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:10:09,515 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:10:09,569 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:10:09,647 p=7064 u=muthuks n=ansible | TASK [Reboot executed and waiting for nodes to come online] *********************************************************************
+2024-09-09 02:11:13,832 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:11:13,887 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:11:13,963 p=7064 u=muthuks n=ansible | PLAY [Install k8s cluster with kubeadm on control plane node] *******************************************************************
+2024-09-09 02:11:13,974 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:11:15,529 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:11:15,558 p=7064 u=muthuks n=ansible | TASK [Pull k8s core images the cluster] *****************************************************************************************
+2024-09-09 02:12:26,228 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:12:26,246 p=7064 u=muthuks n=ansible | TASK [Create k8s cluster with kubeadm init] *************************************************************************************
+2024-09-09 02:12:44,695 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:12:44,712 p=7064 u=muthuks n=ansible | TASK [Copy /etc/kubernetes/admin.conf to ~/.kube] *******************************************************************************
+2024-09-09 02:12:45,453 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:12:45,471 p=7064 u=muthuks n=ansible | TASK [Wait for Kubernetes API server to be healthy] *****************************************************************************
+2024-09-09 02:12:46,276 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:12:46,293 p=7064 u=muthuks n=ansible | TASK [Get latest version information of calico CNI from github API] *************************************************************
+2024-09-09 02:12:47,996 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:12:48,011 p=7064 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:12:48,036 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:12:48,046 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:12:48,072 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-09 02:12:48,084 p=7064 u=muthuks n=ansible | TASK [Applying calico CNI manifest using from GitHub] ***************************************************************************
+2024-09-09 02:12:52,425 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:12:52,445 p=7064 u=muthuks n=ansible | TASK [Wait for control-plane to get Ready] **************************************************************************************
+2024-09-09 02:13:30,518 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:13:30,530 p=7064 u=muthuks n=ansible | TASK [K8s cluster control-plane node is Ready] **********************************************************************************
+2024-09-09 02:13:31,157 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:13:31,169 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:13:31,192 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS   ROLES           AGE   VERSION",
+        "prod-vm1.ms.local   Ready    control-plane   50s   v1.31.0"
+    ]
+}
+2024-09-09 02:13:31,204 p=7064 u=muthuks n=ansible | TASK [Print join command and store the value to join the worker nodes] **********************************************************
+2024-09-09 02:13:31,810 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:13:31,821 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:13:31,843 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "kubeadm join 192.168.168.22:6443 --token mb78p1.hpinm0xwryq0y7je --discovery-token-ca-cert-hash sha256:caf2e2e16b762d495efda50213224c29391203c8faef33cf3d39c7848d331d13 "
+    ]
+}
+2024-09-09 02:13:31,854 p=7064 u=muthuks n=ansible | TASK [Copy join command as /tmp/kubernetes_join_command.sh to Ansible Host] *****************************************************
+2024-09-09 02:13:32,432 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local -> localhost]
+2024-09-09 02:13:32,469 p=7064 u=muthuks n=ansible | PLAY [Register worker nodes with the k8s cluster with kubeadm join command] *****************************************************
+2024-09-09 02:13:32,480 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:13:34,667 p=7064 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:13:34,720 p=7064 u=muthuks n=ansible | TASK [Copy join command from Ansibl Host to the worker nodes] *******************************************************************
+2024-09-09 02:13:36,127 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:13:36,149 p=7064 u=muthuks n=ansible | TASK [Join the worker nodes with k8s cluster] ***********************************************************************************
+2024-09-09 02:13:40,796 p=7064 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:13:40,856 p=7064 u=muthuks n=ansible | PLAY [Successfully completed installation of k8s cluster with single control plane node and worker nodes provided] **************
+2024-09-09 02:13:40,870 p=7064 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:13:42,761 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:13:42,805 p=7064 u=muthuks n=ansible | TASK [worker nodes have already joinded the cluster, will be Ready in few minutes] **********************************************
+2024-09-09 02:13:43,673 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:13:43,687 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:13:43,712 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS     ROLES           AGE   VERSION",
+        "prod-vm1.ms.local   Ready      control-plane   62s   v1.31.0",
+        "prod-vm2.ms.local   NotReady   <none>          3s    v1.31.0"
+    ]
+}
+2024-09-09 02:13:43,727 p=7064 u=muthuks n=ansible | TASK [Wait for all worker nodes to get Ready] ***********************************************************************************
+2024-09-09 02:14:51,765 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:14:51,776 p=7064 u=muthuks n=ansible | TASK [k8s cluster nodes are Ready] **********************************************************************************************
+2024-09-09 02:14:52,407 p=7064 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:14:52,424 p=7064 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:14:52,447 p=7064 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS   ROLES           AGE     VERSION",
+        "prod-vm1.ms.local   Ready    control-plane   2m11s   v1.31.0",
+        "prod-vm2.ms.local   Ready    <none>          72s     v1.31.0"
+    ]
+}
+2024-09-09 02:14:52,485 p=7064 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 02:14:52,485 p=7064 u=muthuks n=ansible | prod-vm1.ms.local          : ok=72   changed=38   unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
+2024-09-09 02:14:52,486 p=7064 u=muthuks n=ansible | prod-vm2.ms.local          : ok=56   changed=31   unreachable=0    failed=0    skipped=8    rescued=0    ignored=0   
+2024-09-09 02:31:41,895 p=8322 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 02:31:41,919 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:31:45,267 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:31:45,352 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:31:45,407 p=8322 u=muthuks n=ansible | TASK [Upgrade the system packages ( RedHat based systems )] *********************************************************************
+2024-09-09 02:31:45,453 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:31:59,993 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:00,007 p=8322 u=muthuks n=ansible | TASK [Upgrade the system packages ( Debian based systems )] *********************************************************************
+2024-09-09 02:32:00,031 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:32:16,199 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:16,217 p=8322 u=muthuks n=ansible | TASK [Upgrade the system package ( Suse based systems )] ************************************************************************
+2024-09-09 02:32:16,259 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:32:16,271 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:32:16,368 p=8322 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 02:32:16,384 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:32:18,069 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:18,268 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:18,324 p=8322 u=muthuks n=ansible | TASK [Turn off swap if active] **************************************************************************************************
+2024-09-09 02:32:19,202 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:32:19,318 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:32:19,336 p=8322 u=muthuks n=ansible | TASK [Disable swap in fstab] ****************************************************************************************************
+2024-09-09 02:32:20,130 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:20,267 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:20,363 p=8322 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 02:32:20,381 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:32:21,917 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:22,135 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:22,193 p=8322 u=muthuks n=ansible | TASK [Load overlay and br_netfilter kernel modules] *****************************************************************************
+2024-09-09 02:32:22,966 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:32:23,207 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:32:23,227 p=8322 u=muthuks n=ansible | TASK [Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ****************************************
+2024-09-09 02:32:24,191 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:24,360 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:24,379 p=8322 u=muthuks n=ansible | TASK [Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *************************************
+2024-09-09 02:32:25,039 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:25,289 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:25,302 p=8322 u=muthuks n=ansible | TASK [Re-load the system kernel parameters] *************************************************************************************
+2024-09-09 02:32:25,934 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:32:26,188 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:32:26,279 p=8322 u=muthuks n=ansible | PLAY [Install and configure latest version of containered using official binaries] **********************************************
+2024-09-09 02:32:26,294 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:32:27,878 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:28,151 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:28,209 p=8322 u=muthuks n=ansible | TASK [Get latest version information of containerd from GitHub API] *************************************************************
+2024-09-09 02:32:30,219 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:30,278 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:30,294 p=8322 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:32:30,320 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:32:30,339 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:32:30,353 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:32:30,384 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 02:32:30,399 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 02:32:30,412 p=8322 u=muthuks n=ansible | TASK [Create /tmp/containerd to download the containerd binary] *****************************************************************
+2024-09-09 02:32:31,180 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:32:31,346 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:32:31,362 p=8322 u=muthuks n=ansible | TASK [Download tarball of containerd binary from their official GitHub repo] ****************************************************
+2024-09-09 02:32:45,438 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:32:53,265 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:32:53,290 p=8322 u=muthuks n=ansible | TASK [Extract containerd bin under /usr/local] **********************************************************************************
+2024-09-09 02:33:00,244 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:02,437 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:02,453 p=8322 u=muthuks n=ansible | TASK [Clean up /tmp/containerd] *************************************************************************************************
+2024-09-09 02:33:03,066 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:03,354 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:03,374 p=8322 u=muthuks n=ansible | TASK [Create containerd configuration directory /etc/containerd] ****************************************************************
+2024-09-09 02:33:04,034 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:04,251 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:04,267 p=8322 u=muthuks n=ansible | TASK [Create /etc/containerd/config.toml] ***************************************************************************************
+2024-09-09 02:33:04,927 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:05,163 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:05,178 p=8322 u=muthuks n=ansible | TASK [Generate containerd config and write it to /etc/containerd/config.toml] ***************************************************
+2024-09-09 02:33:05,894 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:06,123 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:06,139 p=8322 u=muthuks n=ansible | TASK [Set SystemdCgroup as true in /etc/containerd/config.toml] *****************************************************************
+2024-09-09 02:33:06,861 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:07,135 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:07,152 p=8322 u=muthuks n=ansible | TASK [Verify SystemdCgroup setting] *********************************************************************************************
+2024-09-09 02:33:07,887 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:08,100 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:08,116 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:08,146 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 02:33:08,163 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 02:33:08,178 p=8322 u=muthuks n=ansible | TASK [Download containerd.service file from GitHub] *****************************************************************************
+2024-09-09 02:33:09,509 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:09,574 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:09,590 p=8322 u=muthuks n=ansible | TASK [Reload systemd daemon] ****************************************************************************************************
+2024-09-09 02:33:10,970 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:11,093 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:11,110 p=8322 u=muthuks n=ansible | TASK [Enable and start containerd.service] **************************************************************************************
+2024-09-09 02:33:12,199 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:12,441 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:12,466 p=8322 u=muthuks n=ansible | TASK [Verify status of containerd service] **************************************************************************************
+2024-09-09 02:33:13,180 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:13,488 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:13,504 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:13,536 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 02:33:13,561 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 02:33:13,585 p=8322 u=muthuks n=ansible | TASK [Verify containerd version] ************************************************************************************************
+2024-09-09 02:33:14,251 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:14,488 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:14,506 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:14,541 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 02:33:14,563 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 02:33:14,666 p=8322 u=muthuks n=ansible | PLAY [Install latest version of runc using official binaries] *******************************************************************
+2024-09-09 02:33:14,682 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:33:16,271 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:16,434 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:16,497 p=8322 u=muthuks n=ansible | TASK [Get latest version information of runc from GitHub API] *******************************************************************
+2024-09-09 02:33:17,848 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:17,985 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:17,999 p=8322 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:33:18,031 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:18,059 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:18,077 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:18,113 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 02:33:18,133 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 02:33:18,148 p=8322 u=muthuks n=ansible | TASK [Download runc binary and save it as /usr/local/bin/runc] ******************************************************************
+2024-09-09 02:33:20,865 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:20,918 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:20,935 p=8322 u=muthuks n=ansible | TASK [Verify runc version] ******************************************************************************************************
+2024-09-09 02:33:21,701 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:21,976 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:21,994 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:22,030 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 02:33:22,048 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 02:33:22,150 p=8322 u=muthuks n=ansible | PLAY [Configure k8s repository to install kubelet, kubeadm and kubectl packages] ************************************************
+2024-09-09 02:33:22,165 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:33:23,822 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:24,108 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:24,175 p=8322 u=muthuks n=ansible | TASK [Get latest version information of kubernetes from GitHub API] *************************************************************
+2024-09-09 02:33:25,495 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:25,662 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:25,681 p=8322 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:33:25,715 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:25,734 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:25,778 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:25,814 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 02:33:25,831 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 02:33:25,846 p=8322 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 02:33:25,914 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:25,930 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:25,946 p=8322 u=muthuks n=ansible | TASK [Add k8s rpm repository ( RedHat based systems ).] *************************************************************************
+2024-09-09 02:33:26,006 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:26,859 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:26,875 p=8322 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( RedHat based systems ).] *******************************
+2024-09-09 02:33:26,920 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:34,164 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:34,180 p=8322 u=muthuks n=ansible | TASK [Add k8s gpg apt-key ( Debian based systems ).] ****************************************************************************
+2024-09-09 02:33:34,214 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:35,669 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:35,685 p=8322 u=muthuks n=ansible | TASK [Add k8s deb repository ( Debian based systems ).] *************************************************************************
+2024-09-09 02:33:35,715 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:36,543 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:36,558 p=8322 u=muthuks n=ansible | TASK [Install latest versions kubelet, kubeadm and kubectl packages ( Debian based systems ).] **********************************
+2024-09-09 02:33:36,601 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:37,842 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:37,859 p=8322 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).] ***************************************
+2024-09-09 02:33:37,903 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:38,404 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:38,424 p=8322 u=muthuks n=ansible | TASK [Add k8s rpm repository and install kubelet, kubeadm and kubectl packages ( Suse based systems ).] *************************
+2024-09-09 02:33:38,461 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:38,489 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:38,507 p=8322 u=muthuks n=ansible | TASK [Work-around for conntrack dependency issue with kubelet ( Suse based systems ).] ******************************************
+2024-09-09 02:33:38,545 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:38,564 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:38,579 p=8322 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).] *********************************
+2024-09-09 02:33:38,611 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:38,625 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:38,642 p=8322 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).] *****************************************
+2024-09-09 02:33:38,680 p=8322 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 02:33:38,700 p=8322 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 02:33:38,811 p=8322 u=muthuks n=ansible | PLAY [Enabling and starting kubelet service] ************************************************************************************
+2024-09-09 02:33:38,828 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:33:40,350 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:40,612 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:40,668 p=8322 u=muthuks n=ansible | TASK [Enable and start kubelet.service] *****************************************************************************************
+2024-09-09 02:33:41,590 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:41,776 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:41,792 p=8322 u=muthuks n=ansible | TASK [Check kubelet service status] *********************************************************************************************
+2024-09-09 02:33:42,429 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:33:42,627 p=8322 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 02:33:42,640 p=8322 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 02:33:42,679 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 02:33:42,706 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 02:33:42,809 p=8322 u=muthuks n=ansible | PLAY [Reboot all the systems for some upgrades and configuration changes to take effect] ****************************************
+2024-09-09 02:33:42,824 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:33:44,447 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:33:44,621 p=8322 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:33:44,687 p=8322 u=muthuks n=ansible | TASK [Reboot executed and waiting for nodes to come online] *********************************************************************
+2024-09-09 02:34:48,200 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:36:59,498 p=8322 u=muthuks n=ansible | fatal: [prod-vm1.ms.local]: FAILED! => {"msg": "Failed to connect to the host via ssh: ssh: connect to host prod-vm1.ms.local port 22: No route to host"}
+2024-09-09 02:36:59,568 p=8322 u=muthuks n=ansible | PLAY [Install k8s cluster with kubeadm on control plane node] *******************************************************************
+2024-09-09 02:36:59,573 p=8322 u=muthuks n=ansible | PLAY [Register worker nodes with the k8s cluster with kubeadm join command] *****************************************************
+2024-09-09 02:36:59,587 p=8322 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:37:01,758 p=8322 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:37:01,812 p=8322 u=muthuks n=ansible | TASK [Copy join command from Ansibl Host to the worker nodes] *******************************************************************
+2024-09-09 02:37:02,888 p=8322 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 02:37:02,901 p=8322 u=muthuks n=ansible | TASK [Join the worker nodes with k8s cluster] ***********************************************************************************
+2024-09-09 02:37:05,508 p=8322 u=muthuks n=ansible | fatal: [prod-vm2.ms.local]: FAILED! => {"changed": true, "cmd": ["sh", "/tmp/kubernetes_join_command.sh"], "delta": "0:00:02.181495", "end": "2024-09-09 02:37:05.453140", "msg": "non-zero return code", "rc": 1, "start": "2024-09-09 02:37:03.271645", "stderr": "error execution phase preflight: [preflight] Some fatal errors occurred:\n\t[ERROR FileAvailable--etc-kubernetes-kubelet.conf]: /etc/kubernetes/kubelet.conf already exists\n\t[ERROR Port-10250]: Port 10250 is in use\n\t[ERROR FileAvailable--etc-kubernetes-pki-ca.crt]: /etc/kubernetes/pki/ca.crt already exists\n[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`\nTo see the stack trace of this error execute with --v=5 or higher", "stderr_lines": ["error execution phase preflight: [preflight] Some fatal errors occurred:", "\t[ERROR FileAvailable--etc-kubernetes-kubelet.conf]: /etc/kubernetes/kubelet.conf already exists", "\t[ERROR Port-10250]: Port 10250 is in use", "\t[ERROR FileAvailable--etc-kubernetes-pki-ca.crt]: /etc/kubernetes/pki/ca.crt already exists", "[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`", "To see the stack trace of this error execute with --v=5 or higher"], "stdout": "[preflight] Running pre-flight checks", "stdout_lines": ["[preflight] Running pre-flight checks"]}
+2024-09-09 02:37:05,510 p=8322 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 02:37:05,511 p=8322 u=muthuks n=ansible | prod-vm1.ms.local          : ok=50   changed=14   unreachable=0    failed=1    skipped=10   rescued=0    ignored=0   
+2024-09-09 02:37:05,511 p=8322 u=muthuks n=ansible | prod-vm2.ms.local          : ok=55   changed=17   unreachable=0    failed=1    skipped=8    rescued=0    ignored=0   
+2024-09-09 02:50:15,344 p=10723 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 02:50:15,379 p=10723 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:50:18,628 p=10723 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 02:52:06,315 p=10809 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 02:52:06,325 p=10809 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 02:52:06,329 p=10809 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 02:52:06,335 p=10809 u=muthuks n=ansible | PLAY [Install and configure latest version of containered using official binaries] **********************************************
+2024-09-09 02:52:06,340 p=10809 u=muthuks n=ansible | PLAY [Install latest version of runc using official binaries] *******************************************************************
+2024-09-09 02:52:06,346 p=10809 u=muthuks n=ansible | PLAY [Configure k8s repository to install kubelet, kubeadm and kubectl packages] ************************************************
+2024-09-09 02:52:06,355 p=10809 u=muthuks n=ansible | PLAY [Enabling and starting kubelet service] ************************************************************************************
+2024-09-09 02:52:06,359 p=10809 u=muthuks n=ansible | PLAY [Reboot all the systems for some upgrades and configuration changes to take effect] ****************************************
+2024-09-09 02:52:06,363 p=10809 u=muthuks n=ansible | PLAY [Install k8s cluster with kubeadm on control plane node] *******************************************************************
+2024-09-09 02:52:06,366 p=10809 u=muthuks n=ansible | PLAY [Register worker nodes with the k8s cluster with kubeadm join command] *****************************************************
+2024-09-09 02:52:06,370 p=10809 u=muthuks n=ansible | PLAY [Successfully completed installation of k8s cluster with single control plane node and worker nodes provided] **************
+2024-09-09 02:52:06,374 p=10809 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 02:52:06,376 p=10809 u=muthuks n=ansible |  [ERROR]: No matching task "Disable swap memory" found. Note: --start-at-task can only follow static includes.
+
+2024-09-09 02:52:31,863 p=10838 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 02:52:31,873 p=10838 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 02:52:31,884 p=10838 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:52:34,403 p=10838 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:52:34,465 p=10838 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:52:34,479 p=10838 u=muthuks n=ansible | TASK [Disable swap in fstab] ****************************************************************************************************
+2024-09-09 02:52:35,093 p=10838 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:52:35,237 p=10838 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:52:35,323 p=10838 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 02:52:35,337 p=10838 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 02:52:36,578 p=10838 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 02:52:36,725 p=10838 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 02:52:36,782 p=10838 u=muthuks n=ansible | TASK [Load overlay and br_netfilter kernel modules] *****************************************************************************
+2024-09-09 02:52:37,365 p=10838 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:00:42,590 p=11079 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:00:42,599 p=11079 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:00:42,603 p=11079 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:00:42,607 p=11079 u=muthuks n=ansible | PLAY [Install and configure latest version of containered using official binaries] **********************************************
+2024-09-09 03:00:42,612 p=11079 u=muthuks n=ansible | PLAY [Install latest version of runc using official binaries] *******************************************************************
+2024-09-09 03:00:42,617 p=11079 u=muthuks n=ansible | PLAY [Configure k8s repository to install kubelet, kubeadm and kubectl packages] ************************************************
+2024-09-09 03:00:42,623 p=11079 u=muthuks n=ansible | PLAY [Enabling and starting kubelet service] ************************************************************************************
+2024-09-09 03:00:42,627 p=11079 u=muthuks n=ansible | PLAY [Reboot all the systems for some upgrades and configuration changes to take effect] ****************************************
+2024-09-09 03:00:42,631 p=11079 u=muthuks n=ansible | PLAY [Install k8s cluster with kubeadm on control plane node] *******************************************************************
+2024-09-09 03:00:42,636 p=11079 u=muthuks n=ansible | PLAY [Register worker nodes with the k8s cluster with kubeadm join command] *****************************************************
+2024-09-09 03:00:42,639 p=11079 u=muthuks n=ansible | PLAY [Successfully completed installation of k8s cluster with single control plane node and worker nodes provided] **************
+2024-09-09 03:00:42,642 p=11079 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 03:00:42,643 p=11079 u=muthuks n=ansible |  [ERROR]: No matching task " Remove swap entry from fstab" found. Note: --start-at-task can only follow static includes.
+
+2024-09-09 03:01:01,757 p=11120 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:01:01,766 p=11120 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:01:01,777 p=11120 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:01:03,720 p=11120 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:01:03,885 p=11120 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:01:03,903 p=11120 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:01:04,491 p=11120 u=muthuks n=ansible | fatal: [prod-vm2.ms.local]: FAILED! => {"changed": false, "msg": "missing required arguments: path"}
+2024-09-09 03:01:04,600 p=11120 u=muthuks n=ansible | fatal: [prod-vm1.ms.local]: FAILED! => {"changed": false, "msg": "missing required arguments: path"}
+2024-09-09 03:01:04,602 p=11120 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 03:01:04,607 p=11120 u=muthuks n=ansible | prod-vm1.ms.local          : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-09-09 03:01:04,608 p=11120 u=muthuks n=ansible | prod-vm2.ms.local          : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-09-09 03:02:56,520 p=11213 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:02:56,531 p=11213 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:02:56,544 p=11213 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:02:58,643 p=11213 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:02:58,646 p=11213 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:02:58,666 p=11213 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:02:59,519 p=11213 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:02:59,676 p=11213 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:02:59,766 p=11213 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:03:18,209 p=11287 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:03:18,252 p=11287 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:03:18,263 p=11287 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:03:19,800 p=11287 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:03:19,882 p=11287 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:03:19,894 p=11287 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:03:20,494 p=11287 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:03:20,593 p=11287 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:03:20,671 p=11287 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:03:20,681 p=11287 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:03:21,015 p=11287 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:06:49,790 p=11404 u=muthuks n=ansible | ERROR! couldn't resolve module/action 'linefile'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/inst-k8s-ansible.yaml': line 34, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Remove swap entry from fstab
+      ^ here
+
+2024-09-09 03:07:19,039 p=11433 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:07:19,049 p=11433 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:07:19,060 p=11433 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:07:20,841 p=11433 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:07:20,931 p=11433 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:07:20,946 p=11433 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:07:21,534 p=11433 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:07:21,680 p=11433 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:07:21,756 p=11433 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:07:21,768 p=11433 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:07:23,363 p=11433 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:07:23,588 p=11433 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:07:23,661 p=11433 u=muthuks n=ansible | TASK [Load overlay and br_netfilter kernel modules] *****************************************************************************
+2024-09-09 03:07:24,543 p=11433 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:09:08,706 p=11527 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:09:08,716 p=11527 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:09:08,729 p=11527 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:09:10,504 p=11527 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:09:10,569 p=11527 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:09:10,583 p=11527 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:09:11,171 p=11527 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:09:11,264 p=11527 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:09:11,352 p=11527 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:09:11,363 p=11527 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:09:11,484 p=11527 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:20:06,244 p=11761 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:20:06,258 p=11761 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:20:06,263 p=11761 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:20:06,273 p=11761 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:20:08,289 p=11761 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:20:08,360 p=11761 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:20:08,374 p=11761 u=muthuks n=ansible | TASK [Load overlay kernel module] ***********************************************************************************************
+2024-09-09 03:20:08,971 p=11761 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:20:09,079 p=11761 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:20:09,089 p=11761 u=muthuks n=ansible | TASK [Load br_netfilter kernel module] ******************************************************************************************
+2024-09-09 03:20:09,570 p=11761 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:20:09,706 p=11761 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:20:09,720 p=11761 u=muthuks n=ansible | TASK [Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ****************************************
+2024-09-09 03:20:10,340 p=11761 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:20:10,450 p=11761 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:20:10,462 p=11761 u=muthuks n=ansible | TASK [Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *************************************
+2024-09-09 03:20:10,808 p=11761 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:21:26,317 p=11886 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:21:26,327 p=11886 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:21:26,331 p=11886 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:21:26,345 p=11886 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:21:28,077 p=11886 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:21:28,180 p=11886 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:21:28,194 p=11886 u=muthuks n=ansible | TASK [Load overlay kernel module] ***********************************************************************************************
+2024-09-09 03:21:28,770 p=11886 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:21:28,899 p=11886 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:21:28,909 p=11886 u=muthuks n=ansible | TASK [Load br_netfilter kernel module] ******************************************************************************************
+2024-09-09 03:21:29,367 p=11886 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:21:29,682 p=11886 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:21:29,696 p=11886 u=muthuks n=ansible | TASK [Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ****************************************
+2024-09-09 03:21:30,308 p=11886 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:21:30,425 p=11886 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:21:30,437 p=11886 u=muthuks n=ansible | TASK [Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *************************************
+2024-09-09 03:21:30,713 p=11886 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-09 03:28:10,900 p=12027 u=muthuks n=ansible | PLAY [Upgrade system packages of all the cluster nodes] *************************************************************************
+2024-09-09 03:28:10,914 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:28:13,351 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:28:13,374 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:28:13,423 p=12027 u=muthuks n=ansible | TASK [Upgrade the system packages ( RedHat based systems )] *********************************************************************
+2024-09-09 03:28:13,460 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:28:24,795 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:28:24,807 p=12027 u=muthuks n=ansible | TASK [Upgrade the system packages ( Debian based systems )] *********************************************************************
+2024-09-09 03:28:24,830 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:28:59,255 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:28:59,272 p=12027 u=muthuks n=ansible | TASK [Upgrade the system package ( Suse based systems )] ************************************************************************
+2024-09-09 03:28:59,302 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:28:59,315 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:28:59,398 p=12027 u=muthuks n=ansible | PLAY [Disable swap memory] ******************************************************************************************************
+2024-09-09 03:28:59,410 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:29:00,842 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:00,848 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:00,906 p=12027 u=muthuks n=ansible | TASK [Turn off swap if active] **************************************************************************************************
+2024-09-09 03:29:01,659 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:01,757 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:01,770 p=12027 u=muthuks n=ansible | TASK [Remove swap entry from fstab] *********************************************************************************************
+2024-09-09 03:29:02,480 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:02,592 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:02,680 p=12027 u=muthuks n=ansible | PLAY [Load required kernel modules and kernel parameters] ***********************************************************************
+2024-09-09 03:29:02,695 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:29:04,128 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:04,175 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:04,231 p=12027 u=muthuks n=ansible | TASK [Load overlay kernel module] ***********************************************************************************************
+2024-09-09 03:29:05,046 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:05,186 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:05,200 p=12027 u=muthuks n=ansible | TASK [Load br_netfilter kernel module] ******************************************************************************************
+2024-09-09 03:29:05,912 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:06,122 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:06,140 p=12027 u=muthuks n=ansible | TASK [Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ****************************************
+2024-09-09 03:29:06,922 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:07,050 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:07,065 p=12027 u=muthuks n=ansible | TASK [Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *************************************
+2024-09-09 03:29:07,663 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:07,860 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:07,874 p=12027 u=muthuks n=ansible | TASK [Re-load the system kernel parameters] *************************************************************************************
+2024-09-09 03:29:08,463 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:08,662 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:08,750 p=12027 u=muthuks n=ansible | PLAY [Install and configure latest version of containered using official binaries] **********************************************
+2024-09-09 03:29:08,762 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:29:10,211 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:10,238 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:10,297 p=12027 u=muthuks n=ansible | TASK [Get latest version information of containerd from GitHub API] *************************************************************
+2024-09-09 03:29:11,869 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:11,878 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:11,893 p=12027 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:29:11,919 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:11,938 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:11,952 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:29:11,979 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 03:29:11,995 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.21"
+}
+2024-09-09 03:29:12,007 p=12027 u=muthuks n=ansible | TASK [Create /tmp/containerd to download the containerd binary] *****************************************************************
+2024-09-09 03:29:12,734 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:12,877 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:12,897 p=12027 u=muthuks n=ansible | TASK [Download tarball of containerd binary from their official GitHub repo] ****************************************************
+2024-09-09 03:29:27,226 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:34,783 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:34,797 p=12027 u=muthuks n=ansible | TASK [Extract containerd bin under /usr/local] **********************************************************************************
+2024-09-09 03:29:40,119 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:40,433 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:40,451 p=12027 u=muthuks n=ansible | TASK [Clean up /tmp/containerd] *************************************************************************************************
+2024-09-09 03:29:41,181 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:41,367 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:41,379 p=12027 u=muthuks n=ansible | TASK [Create containerd configuration directory /etc/containerd] ****************************************************************
+2024-09-09 03:29:42,007 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:42,209 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:42,224 p=12027 u=muthuks n=ansible | TASK [Create /etc/containerd/config.toml] ***************************************************************************************
+2024-09-09 03:29:43,072 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:43,210 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:43,228 p=12027 u=muthuks n=ansible | TASK [Generate containerd config and write it to /etc/containerd/config.toml] ***************************************************
+2024-09-09 03:29:43,933 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:44,385 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:44,400 p=12027 u=muthuks n=ansible | TASK [Set SystemdCgroup as true in /etc/containerd/config.toml] *****************************************************************
+2024-09-09 03:29:45,145 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:45,420 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:45,451 p=12027 u=muthuks n=ansible | TASK [Verify SystemdCgroup setting] *********************************************************************************************
+2024-09-09 03:29:46,161 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:46,394 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:46,408 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:29:46,438 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 03:29:46,458 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-09 03:29:46,477 p=12027 u=muthuks n=ansible | TASK [Download containerd.service file from GitHub] *****************************************************************************
+2024-09-09 03:29:47,659 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:47,705 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:47,723 p=12027 u=muthuks n=ansible | TASK [Reload systemd daemon] ****************************************************************************************************
+2024-09-09 03:29:48,833 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:48,952 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:48,969 p=12027 u=muthuks n=ansible | TASK [Enable and start containerd.service] **************************************************************************************
+2024-09-09 03:29:50,485 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:50,621 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:50,641 p=12027 u=muthuks n=ansible | TASK [Verify status of containerd service] **************************************************************************************
+2024-09-09 03:29:51,348 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:51,545 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:51,561 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:29:51,594 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 03:29:51,619 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-09 03:29:51,637 p=12027 u=muthuks n=ansible | TASK [Verify containerd version] ************************************************************************************************
+2024-09-09 03:29:52,334 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:29:52,615 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:29:52,629 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:29:52,665 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 03:29:52,690 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.21 472731909fa34bd7bc9c087e4c27943f9835f111"
+    ]
+}
+2024-09-09 03:29:52,828 p=12027 u=muthuks n=ansible | PLAY [Install latest version of runc using official binaries] *******************************************************************
+2024-09-09 03:29:52,845 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:29:54,256 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:54,376 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:54,428 p=12027 u=muthuks n=ansible | TASK [Get latest version information of runc from GitHub API] *******************************************************************
+2024-09-09 03:29:55,614 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:55,685 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:55,699 p=12027 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:29:55,728 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:29:55,743 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:29:55,756 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:29:55,784 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 03:29:55,798 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-09 03:29:55,810 p=12027 u=muthuks n=ansible | TASK [Download runc binary and save it as /usr/local/bin/runc] ******************************************************************
+2024-09-09 03:30:01,060 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:30:02,954 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:30:02,967 p=12027 u=muthuks n=ansible | TASK [Verify runc version] ******************************************************************************************************
+2024-09-09 03:30:03,410 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:30:03,566 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:30:03,577 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:30:03,607 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 03:30:03,621 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-09 03:30:03,696 p=12027 u=muthuks n=ansible | PLAY [Configure k8s repository to install kubelet, kubeadm and kubectl packages] ************************************************
+2024-09-09 03:30:03,712 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:30:04,941 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:30:05,002 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:30:05,054 p=12027 u=muthuks n=ansible | TASK [Get latest version information of kubernetes from GitHub API] *************************************************************
+2024-09-09 03:30:06,282 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:30:06,295 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:30:06,308 p=12027 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:30:06,340 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:30:06,355 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:30:06,367 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:30:06,393 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 03:30:06,408 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-09 03:30:06,420 p=12027 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:30:06,462 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:30:06,489 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:30:06,502 p=12027 u=muthuks n=ansible | TASK [Add k8s rpm repository ( RedHat based systems ).] *************************************************************************
+2024-09-09 03:30:06,549 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:30:07,229 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:30:07,242 p=12027 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( RedHat based systems ).] *******************************
+2024-09-09 03:30:07,288 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:30:45,001 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:30:45,016 p=12027 u=muthuks n=ansible | TASK [Add k8s gpg apt-key ( Debian based systems ).] ****************************************************************************
+2024-09-09 03:30:45,045 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:30:46,713 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:30:46,726 p=12027 u=muthuks n=ansible | TASK [Add k8s deb repository ( Debian based systems ).] *************************************************************************
+2024-09-09 03:30:46,751 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:30:50,098 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:30:50,113 p=12027 u=muthuks n=ansible | TASK [Install latest versions kubelet, kubeadm and kubectl packages ( Debian based systems ).] **********************************
+2024-09-09 03:30:50,140 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:22,755 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:31:22,767 p=12027 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).] ***************************************
+2024-09-09 03:31:22,797 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:23,249 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:31:23,259 p=12027 u=muthuks n=ansible | TASK [Add k8s rpm repository and install kubelet, kubeadm and kubectl packages ( Suse based systems ).] *************************
+2024-09-09 03:31:23,286 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:23,297 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:31:23,308 p=12027 u=muthuks n=ansible | TASK [Work-around for conntrack dependency issue with kubelet ( Suse based systems ).] ******************************************
+2024-09-09 03:31:23,337 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:23,349 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:31:23,361 p=12027 u=muthuks n=ansible | TASK [Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).] *********************************
+2024-09-09 03:31:23,392 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:23,406 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:31:23,418 p=12027 u=muthuks n=ansible | TASK [Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).] *****************************************
+2024-09-09 03:31:23,443 p=12027 u=muthuks n=ansible | skipping: [prod-vm1.ms.local]
+2024-09-09 03:31:23,455 p=12027 u=muthuks n=ansible | skipping: [prod-vm2.ms.local]
+2024-09-09 03:31:23,534 p=12027 u=muthuks n=ansible | PLAY [Enabling and starting kubelet service] ************************************************************************************
+2024-09-09 03:31:23,545 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:31:24,897 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:31:24,940 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:31:24,996 p=12027 u=muthuks n=ansible | TASK [Enable and start kubelet.service] *****************************************************************************************
+2024-09-09 03:31:25,930 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:31:26,483 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:31:26,497 p=12027 u=muthuks n=ansible | TASK [Check kubelet service status] *********************************************************************************************
+2024-09-09 03:31:27,081 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:31:27,247 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:31:27,260 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:31:27,292 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 03:31:27,310 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-09 03:31:27,400 p=12027 u=muthuks n=ansible | PLAY [Reboot all the systems for some upgrades and configuration changes to take effect] ****************************************
+2024-09-09 03:31:27,412 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:31:28,736 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:31:28,796 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:31:28,882 p=12027 u=muthuks n=ansible | TASK [Reboot executed and waiting for nodes to come online] *********************************************************************
+2024-09-09 03:32:31,612 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:32:31,854 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:32:31,946 p=12027 u=muthuks n=ansible | PLAY [Install k8s cluster with kubeadm on control plane node] *******************************************************************
+2024-09-09 03:32:31,960 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:32:33,687 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:32:33,720 p=12027 u=muthuks n=ansible | TASK [Pull k8s core images the cluster] *****************************************************************************************
+2024-09-09 03:33:44,353 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:33:44,366 p=12027 u=muthuks n=ansible | TASK [Create k8s cluster with kubeadm init] *************************************************************************************
+2024-09-09 03:34:03,199 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:03,215 p=12027 u=muthuks n=ansible | TASK [Copy /etc/kubernetes/admin.conf to ~/.kube] *******************************************************************************
+2024-09-09 03:34:03,946 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:03,961 p=12027 u=muthuks n=ansible | TASK [Wait for Kubernetes API server to be healthy] *****************************************************************************
+2024-09-09 03:34:04,813 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:04,828 p=12027 u=muthuks n=ansible | TASK [Get latest version information of calico CNI from github API] *************************************************************
+2024-09-09 03:34:08,475 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:34:08,488 p=12027 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:34:09,591 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:34:09,605 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:34:12,141 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-09 03:34:12,153 p=12027 u=muthuks n=ansible | TASK [Applying calico CNI manifest using from GitHub] ***************************************************************************
+2024-09-09 03:34:17,212 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:17,234 p=12027 u=muthuks n=ansible | TASK [Wait for control-plane to get Ready] **************************************************************************************
+2024-09-09 03:34:54,294 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:54,308 p=12027 u=muthuks n=ansible | TASK [K8s cluster control-plane node is Ready] **********************************************************************************
+2024-09-09 03:34:54,952 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:54,966 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:34:54,992 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS   ROLES           AGE   VERSION",
+        "prod-vm1.ms.local   Ready    control-plane   55s   v1.31.0"
+    ]
+}
+2024-09-09 03:34:55,004 p=12027 u=muthuks n=ansible | TASK [Print join command and store the value to join the worker nodes] **********************************************************
+2024-09-09 03:34:55,784 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:34:55,795 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:34:55,822 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "kubeadm join 192.168.168.22:6443 --token cu5gc4.viz4r7vd8nfv6bp1 --discovery-token-ca-cert-hash sha256:fbefadeaadf4d28a703749434eb22c2efe5dd1a53e8b7d127b8a063f51427d4e "
+    ]
+}
+2024-09-09 03:34:55,834 p=12027 u=muthuks n=ansible | TASK [Copy join command as /tmp/kubernetes_join_command.sh to Ansible Host] *****************************************************
+2024-09-09 03:34:56,977 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local -> localhost]
+2024-09-09 03:34:57,025 p=12027 u=muthuks n=ansible | PLAY [Register worker nodes with the k8s cluster with kubeadm join command] *****************************************************
+2024-09-09 03:34:57,042 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:34:59,404 p=12027 u=muthuks n=ansible | ok: [prod-vm2.ms.local]
+2024-09-09 03:34:59,471 p=12027 u=muthuks n=ansible | TASK [Copy join command from Ansibl Host to the worker nodes] *******************************************************************
+2024-09-09 03:35:01,239 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:35:01,257 p=12027 u=muthuks n=ansible | TASK [Join the worker nodes with k8s cluster] ***********************************************************************************
+2024-09-09 03:35:05,963 p=12027 u=muthuks n=ansible | changed: [prod-vm2.ms.local]
+2024-09-09 03:35:06,033 p=12027 u=muthuks n=ansible | PLAY [Successfully completed installation of k8s cluster with single control plane node and worker nodes provided] **************
+2024-09-09 03:35:06,054 p=12027 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:35:08,169 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:35:08,217 p=12027 u=muthuks n=ansible | TASK [worker nodes have already joinded the cluster, will be Ready in few minutes] **********************************************
+2024-09-09 03:35:09,168 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:35:09,183 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:35:09,210 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS     ROLES           AGE   VERSION",
+        "prod-vm1.ms.local   Ready      control-plane   70s   v1.31.0",
+        "prod-vm2.ms.local   NotReady   <none>          4s    v1.31.0"
+    ]
+}
+2024-09-09 03:35:09,225 p=12027 u=muthuks n=ansible | TASK [Wait for all worker nodes to get Ready] ***********************************************************************************
+2024-09-09 03:36:09,494 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:36:09,509 p=12027 u=muthuks n=ansible | TASK [k8s cluster nodes are Ready] **********************************************************************************************
+2024-09-09 03:36:10,233 p=12027 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:36:10,247 p=12027 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:36:10,272 p=12027 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "NAME                STATUS   ROLES           AGE     VERSION",
+        "prod-vm1.ms.local   Ready    control-plane   2m11s   v1.31.0",
+        "prod-vm2.ms.local   Ready    <none>          65s     v1.31.0"
+    ]
+}
+2024-09-09 03:36:10,312 p=12027 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 03:36:10,312 p=12027 u=muthuks n=ansible | prod-vm1.ms.local          : ok=73   changed=38   unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
+2024-09-09 03:36:10,313 p=12027 u=muthuks n=ansible | prod-vm2.ms.local          : ok=57   changed=31   unreachable=0    failed=0    skipped=8    rescued=0    ignored=0   
+2024-09-09 03:41:50,144 p=13269 u=muthuks n=ansible | PLAY [Install CSI NFS Driver for k8s cluster] ***********************************************************************************
+2024-09-09 03:41:50,166 p=13269 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:41:52,479 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:41:52,521 p=13269 u=muthuks n=ansible | TASK [Get latest version information of k8s csi-nfs-driver from github API] *****************************************************
+2024-09-09 03:41:54,092 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:41:54,116 p=13269 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:41:54,145 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:41:54,160 p=13269 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:41:54,183 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of k8s csi-driver-nfs is v4.9.0"
+}
+2024-09-09 03:41:54,199 p=13269 u=muthuks n=ansible | TASK [Install CSI NFS drivers by remote from GitHub using kubectl] **************************************************************
+2024-09-09 03:41:57,997 p=13269 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:41:58,011 p=13269 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:41:58,033 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "Installing NFS CSI driver, version: v4.9.0 ...",
+        "serviceaccount/csi-nfs-controller-sa created",
+        "serviceaccount/csi-nfs-node-sa created",
+        "clusterrole.rbac.authorization.k8s.io/nfs-external-provisioner-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/nfs-csi-provisioner-binding created",
+        "csidriver.storage.k8s.io/nfs.csi.k8s.io created",
+        "deployment.apps/csi-nfs-controller created",
+        "daemonset.apps/csi-nfs-node created",
+        "NFS CSI driver installed successfully."
+    ]
+}
+2024-09-09 03:41:58,044 p=13269 u=muthuks n=ansible | TASK [completed, the csi-nfs-driver pods are being deployed] ********************************************************************
+2024-09-09 03:41:58,839 p=13269 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:41:58,852 p=13269 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:41:58,882 p=13269 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "kube-system   csi-nfs-controller-75b74fd4f-6cfjt          0/4     ContainerCreating   0          1s",
+        "kube-system   csi-nfs-node-l8nrk                          0/3     ContainerCreating   0          1s",
+        "kube-system   csi-nfs-node-tzzcq                          0/3     ContainerCreating   0          1s"
+    ]
+}
+2024-09-09 03:41:58,922 p=13269 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 03:41:58,922 p=13269 u=muthuks n=ansible | prod-vm1.ms.local          : ok=8    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-09-09 03:42:11,945 p=13336 u=muthuks n=ansible | PLAY [Install CSI SMB Driver for k8s cluster] ***********************************************************************************
+2024-09-09 03:42:11,964 p=13336 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-09 03:42:14,205 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:42:14,253 p=13336 u=muthuks n=ansible | TASK [Get latest version information of k8s csi-smb-driver from github API] *****************************************************
+2024-09-09 03:42:16,546 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:42:16,569 p=13336 u=muthuks n=ansible | TASK [set_fact] *****************************************************************************************************************
+2024-09-09 03:42:16,611 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local]
+2024-09-09 03:42:16,636 p=13336 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:42:16,679 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": "Latest stable version to be installed of k8s csi-driver-smb is v1.16.0"
+}
+2024-09-09 03:42:16,700 p=13336 u=muthuks n=ansible | TASK [Install CSI SMB drivers by remote from GitHub using kubectl] **************************************************************
+2024-09-09 03:42:24,817 p=13336 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:42:24,840 p=13336 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:42:24,881 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "Installing SMB CSI driver, version: v1.16.0 ...",
+        "serviceaccount/csi-smb-controller-sa created",
+        "serviceaccount/csi-smb-node-sa created",
+        "clusterrole.rbac.authorization.k8s.io/smb-external-provisioner-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/smb-csi-provisioner-binding created",
+        "csidriver.storage.k8s.io/smb.csi.k8s.io created",
+        "deployment.apps/csi-smb-controller created",
+        "daemonset.apps/csi-smb-node created",
+        "daemonset.apps/csi-smb-node-win created",
+        "SMB CSI driver installed successfully."
+    ]
+}
+2024-09-09 03:42:24,897 p=13336 u=muthuks n=ansible | TASK [completed, the csi-smb-driver pods are being deployed] ********************************************************************
+2024-09-09 03:42:26,382 p=13336 u=muthuks n=ansible | changed: [prod-vm1.ms.local]
+2024-09-09 03:42:26,401 p=13336 u=muthuks n=ansible | TASK [debug] ********************************************************************************************************************
+2024-09-09 03:42:26,441 p=13336 u=muthuks n=ansible | ok: [prod-vm1.ms.local] => {
+    "msg": [
+        "kube-system   csi-smb-controller-69f88bc88b-cj7qj         0/3     ContainerCreating   0          5s",
+        "kube-system   csi-smb-node-7vrft                          0/3     ContainerCreating   0          3s",
+        "kube-system   csi-smb-node-sxm78                          0/3     ContainerCreating   0          3s"
+    ]
+}
+2024-09-09 03:42:26,516 p=13336 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-09 03:42:26,517 p=13336 u=muthuks n=ansible | prod-vm1.ms.local          : ok=8    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

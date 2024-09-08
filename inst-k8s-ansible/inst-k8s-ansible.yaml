@@ -31,18 +31,27 @@
     - name: Turn off swap if active
       command: swapoff -a
 
-    - name: Disable swap in fstab
-      command: sed -i '/swap/s/^/#/' /etc/fstab
+    - name: Remove swap entry from fstab
+      lineinfile:
+        backup: true
+        dest: /etc/fstab
+        regexp: '^.* swap .*$'
+        state: absent
 
 
 - name: Load required kernel modules and kernel parameters
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
-    - name: Load overlay and br_netfilter kernel modules
-      shell: |
-        modprobe overlay
-        modprobe br_netfilter
+    - name: Load overlay kernel module
+      modprobe:
+        name: overlay
+        state: present
+
+    - name: Load br_netfilter kernel module
+      modprobe:
+        name: br_netfilter
+        state: present
 
     - name: Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent
       blockinfile:
@@ -67,7 +76,7 @@
       command: sysctl --system
 
 
-- name: Download, install and configure latest version of containered
+- name: Install and configure latest version of containered using official binaries
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   vars:
@@ -84,7 +93,7 @@
 
     - debug:
         msg: |-
-          Latest stable version of containerd is {{ var_containerd_version }}
+          Latest stable version to be installed of containerd is {{ var_containerd_version }}
 
     - name: Create /tmp/containerd to download the containerd binary
       file:
@@ -92,30 +101,16 @@
         state: directory
         mode: 0755
 
-    - name: Download tarball of containerd binary from their official GitHub repository
+    - name: Download tarball of containerd binary from their official GitHub repo
       get_url:
         url: https://github.com/containerd/containerd/releases/download/{{ var_containerd_version }}/containerd-{{ var_containerd_version | regex_replace('v', '') }}-linux-amd64.tar.gz
         dest: "{{ var_containerd_temp_dir }}/containerd.tar.gz"
 
-    - name: Extract containerd tarball
+    - name: Extract containerd bin under /usr/local
       unarchive:
         remote_src: true
         src: "{{ var_containerd_temp_dir }}/containerd.tar.gz"
-        dest: "{{ var_containerd_temp_dir }}"
-
-    - name: Make containerd binaries executable
-      file:
-        path: "{{ var_containerd_temp_dir }}/bin/*"
-        mode: +x
-        recurse: yes
-
-    - name: Copy containerd binary to system path /usr/local/bin/
-      copy:
-        remote_src: true
-        src: "{{ var_containerd_temp_dir }}/bin/"
-        dest: /usr/local/bin/
-        owner: root
-        group: root
+        dest: /usr/local 
 
     - name: Clean up /tmp/containerd
       file:
@@ -128,12 +123,20 @@
         state: directory
         mode: 0755
 
+    - name: Create /etc/containerd/config.toml
+      file:
+        path: /etc/containerd/config.toml
+        state: touch
+
     - name: Generate containerd config and write it to /etc/containerd/config.toml
       become: false
-      command: sh -c "containerd config default | sudo tee /etc/containerd/config.toml"
+      shell: containerd config default | sudo tee /etc/containerd/config.toml
 
     - name: Set SystemdCgroup as true in /etc/containerd/config.toml
-      command: sed -i "/SystemdCgroup/s/false/true/g" /etc/containerd/config.toml
+      replace:  
+        path: /etc/containerd/config.toml
+        regexp: 'SystemdCgroup = false'
+        replace: 'SystemdCgroup = true'
 
     - name: Verify SystemdCgroup setting
       command: grep 'SystemdCgroup' /etc/containerd/config.toml
@@ -176,7 +179,7 @@
           {{ containerd_info.stdout_lines }}
 
 
-- name: Download and install latest version of runc
+- name: Install latest version of runc using official binaries
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
   tasks:
@@ -191,16 +194,16 @@
 
     - debug:
         msg: |-
-          Latest stable version of runc is {{ var_runc_version }}
+          Latest stable version to be installed of runc is {{ var_runc_version }}
 
     - name: Download runc binary and save it as /usr/local/bin/runc
       get_url:
         url: "https://github.com/opencontainers/runc/releases/download/{{ var_runc_version }}/runc.amd64"
         dest: /usr/local/bin/runc
-        mode: 0755  # Set executable permissions
+        mode: 0755
 
     - name: Verify runc version
-      become: no
+      become: false
       command: runc --version
       register: runc_info
 
@@ -223,7 +226,7 @@
 
     - debug:
         msg: |-
-          Latest stable version of kubernetes is {{ var_k8s_latest_version }}
+          Latest stable version to be installed of kubernetes is {{ var_k8s_latest_version }}
 
     - set_fact:
         var_k8s_version_strip_patch: "{{ var_k8s_latest_version | regex_replace('.[0-9]+$', '') }}"
@@ -252,7 +255,7 @@
               - kubectl 
               - kubeadm
             disable_excludes: k8s-{{ var_k8s_version_strip_patch }}
-            state: latest
+            state: present
 
 
     - when: ansible_os_family == "Debian"
@@ -276,7 +279,7 @@
               - kubelet
               - kubectl 
               - kubeadm
-            state: latest
+            state: present
 
         - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems ).
           command: apt-mark hold kubelet kubeadm kubectl
@@ -303,7 +306,7 @@
               - kubelet
               - kubectl 
               - kubeadm
-            state: latest
+            state: present
 
         - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems ).
           command: zypper addlock kubelet kubeadm kubectl
@@ -338,17 +341,17 @@
         connect_timeout: 30
         post_reboot_delay: 60
         reboot_command: reboot
-        reboot_timeout: 120
+        reboot_timeout: 600
         test_command: whoami && systemctl is-active containerd
 
 - name: Install k8s cluster with kubeadm on control plane node 
   hosts: k8s_cluster_ctrl_plane_node
   become: false
   tasks:
-    - name: Pull core images to install k8s cluster
+    - name: Wait until k8s core images required for cluster creation are pulled
       command: sudo kubeadm config images pull
 
-    - name: Create k8s cluster with kubeadm init
+    - name: Create k8s cluster using kubeadm init
       command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
 
     - name: Copy /etc/kubernetes/admin.conf to ~/.kube 
@@ -375,33 +378,25 @@
 
     - debug:
         msg: |-
-          Latest stable version of calico CNI is {{ var_calico_latest_version }}
+          Latest stable version to be installed of calico CNI is {{ var_calico_latest_version }}
 
     - name: Applying calico CNI manifest using from GitHub 
-      command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
 
-    - name: Wait for control-plane to get Ready"
+    - name: Wait for control-plane to get Ready
       shell: kubectl get nodes | grep -w " Ready "
       register: var_control_plane_ready_status
       retries: 100
-      until: var_control_plane_ready_status.stdout.find(" Ready") != -1
+      until: var_control_plane_ready_status.stdout.find("Ready") != -1
       delay: 5
 
-    - name: Get latest version information of k8s csi-smb-driver from github API
-      uri:
-        url: https://api.github.com/repos/kubernetes-csi/csi-driver-smb/releases/latest
-        return_content: true
-      register: var_csi_driver_smb_release
-
-    - set_fact:
-        var_csi_driver_smb_latest_version: "{{ var_csi_driver_smb_release.json.tag_name }}"
+    - name: K8s cluster control-plane node is Ready
+      shell: kubectl get nodes
+      register: var_nodes_status
 
     - debug:
         msg: |-
-          Latest stable version of k8s csi-driver-smb is {{ var_csi_driver_smb_latest_version }}
-
-    - name: Install CSI SMB drivers by remote from GitHub using kubectl
-      shell: curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/{{ var_csi_driver_smb_latest_version }}/deploy/install-driver.sh | bash -s {{ var_csi_driver_smb_latest_version }} --
+          {{ var_nodes_status.stdout_lines }}
 
     - name: Print join command and store the value to join the worker nodes
       command: sudo kubeadm token create --print-join-command
