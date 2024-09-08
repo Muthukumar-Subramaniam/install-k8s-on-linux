@@ -17,6 +17,7 @@ Also latest versions of below components will be installed,
 * Container runtime used : containerd  
 * Low-level container runtime : runc ( dependency of containerd )  
 * CNI plugin used : calico CNI   
+
 Optional,  
 * k8s CSI drivers : csi-driver-nfs and csi-driver-smb
 
