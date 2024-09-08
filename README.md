@@ -18,7 +18,9 @@ Also latest versions of below components will be installed,
 * Low-level container runtime : runc ( dependency of containerd )  
 * CNI plugin used : calico CNI   
 * Optionally you can also install,  
-  * k8s CSI drivers : csi-driver-nfs and csi-driver-smb
+  * k8s CSI drivers :
+    * csi-driver-nfs  
+    * csi-driver-smb
 
 
 If you don't have a machine with ansible already installed, please do install it.  
