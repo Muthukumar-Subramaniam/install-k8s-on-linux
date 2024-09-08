@@ -1,4 +1,4 @@
-##Version : v2.0.0
+##Version : v2.0.1
 [k8s_cluster_ctrl_plane_node]
 prod-k8s-cp1.ms.local
 

@@ -1,4 +1,4 @@
-##Version : v2.0.0
+##Version : v2.0.1
 - name: Upgrade system packages of all the cluster nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes 
   become: true
