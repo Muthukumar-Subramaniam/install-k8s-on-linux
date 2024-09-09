@@ -1,0 +1,300 @@
+##Version : v2.0.1
+- name: Upgrade system packages of all the cluster nodes
+  become: true
+  block:
+    - name: Upgrade the system packages ( RedHat based systems )
+      when: ansible_os_family == "RedHat"
+      dnf:
+        update_cache: true
+        name: "*"
+        state: latest
+
+    - name: Upgrade the system packages ( Debian based systems )
+      when: ansible_os_family == "Debian"
+      apt:
+        update_cache: true
+        upgrade: full
+  
+    - name: Upgrade the system package ( Suse based systems )
+      when: ansible_os_family == "Suse"
+      zypper:
+        update_cache: true
+        name: "*"
+        state: latest
+
+- name: Disable swap memory
+  become: true
+  block:
+    - name: Turn off swap if active
+      command: swapoff -a
+
+    - name: Remove swap entry from fstab
+      lineinfile:
+        backup: true
+        dest: /etc/fstab
+        regexp: '^.* swap .*$'
+        state: absent
+
+
+###Task to Load required kernel modules and kernel parameters
+- name: Load required kernel modules and kernel parameters
+  become: true
+  block:
+    - name: Load overlay kernel module
+      modprobe:
+        name: overlay
+        state: present
+
+    - name: Load br_netfilter kernel module
+      modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent
+      blockinfile:
+        create: true
+        path: /etc/modules-load.d/k8s.conf
+        block: |
+          overlay
+          br_netfilter
+        state: present
+
+    - name: Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent
+      blockinfile:
+        create: true
+        path: /etc/sysctl.d/k8s.conf
+        block: |
+          net.ipv4.ip_forward = 1
+          net.bridge.bridge-nf-call-iptables = 1
+          net.bridge.bridge-nf-call-ip6tables = 1
+        state: present
+
+    - name: Re-load the system kernel parameters
+      command: sysctl --system
+
+
+###Task to Install and configure latest version of containered using official binaries
+- name: Install and configure latest version of containered using official binaries
+  become: true
+  block:
+    - name: Create {{ var_containerd_temp_dir }} to download the containerd binary
+      file:
+        path: "{{ var_containerd_temp_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: Download tarball of containerd binary from their official GitHub repo
+      get_url:
+        url: https://github.com/containerd/containerd/releases/download/{{ var_containerd_latest_version }}/containerd-{{ var_containerd_latest_version | regex_replace('v', '') }}-linux-amd64.tar.gz
+        dest: "{{ var_containerd_temp_dir }}/containerd.tar.gz"
+
+    - name: Extract containerd bin under /usr/local
+      unarchive:
+        remote_src: true
+        src: "{{ var_containerd_temp_dir }}/containerd.tar.gz"
+        dest: /usr/local 
+
+    - name: Clean up {{ var_containerd_temp_dir }}
+      file:
+        path: "{{ var_containerd_temp_dir }}"
+        state: absent
+
+    - name: Create containerd configuration directory /etc/containerd
+      file:
+        path: /etc/containerd
+        state: directory
+        mode: 0755
+
+    - name: Create /etc/containerd/config.toml
+      file:
+        path: /etc/containerd/config.toml
+        state: touch
+
+    - name: Generate containerd config and write it to /etc/containerd/config.toml
+      become: false
+      shell: containerd config default | sudo tee /etc/containerd/config.toml
+
+    - name: Set SystemdCgroup as true in /etc/containerd/config.toml
+      replace:  
+        path: /etc/containerd/config.toml
+        regexp: 'SystemdCgroup = false'
+        replace: 'SystemdCgroup = true'
+
+    - name: Verify SystemdCgroup setting
+      command: grep 'SystemdCgroup' /etc/containerd/config.toml
+      register: var_SystemdCgroup_output
+
+    - debug:
+        msg: |-
+          {{ var_SystemdCgroup_output.stdout_lines }}
+
+    - name: Download containerd.service file from GitHub
+      get_url:
+        url: "https://raw.githubusercontent.com/containerd/containerd/main/containerd.service"
+        dest: /etc/systemd/system/containerd.service
+
+    - name: Reload systemd daemon
+      systemd:
+        name: daemon-reload
+
+    - name: Enable and start containerd.service
+      systemd:
+        name: containerd.service
+        enabled: yes
+        state: started
+
+    - name: Verify status of containerd service
+      command: systemctl is-active containerd
+      register: containerd_service_info
+
+    - debug:
+        msg: |-
+          {{ containerd_service_info.stdout_lines }}
+
+    - name: Verify containerd version
+      become: false
+      command: containerd --version
+      register: containerd_info
+
+    - debug:
+        msg: |-
+          {{ containerd_info.stdout_lines }}
+
+###Task to Install latest version of runc using official binaries
+- name: Install latest version of runc using official binaries
+  become: true
+  block:
+    - name: Download runc binary and save it as /usr/local/bin/runc
+      get_url:
+        url: "https://github.com/opencontainers/runc/releases/download/{{ var_runc_latest_version }}/runc.amd64"
+        dest: /usr/local/bin/runc
+        mode: 0755
+
+    - name: Verify runc version
+      become: false
+      command: runc --version
+      register: runc_info
+
+    - debug:
+        msg: |-
+          {{ runc_info.stdout_lines }}
+
+###Task to Configure k8s repository to install kubelet, kubeadm and kubectl packages 
+- name: Configure k8s repository to install kubelet, kubeadm and kubectl packages
+  become: true
+  block:
+    - name: Distribution ( RedHat based systems )
+      when: ansible_os_family == "RedHat"
+      block:
+        - name: Add k8s rpm repository
+          yum_repository:
+            description: k8s-{{ var_k8s_version_major_minor }}
+            name: k8s-{{ var_k8s_version_major_minor }}
+            baseurl: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
+            gpgcheck: 1
+            gpgkey: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/repodata/repomd.xml.key
+            enabled: true
+            exclude:
+              - kubelet
+              - kubeadm
+              - kubectl
+            state: present
+
+        - name: Install latest versions of kubelet, kubeadm and kubectl packages
+          dnf:
+            update_cache: true
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            disable_excludes: k8s-{{ var_k8s_version_major_minor }}
+            state: present
+    
+    - name: Distribution ( Debian based systems )
+      when: ansible_os_family == "Debian"
+      block:
+        - name: Add k8s gpg apt-key
+          apt_key:
+            keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg
+            url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/Release.key
+            state: present
+
+        - name: Add k8s deb repository
+          apt_repository:
+            filename: k8s-{{ var_k8s_version_major_minor }}
+            repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/ /
+            state: present
+            update-cache: true
+
+        - name: Install latest versions kubelet, kubeadm and kubectl packages
+          apt:
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            state: present
+
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades
+          command: apt-mark hold kubelet kubeadm kubectl
+
+    - name: Distribution ( Suse based systems )
+      when: ansible_os_family == "Suse"
+      block:
+        - name: Add k8s rpm repository and install kubelet, kubeadm and kubectl packages
+          zypper_repository:
+            description: k8s-{{ var_k8s_version_major_minor }}
+            name: k8s-{{ var_k8s_version_major_minor }}
+            repo: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
+            auto_import_keys: true
+            enabled: true
+            state: present
+
+        - name: Work-around for conntrack dependency issue with kubelet on Suse based systems
+          command: zypper install -y --force-resolution --allow-unsigned-rpm https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm
+
+        - name: Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).
+          zypper:
+            update_cache: true
+            name:
+              - kubelet
+              - kubectl 
+              - kubeadm
+            state: present
+
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades
+          command: zypper addlock kubelet kubeadm kubectl
+
+
+###Task to Enable and start kubelet service                 
+- name: Enable and start kubelet service
+  become: true
+  block:
+    - name: Enable and start kubelet.service
+      systemd:
+        name: kubelet.service
+        enabled: yes
+        state: started
+
+    - name: Check kubelet service status
+      command: systemctl is-enabled kubelet
+      register: kubelet_service_info
+
+    - debug:
+        msg: |-
+          {{ kubelet_service_info.stdout_lines }}
+
+
+###Task to Reboot all the systems for some upgrades and configuration changes to take effect
+- name: Reboot all the systems for some upgrades and configuration changes to take effect
+  become: true
+  block:
+    - name: Reboot executed and waiting for nodes to come online
+      reboot:
+        msg: Reboot initiated by Ansible Host
+        connect_timeout: 30
+        post_reboot_delay: 60
+        reboot_command: reboot
+        reboot_timeout: 600
+        test_command: whoami && systemctl is-active containerd
+
+################################# EOF ########################################

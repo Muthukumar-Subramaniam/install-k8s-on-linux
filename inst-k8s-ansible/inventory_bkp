@@ -1,10 +1,10 @@
 ##Version : v2.0.1
 [k8s_cluster_ctrl_plane_node]
+#Add the hostname of your control plane below
 test-k8s-cp1.ms.local
 
+
 [k8s_cluster_worker_nodes]
+#Add hostnames of all your worker nodes below
 test-k8s-n1.ms.local
 test-k8s-n2.ms.local
-
-[k8s_cluster_ctrl_plane_node:vars]
-var_k8s_pod_network_cidr=10.8.0.0/16

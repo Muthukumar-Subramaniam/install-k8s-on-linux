@@ -1,0 +1,13 @@
+##Version : v2.0.1
+###Role to Register worker nodes with the k8s cluster with kubeadm join command
+- name: Register worker nodes with the k8s cluster with kubeadm join command
+  become: true
+  tasks:
+    - name: Copy join command from Ansibl Host to the worker nodes
+      copy:
+        src: {{ var_k8s_join_command_temp_script }}
+        dest: {{ var_k8s_join_command_temp_script }}
+        mode: 0755
+
+    - name: Join the worker nodes with k8s cluster
+      command: sh {{ var_k8s_join_command_temp_script }}

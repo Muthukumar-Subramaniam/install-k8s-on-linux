@@ -1,0 +1,96 @@
+##Version : v2.0.1
+###Role to Install and configure k8s cluster on control plane node using kubeadm
+- name: Install and configure k8s cluster on control plane node using kubeadm
+  become: false
+  tasks:
+    - name: Wait until k8s core images required for cluster creation are pulled
+      command: sudo kubeadm config images pull
+
+    - name: Create k8s cluster using kubeadm init
+      command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
+
+    - name: Copy /etc/kubernetes/admin.conf to ~/.kube 
+      shell: |
+        mkdir -p /home/{{ ansible_user }}/.kube
+        sudo cp -p /etc/kubernetes/admin.conf /home/{{ ansible_user }}/.kube/config
+        sudo chown $(id -u {{ ansible_user }}):$(id -g {{ ansible_user }}) /home/{{ ansible_user }}/.kube/config
+
+    - name: Wait for Kubernetes API server to be healthy
+      shell: curl -skL https://localhost:6443/healthz
+      register: var_api_server_health_status
+      until: var_api_server_health_status.stdout.find("ok") != -1
+      retries: 100
+      delay: 5
+
+    - name: Get latest version information of calico CNI from github API
+      uri:
+        url: https://api.github.com/repos/projectcalico/calico/releases/latest
+        return_content: true
+      register: var_calico_release
+
+    - set_fact:
+        var_calico_latest_version: "{{ var_calico_release.json.tag_name }}"
+
+    - debug:
+        msg: |-
+          Latest stable version to be installed of calico CNI is {{ var_calico_latest_version }}
+
+    - name: Applying calico CNI manifest using from GitHub 
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
+
+    - name: Wait for control-plane to get Ready
+      shell: kubectl get nodes | grep -w " Ready "
+      register: var_control_plane_ready_status
+      retries: 100
+      until: var_control_plane_ready_status.stdout.find("Ready") != -1
+      delay: 5
+
+    - name: K8s cluster control-plane node is Ready
+      shell: kubectl get nodes
+      register: var_nodes_status
+
+    - debug:
+        msg: |-
+          {{ var_nodes_status.stdout_lines }}
+    
+    - name: Print join command and store the value to join the worker nodes
+      command: sudo kubeadm token create --print-join-command
+      register: var_kubeadm_join_command
+
+    - debug:
+        msg: |-
+          {{ var_kubeadm_join_command.stdout_lines }}
+
+    - name: Copy join command as {{ var_k8s_join_command_temp_script }} to Ansible Host
+      become: true
+      local_action: shell echo "{{ var_kubeadm_join_command.stdout_lines[0] }}" > {{ var_k8s_join_command_temp_script }}
+
+############################## EOF ################################
+
+    - name: Successfully completed installation of k8s cluster with single control plane node and worker nodes provided
+      become: false
+      block:
+        - name: worker nodes have already joinded the cluster, will be Ready in few minutes
+          shell: kubectl get nodes
+          register: var_nodes_status
+
+        - debug:
+            msg: |-
+              {{ var_nodes_status.stdout_lines }}
+
+        - name: Wait for all worker nodes to get Ready
+          shell: kubectl get nodes | grep -w "NotReady" | wc -l
+          register: var_number_of_nodes_not_ready
+          until: var_number_of_nodes_not_ready.stdout.find("0") != -1
+          retries: 100
+          delay: 5
+
+        - name: k8s cluster nodes are Ready
+          shell: kubectl get nodes
+          register: var_nodes_status
+
+        - debug:
+            msg: |-
+              {{ var_nodes_status.stdout_lines }}
+
+########################### EOF ##########################################
