@@ -67,7 +67,8 @@ ansible-playbook optional-k8s-csi-smb-driver.yaml
 
 Sample Execution Result of ansible-playbook inst-k8s-ansible.yaml :    
 
-<img width="719" alt="sample-output-execution-results" src="https://github.com/user-attachments/assets/77014e4c-8c4e-471d-b62d-bd09231ed77f">
+![sample-output-execution-results](https://github.com/user-attachments/assets/a4a50841-4407-4c21-943c-0828dce76225)
+
 
 
 kind note:  
