@@ -1,4 +1,4 @@
-##Version : v2.0.1
+##Version : v2.0.2
 ### Role to check the k8s cluster Ready status
 - name: Successfully completed installation of k8s cluster with single control plane node and worker nodes provided
   become: false

@@ -1,4 +1,4 @@
-##Version : v2.0.1
+##Version : v2.0.2
 - name: Upgrade system packages of all the cluster nodes
   become: true
   block:
@@ -186,7 +186,7 @@
     - name: Distribution ( RedHat based systems )
       when: ansible_os_family == "RedHat"
       block:
-        - name: Add k8s rpm repository
+        - name: Add k8s rpm repository ( RedHat based systems )
           yum_repository:
             description: k8s-{{ var_k8s_version_major_minor }}
             name: k8s-{{ var_k8s_version_major_minor }}
@@ -200,7 +200,7 @@
               - kubectl
             state: present
 
-        - name: Install latest versions of kubelet, kubeadm and kubectl packages
+        - name: Install kubelet, kubeadm and kubectl packages ( RedHat based systems )
           dnf:
             update_cache: true
             name:
@@ -219,14 +219,14 @@
             url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/Release.key
             state: present
 
-        - name: Add k8s deb repository
+        - name: Add k8s deb repository ( Debian based systems )
           apt_repository:
             filename: k8s-{{ var_k8s_version_major_minor }}
             repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/ /
             state: present
             update-cache: true
 
-        - name: Install latest versions kubelet, kubeadm and kubectl packages
+        - name: Install kubelet, kubeadm and kubectl packages ( Debian based systems )
           apt:
             name:
               - kubelet
@@ -234,13 +234,13 @@
               - kubeadm
             state: present
 
-        - name: Lock kubelet, kubeadm and kubectl packages from upgrades
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )
           command: apt-mark hold kubelet kubeadm kubectl
 
     - name: Distribution ( Suse based systems )
       when: ansible_os_family == "Suse"
       block:
-        - name: Add k8s rpm repository and install kubelet, kubeadm and kubectl packages
+        - name: Add k8s rpm repository ( Suse based systems )
           zypper_repository:
             description: k8s-{{ var_k8s_version_major_minor }}
             name: k8s-{{ var_k8s_version_major_minor }}
@@ -249,10 +249,10 @@
             enabled: true
             state: present
 
-        - name: Work-around for conntrack dependency issue with kubelet on Suse based systems
+        - name: Work-around for conntrack dependency issue with kubelet ( Suse based systems )
           command: zypper install -y --force-resolution --allow-unsigned-rpm https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm
 
-        - name: Install latest versions of kubelet, kubeadm and kubectl packages ( Suse based systems ).
+        - name: Install kubelet, kubeadm and kubectl packages ( Suse based systems )
           zypper:
             update_cache: true
             name:
@@ -261,7 +261,7 @@
               - kubeadm
             state: present
 
-        - name: Lock kubelet, kubeadm and kubectl packages from upgrades
+        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )
           command: zypper addlock kubelet kubeadm kubectl
 
 

@@ -1,4 +1,4 @@
-##Version : v2.0.1
+##Version : v2.0.2
 [k8s_cluster_ctrl_plane_node]
 #Add the hostname of your control plane below
 test-k8s-cp1.ms.local

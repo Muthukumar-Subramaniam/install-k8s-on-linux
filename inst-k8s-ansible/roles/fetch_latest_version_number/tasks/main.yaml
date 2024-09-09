@@ -1,4 +1,4 @@
-##Version : v2.0.1
+##Version : v2.0.2
 ### Role to Fetch latest version of software components to be installed from GitHub API
 - name: Get latest version information of containerd
   uri:
@@ -27,6 +27,7 @@
     msg: |-
       Latest stable version to be installed of runc is {{ var_runc_latest_version }}
 
+
 - name: Get latest version information of kubernetes
   uri:
     url: https://api.github.com/repos/kubernetes/kubernetes/releases/latest
@@ -36,11 +37,11 @@
 - set_fact:
     var_k8s_latest_version: "{{ var_k8s_release.json.tag_name }}"
 
-- set_fact:
+- set_fact:      
     var_k8s_version_major_minor: "{{ var_k8s_latest_version | regex_replace('.[0-9]+$', '') }}"
 
 - debug:
     msg: |-
       Latest stable version to be installed of kubernetes is {{ var_k8s_latest_version }}
-    
+
 ################################## EOF ###############################

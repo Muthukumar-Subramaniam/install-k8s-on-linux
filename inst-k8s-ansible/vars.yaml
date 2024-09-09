@@ -1,10 +1,8 @@
-##Version : v2.0.1
-
+##Version : v2.0.2
 var_containerd_temp_dir: "/tmp/containerd"
 var_k8s_join_command_temp_script: "/tmp/kubernetes_join_command.sh"
 
 ##Change the below username as per your setup
-remote_user: "muthuks"
-
+ansible_user: "muthuks"
 ###Update the below pod network CIDR as per your requirement
 var_k8s_pod_network_cidr: "10.8.0.0/16"

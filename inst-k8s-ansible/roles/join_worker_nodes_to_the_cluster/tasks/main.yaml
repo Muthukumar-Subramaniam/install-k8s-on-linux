@@ -1,4 +1,4 @@
-##Version : v2.0.1
+##Version : v2.0.2
 ###Role to Register worker nodes with the k8s cluster with kubeadm join command
 - name: Register worker nodes with the k8s cluster with kubeadm join command
   become: true
