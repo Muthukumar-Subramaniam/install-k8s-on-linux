@@ -18,20 +18,7 @@
   retries: 100
   delay: 5
 
-- name: Get latest version information of calico CNI from github API
-  uri:
-    url: https://api.github.com/repos/projectcalico/calico/releases/latest
-    return_content: true
-  register: var_calico_release
-
-- set_fact:
-    var_calico_latest_version: "{{ var_calico_release.json.tag_name }}"
-
-- debug:
-    msg: |-
-      Latest stable version to be installed of calico CNI is {{ var_calico_latest_version }}
-
-- name: Applying calico CNI manifest using from GitHub 
+- name: Applying latest calico CNI  ( {{ var_calico_latest_version }} ) manifest using from GitHub 
   shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
 
 - name: Wait for control-plane to get Ready

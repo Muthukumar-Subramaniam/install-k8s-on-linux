@@ -5,7 +5,6 @@
   roles:
     - name: Fetch latest version of software components to be installed from GitHub API
       role: fetch_latest_version_number 
-      delegate_to: localhost
 
     - name: Prepare all the nodes for k8s cluster installation   
       role: prepare_all_the_cluster_nodes 
@@ -14,10 +13,12 @@
       role: install_and_configure_the_cluster
       when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
 
-        #    - role: join_worker_nodes_to_the_cluster
-        #      when: ( 'k8s_cluster_worker_nodes' in group_names)
+    - name: Join worker nodes with the k8s cluster
+      role: join_worker_nodes_to_the_cluster
+      when: ( 'k8s_cluster_worker_nodes' in group_names)
 
-        #    - role: check_cluster_ready_status
-        #      when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
+    - name: Check k8s cluster Ready status
+      role: check_cluster_ready_status
+      when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
 
 ########################### EOF ##########################################

@@ -1,8 +1,9 @@
 ##Version : v2.0.2
+local-ansible-control-host ansible_host=localhost ansible_connection=local
+
 [k8s_cluster_ctrl_plane_node]
-#Add the hostname of your control plane below
-prod-vm1.ms.local
+dhjbede
+jcb
 
 [k8s_cluster_worker_nodes]
-#Add hostnames of all your worker nodes below
-prod-vm2.ms.local
+hbhebde

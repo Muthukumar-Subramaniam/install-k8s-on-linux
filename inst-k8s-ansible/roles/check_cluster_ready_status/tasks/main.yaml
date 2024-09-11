@@ -1,29 +1,26 @@
 ##Version : v2.0.2
 ### Role to check the k8s cluster Ready status
-- name: Successfully completed installation of k8s cluster with single control plane node and worker nodes provided
-  become: false
-  tasks:
-    - name: worker nodes have already joinded the cluster, will be Ready in few minutes
-      shell: kubectl get nodes
-      register: var_nodes_status
+- name: worker nodes have already joinded the cluster, will be Ready in few minutes
+  shell: kubectl get nodes
+  register: var_nodes_status
 
-    - debug:
-        msg: |-
-          {{ var_nodes_status.stdout_lines }}
+- debug:
+    msg: |-
+      {{ var_nodes_status.stdout_lines }}
 
-    - name: Wait for all worker nodes to get Ready
-      shell: kubectl get nodes | grep -w "NotReady" | wc -l
-      register: var_number_of_nodes_not_ready
-      until: var_number_of_nodes_not_ready.stdout.find("0") != -1
-      retries: 100
-      delay: 5
+- name: Wait for all worker nodes to get Ready
+  shell: kubectl get nodes | grep -w "NotReady" | wc -l
+  register: var_number_of_nodes_not_ready
+  until: var_number_of_nodes_not_ready.stdout.find("0") != -1
+  retries: 100
+  delay: 5
 
-    - name: k8s cluster nodes are Ready
-      shell: kubectl get nodes
-      register: var_nodes_status
+- name: k8s cluster nodes are Ready
+  shell: kubectl get nodes
+  register: var_nodes_status
 
-    - debug:
-        msg: |-
-          {{ var_nodes_status.stdout_lines }}
+- debug:
+    msg: |-
+      {{ var_nodes_status.stdout_lines }}
 
 ########################### EOF ##########################################

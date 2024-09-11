@@ -2244,3 +2244,1724 @@ The offending line appears to be:
 2024-09-09 23:39:13,467 p=19016 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
 2024-09-09 23:39:13,468 p=19016 u=muthuks n=ansible | prod-vm1.ms.local          : ok=59   changed=23   unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
 2024-09-09 23:39:13,468 p=19016 u=muthuks n=ansible | prod-vm2.ms.local          : ok=47   changed=15   unreachable=0    failed=0    skipped=22   rescued=0    ignored=0   
+2024-09-10 12:21:21,833 p=5002 u=muthuks n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/fetch_latest_version_number/tasks/main.yaml': line 14, column 8, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  run_once: true
+    msg: |-
+       ^ here
+
+2024-09-10 12:23:49,520 p=5085 u=muthuks n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/fetch_latest_version_number/tasks/main.yaml': line 29, column 8, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  run_once: true
+    msg: |-
+       ^ here
+
+2024-09-10 12:25:51,688 p=5133 u=muthuks n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/main.yaml': line 103, column 43, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+      copy:
+        src: {{ var_containerd_temp_dir }}/containerd.tar.gz
+                                          ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2024-09-10 13:51:04,023 p=5564 u=muthuks n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  found unacceptable key (unhashable type: 'AnsibleMapping')
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/join_worker_nodes_to_the_cluster/tasks/main.yaml': line 5, column 11, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  copy:
+    src: {{ var_k8s_join_command_temp_script }}
+          ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2024-09-10 13:53:49,342 p=5694 u=muthuks n=ansible | ERROR! unexpected parameter type in action: <class 'bool'>
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/join_worker_nodes_to_the_cluster/tasks/main.yaml': line 9, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: Join the worker nodes with k8s cluster
+  ^ here
+
+2024-09-10 13:54:53,446 p=5723 u=muthuks n=ansible | ERROR! unexpected parameter type in action: <class 'bool'>
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/join_worker_nodes_to_the_cluster/tasks/main.yaml': line 9, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: Join the worker nodes with k8s cluster
+  ^ here
+
+2024-09-10 13:55:59,351 p=5835 u=muthuks n=ansible | ERROR! unexpected parameter type in action: <class 'bool'>
+
+The error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/join_worker_nodes_to_the_cluster/tasks/main.yaml': line 9, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: Join the worker nodes with k8s cluster
+  ^ here
+
+2024-09-10 13:57:36,300 p=5870 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ****************************************************************************************
+2024-09-10 13:57:36,336 p=5870 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-10 13:57:40,308 p=5870 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 13:57:40,544 p=5870 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 13:57:40,947 p=5870 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 13:57:41,022 p=5870 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] ***********************************************
+2024-09-10 13:57:41,116 p=5870 u=muthuks n=ansible | fatal: [test-k8s-cp1.ms.local -> local-ansible-control-host]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname local-ansible-control-host: Name or service not known", "unreachable": true}
+2024-09-10 13:57:41,118 p=5870 u=muthuks n=ansible | NO MORE HOSTS LEFT **************************************************************************************************************
+2024-09-10 13:57:41,120 p=5870 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-10 13:57:41,120 p=5870 u=muthuks n=ansible | test-k8s-cp1.ms.local      : ok=1    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-09-10 13:57:41,121 p=5870 u=muthuks n=ansible | test-k8s-n1.ms.local       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-09-10 13:57:41,121 p=5870 u=muthuks n=ansible | test-k8s-n2.ms.local       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-09-10 14:00:50,378 p=6047 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ****************************************************************************************
+2024-09-10 14:00:50,403 p=6047 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-10 14:00:52,304 p=6047 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:00:52,376 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:00:52,389 p=6047 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:00:52,455 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] ***********************************************
+2024-09-10 14:00:55,102 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:00:55,122 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 14:00:55,151 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.22"
+}
+2024-09-10 14:00:55,164 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of runc] *****************************************************
+2024-09-10 14:00:56,200 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:00:56,215 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 14:00:56,246 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-10 14:00:56,258 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of kubernetes] ***********************************************
+2024-09-10 14:00:57,244 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:00:57,258 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 14:00:57,286 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-10 14:00:57,299 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of calico CNI] ***********************************************
+2024-09-10 14:00:58,279 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:00:58,297 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 14:00:58,331 p=6047 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-10 14:00:58,344 p=6047 u=muthuks n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] *************************
+2024-09-10 14:00:58,418 p=6047 u=muthuks n=ansible | fatal: [test-k8s-cp1.ms.local]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'var_k8s_latest_version' is undefined. 'var_k8s_latest_version' is undefined\n\nThe error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/fetch_latest_version_number/tasks/main.yaml': line 61, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: Set captured version information as global variables for all nodes\n  ^ here\n"}
+2024-09-10 14:00:58,434 p=6047 u=muthuks n=ansible | fatal: [test-k8s-n1.ms.local]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'var_k8s_latest_version' is undefined. 'var_k8s_latest_version' is undefined\n\nThe error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/fetch_latest_version_number/tasks/main.yaml': line 61, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: Set captured version information as global variables for all nodes\n  ^ here\n"}
+2024-09-10 14:00:58,482 p=6047 u=muthuks n=ansible | fatal: [test-k8s-n2.ms.local]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'var_k8s_latest_version' is undefined. 'var_k8s_latest_version' is undefined\n\nThe error appears to be in '/scripts_by_muthu/install-k8s-on-linux/inst-k8s-ansible/roles/fetch_latest_version_number/tasks/main.yaml': line 61, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: Set captured version information as global variables for all nodes\n  ^ here\n"}
+2024-09-10 14:00:58,483 p=6047 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-10 14:00:58,484 p=6047 u=muthuks n=ansible | test-k8s-cp1.ms.local      : ok=9    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-09-10 14:00:58,484 p=6047 u=muthuks n=ansible | test-k8s-n1.ms.local       : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-09-10 14:00:58,484 p=6047 u=muthuks n=ansible | test-k8s-n2.ms.local       : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-09-10 14:03:47,949 p=6252 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ***************************************************************************************************************
+2024-09-10 14:03:47,974 p=6252 u=muthuks n=ansible | TASK [Gathering Facts] *********************************************************************************************************************************
+2024-09-10 14:03:49,791 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:03:49,845 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:03:50,679 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:03:50,745 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] **********************************************************************
+2024-09-10 14:03:52,002 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:03:52,020 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:03:52,050 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.22"
+}
+2024-09-10 14:03:52,063 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of runc] ****************************************************************************
+2024-09-10 14:03:53,078 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:03:53,092 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:03:53,121 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-10 14:03:53,131 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of kubernetes] **********************************************************************
+2024-09-10 14:03:54,066 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:03:54,077 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:03:54,109 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-10 14:03:54,123 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of calico CNI] **********************************************************************
+2024-09-10 14:03:55,114 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:03:55,151 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:03:55,186 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-10 14:03:55,197 p=6252 u=muthuks n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] ************************************************
+2024-09-10 14:03:55,249 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:03:55,272 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:03:55,293 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:03:55,336 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( RedHat based systems )] ************************************************************
+2024-09-10 14:03:55,399 p=6252 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:03:55,407 p=6252 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:04:05,294 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:04:05,309 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( Debian based systems )] ************************************************************
+2024-09-10 14:04:05,336 p=6252 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:04:05,373 p=6252 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:04:16,864 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:04:16,880 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system package ( Suse based systems )] ***************************************************************
+2024-09-10 14:04:16,905 p=6252 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:04:16,924 p=6252 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:05:07,366 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:07,386 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Turn off swap if active] *****************************************************************************************
+2024-09-10 14:05:08,153 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:08,280 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:08,314 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:08,323 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Remove swap entry from fstab] ************************************************************************************
+2024-09-10 14:05:09,062 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:05:09,155 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:09,246 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:05:09,259 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load overlay kernel module] **************************************************************************************
+2024-09-10 14:05:10,109 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:10,171 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:10,275 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:10,289 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load br_netfilter kernel module] *********************************************************************************
+2024-09-10 14:05:11,031 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:11,149 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:11,371 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:11,388 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] *******************************
+2024-09-10 14:05:12,378 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:12,521 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:12,639 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:12,660 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] ****************************
+2024-09-10 14:05:13,418 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:13,639 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:13,838 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:13,858 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Re-load the system kernel parameters] ****************************************************************************
+2024-09-10 14:05:14,584 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:14,806 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:14,997 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:15,018 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download binary tarball of latest containerd ( v1.7.22 ) to local-ansible-control-host] **************************
+2024-09-10 14:05:28,280 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:05:28,299 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes] **********************
+2024-09-10 14:05:36,218 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:36,310 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:36,427 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:36,449 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Extract containerd bin under /usr/local] *************************************************************************
+2024-09-10 14:05:43,364 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:43,482 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:43,802 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:43,821 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create containerd configuration directory /etc/containerd] *******************************************************
+2024-09-10 14:05:44,738 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:45,006 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:45,029 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:45,052 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/containerd/config.toml] ******************************************************************************
+2024-09-10 14:05:45,880 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:46,050 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:46,240 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:46,259 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Generate containerd config and write it to /etc/containerd/config.toml] ******************************************
+2024-09-10 14:05:47,109 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:47,428 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:47,445 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:47,462 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Set SystemdCgroup as true in /etc/containerd/config.toml] ********************************************************
+2024-09-10 14:05:48,479 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:48,613 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:48,907 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:48,973 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify SystemdCgroup setting] ************************************************************************************
+2024-09-10 14:05:49,810 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:49,951 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:50,192 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:50,211 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:05:50,245 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:05:50,272 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:05:50,289 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:05:50,302 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download containerd.service file from GitHub] ********************************************************************
+2024-09-10 14:05:51,815 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:51,832 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:51,863 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:51,880 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Reload systemd daemon] *******************************************************************************************
+2024-09-10 14:05:53,332 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:05:53,470 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:53,552 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:05:53,572 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start containerd.service] *****************************************************************************
+2024-09-10 14:05:55,719 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:55,729 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:56,066 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:56,082 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify status of containerd service] *****************************************************************************
+2024-09-10 14:05:56,776 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:57,009 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:57,272 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:57,291 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:05:57,328 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:05:57,353 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:05:57,370 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:05:57,383 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify containerd version] ***************************************************************************************
+2024-09-10 14:05:58,120 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:58,425 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:05:58,496 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:05:58,515 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:05:58,546 p=6252 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:05:58,574 p=6252 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:05:58,590 p=6252 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:05:58,605 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from local-ansible-control-host] ********************************************
+2024-09-10 14:05:58,953 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:05:58,967 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from all nodes] *************************************************************
+2024-09-10 14:05:59,674 p=6252 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:05:59,892 p=6252 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:06:00,078 p=6252 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:06:00,095 p=6252 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download latest runc ( v1.1.14  ) binary to local-ansible-control-host] ******************************************
+2024-09-10 14:06:00,131 p=6252 u=muthuks n=ansible | fatal: [test-k8s-cp1.ms.local -> local-ansible-control-host]: FAILED! => {"msg": "template error while templating string: unexpected '/'. String: {{ /tmp/temp-runc }}. unexpected '/'"}
+2024-09-10 14:06:00,132 p=6252 u=muthuks n=ansible | NO MORE HOSTS LEFT *************************************************************************************************************************************
+2024-09-10 14:06:00,134 p=6252 u=muthuks n=ansible | PLAY RECAP *********************************************************************************************************************************************
+2024-09-10 14:06:00,134 p=6252 u=muthuks n=ansible | test-k8s-cp1.ms.local      : ok=36   changed=20   unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+2024-09-10 14:06:00,135 p=6252 u=muthuks n=ansible | test-k8s-n1.ms.local       : ok=26   changed=18   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+2024-09-10 14:06:00,135 p=6252 u=muthuks n=ansible | test-k8s-n2.ms.local       : ok=26   changed=19   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+2024-09-10 14:10:18,485 p=7169 u=muthuks n=ansible | ERROR! the playbook: --start-at-tast=Install latest version of runc using official binaries could not be found
+2024-09-10 14:10:50,439 p=7185 u=muthuks n=ansible | ERROR! the playbook: --start-task-at=Install latest version of runc using official binaries could not be found
+2024-09-10 14:11:06,636 p=7199 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ***************************************************************************************************************
+2024-09-10 14:11:06,672 p=7199 u=muthuks n=ansible | PLAY RECAP *********************************************************************************************************************************************
+2024-09-10 14:11:06,673 p=7199 u=muthuks n=ansible |  [ERROR]: No matching task "Install latest version of runc using official binaries" found. Note: --start-at-task can only follow static includes.
+
+2024-09-10 14:12:12,050 p=7224 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ***************************************************************************************************************
+2024-09-10 14:12:12,075 p=7224 u=muthuks n=ansible | TASK [Gathering Facts] *********************************************************************************************************************************
+2024-09-10 14:12:13,941 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:12:13,957 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:12:14,043 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:12:14,109 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] **********************************************************************
+2024-09-10 14:12:15,433 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:12:15,451 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:12:15,483 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.22"
+}
+2024-09-10 14:12:15,494 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of runc] ****************************************************************************
+2024-09-10 14:12:16,498 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:12:16,513 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:12:16,542 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-10 14:12:16,555 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of kubernetes] **********************************************************************
+2024-09-10 14:12:17,551 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:12:17,565 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:12:17,592 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-10 14:12:17,604 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of calico CNI] **********************************************************************
+2024-09-10 14:12:18,901 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:12:18,920 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] *************************************************************************************************************
+2024-09-10 14:12:18,948 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-10 14:12:18,960 p=7224 u=muthuks n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] ************************************************
+2024-09-10 14:12:19,024 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:12:19,040 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:12:19,067 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:12:19,107 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( RedHat based systems )] ************************************************************
+2024-09-10 14:12:19,165 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:12:19,176 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:12:25,026 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:12:25,042 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( Debian based systems )] ************************************************************
+2024-09-10 14:12:25,065 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:12:25,100 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:14:52,212 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:14:52,228 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system package ( Suse based systems )] ***************************************************************
+2024-09-10 14:14:52,253 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:14:52,272 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:15:01,724 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:01,741 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Turn off swap if active] *****************************************************************************************
+2024-09-10 14:15:02,696 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:02,701 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:02,775 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:02,792 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Remove swap entry from fstab] ************************************************************************************
+2024-09-10 14:15:03,880 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:03,890 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:04,070 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:04,090 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load overlay kernel module] **************************************************************************************
+2024-09-10 14:15:05,062 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:05,208 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:05,326 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:05,345 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load br_netfilter kernel module] *********************************************************************************
+2024-09-10 14:15:06,081 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:06,274 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:06,512 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:06,530 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] *******************************
+2024-09-10 14:15:07,757 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:07,865 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:07,980 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:07,998 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] ****************************
+2024-09-10 14:15:08,741 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:08,972 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:09,209 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:09,227 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Re-load the system kernel parameters] ****************************************************************************
+2024-09-10 14:15:10,011 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:10,179 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:10,384 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:10,408 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download binary tarball of latest containerd ( v1.7.22 ) to local-ansible-control-host] **************************
+2024-09-10 14:15:27,895 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:15:27,912 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes] **********************
+2024-09-10 14:15:35,213 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:35,333 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:35,683 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:35,702 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Extract containerd bin under /usr/local] *************************************************************************
+2024-09-10 14:15:40,647 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:40,896 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:42,282 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:42,300 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create containerd configuration directory /etc/containerd] *******************************************************
+2024-09-10 14:15:43,233 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:43,374 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:43,508 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:43,527 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/containerd/config.toml] ******************************************************************************
+2024-09-10 14:15:44,252 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:44,456 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:44,723 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:44,739 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Generate containerd config and write it to /etc/containerd/config.toml] ******************************************
+2024-09-10 14:15:45,575 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:45,710 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:45,920 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:45,939 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Set SystemdCgroup as true in /etc/containerd/config.toml] ********************************************************
+2024-09-10 14:15:46,857 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:46,976 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:47,091 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:47,108 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify SystemdCgroup setting] ************************************************************************************
+2024-09-10 14:15:47,887 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:48,037 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:48,248 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:48,264 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:15:48,295 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:15:48,317 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:15:48,335 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 14:15:48,349 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download containerd.service file from GitHub] ********************************************************************
+2024-09-10 14:15:50,011 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:50,027 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:50,052 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:50,067 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Reload systemd daemon] *******************************************************************************************
+2024-09-10 14:15:51,516 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:51,549 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:51,723 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:51,743 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start containerd.service] *****************************************************************************
+2024-09-10 14:15:52,854 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 14:15:53,023 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:53,252 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 14:15:53,269 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify status of containerd service] *****************************************************************************
+2024-09-10 14:15:53,981 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:54,224 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:54,418 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:54,437 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:15:54,474 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:15:54,498 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:15:54,514 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 14:15:54,528 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify containerd version] ***************************************************************************************
+2024-09-10 14:15:55,269 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:55,463 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:55,656 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:55,674 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:15:55,712 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:15:55,735 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:15:55,751 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 14:15:55,767 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from local-ansible-control-host] ********************************************
+2024-09-10 14:15:56,092 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:15:56,105 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from all nodes] *************************************************************
+2024-09-10 14:15:56,819 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:15:57,030 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:15:57,258 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:15:57,275 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download latest runc ( v1.1.14  ) binary to local-ansible-control-host] ******************************************
+2024-09-10 14:16:03,102 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:16:03,120 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded runc binary from local-ansible-control-host to /usr/local/bin/runc of cluster node] **************
+2024-09-10 14:16:05,675 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:16:06,242 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:06,486 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:16:06,503 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify runc version] *********************************************************************************************
+2024-09-10 14:16:07,184 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:16:07,400 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:07,610 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:16:07,626 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:16:07,656 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 14:16:07,680 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 14:16:07,698 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 14:16:07,714 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-runc from local-ansible-control-host] *********************************************************
+2024-09-10 14:16:08,046 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 14:16:08,058 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s rpm repository ( RedHat based systems )] *****************************************************************
+2024-09-10 14:16:08,123 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:16:08,135 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:16:08,867 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:08,884 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( RedHat based systems )] ******************************************
+2024-09-10 14:16:08,945 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:16:08,962 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:16:43,884 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:43,901 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s gpg apt-key] *********************************************************************************************
+2024-09-10 14:16:43,926 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:43,965 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:16:45,812 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:16:45,828 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s deb repository ( Debian based systems )] *****************************************************************
+2024-09-10 14:16:45,854 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:45,963 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:16:51,413 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:16:51,429 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( Debian based systems )] ******************************************
+2024-09-10 14:16:51,453 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:16:51,489 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:17:25,995 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:17:26,013 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )] *******************************
+2024-09-10 14:17:26,045 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:17:26,094 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:17:26,566 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:17:26,580 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s rpm repository ( Suse based systems )] *******************************************************************
+2024-09-10 14:17:26,613 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:17:26,636 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:17:32,136 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:17:32,152 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Work-around for conntrack dependency issue with kubelet ( Suse based systems )] **********************************
+2024-09-10 14:17:32,178 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:17:32,198 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:17:39,735 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:17:39,753 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( Suse based systems )] ********************************************
+2024-09-10 14:17:39,779 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:17:39,801 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:18:23,104 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:18:23,128 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )] *********************************
+2024-09-10 14:18:23,155 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:18:23,176 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:18:23,904 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:18:23,916 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start kubelet.service] ********************************************************************************
+2024-09-10 14:18:25,163 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:18:26,068 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:18:27,662 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:18:27,802 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Check kubelet service status] ************************************************************************************
+2024-09-10 14:18:29,456 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:18:29,616 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:18:29,886 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:18:29,917 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ***********************************************************************************************************
+2024-09-10 14:18:29,965 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 14:18:30,000 p=7224 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 14:18:30,021 p=7224 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 14:18:30,044 p=7224 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Reboot executed and waiting for nodes to come online] ************************************************************
+2024-09-10 14:19:34,616 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:19:35,079 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:19:35,139 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:19:35,243 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait until k8s core images required for cluster creation are pulled] *****************************************
+2024-09-10 14:19:35,371 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:19:35,401 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:21:10,556 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:21:10,580 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Create k8s cluster using kubeadm init] ***********************************************************************
+2024-09-10 14:21:10,670 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:21:10,683 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:21:34,379 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:21:34,398 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Copy /etc/kubernetes/admin.conf to ~/.kube] ******************************************************************
+2024-09-10 14:21:34,467 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:21:34,485 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:21:35,328 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:21:35,351 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait for Kubernetes API server to be healthy] ****************************************************************
+2024-09-10 14:21:35,442 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:21:35,461 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:21:36,328 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:21:36,344 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Applying latest calico CNI  ( v3.28.1 ) manifest using from GitHub] ******************************************
+2024-09-10 14:21:36,416 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:21:36,438 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:21:42,831 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:21:42,854 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait for control-plane to get Ready] *************************************************************************
+2024-09-10 14:21:42,936 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:21:42,951 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:20,715 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:20,739 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : K8s cluster control-plane node is Ready] *********************************************************************
+2024-09-10 14:22:20,848 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:20,870 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:21,819 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:21,837 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : debug] *******************************************************************************************************
+2024-09-10 14:22:21,874 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS   ROLES           AGE   VERSION",
+        "test-k8s-cp1.ms.local   Ready    control-plane   50s   v1.31.0"
+    ]
+}
+2024-09-10 14:22:21,897 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:21,910 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:21,927 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Print join command and store the value to join the worker nodes] *********************************************
+2024-09-10 14:22:22,001 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:22,016 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:22,911 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:22,928 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : debug] *******************************************************************************************************
+2024-09-10 14:22:22,987 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "kubeadm join 192.168.168.30:6443 --token 0b4myx.jnljf7z4zdtfmpuj --discovery-token-ca-cert-hash sha256:167052f0db5cb2f6ad63bfffccbf47fbc2bb2772c94f1b3b93953e0f11928a99 "
+    ]
+}
+2024-09-10 14:22:22,989 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:23,000 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:23,015 p=7224 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Copy join command as /tmp/kubernetes_join_command.sh to Ansible Host] ****************************************
+2024-09-10 14:22:23,100 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:23,113 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:24,035 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> localhost]
+2024-09-10 14:22:24,083 p=7224 u=muthuks n=ansible | TASK [join_worker_nodes_to_the_cluster : Copy join command from  to the worker nodes] ******************************************************************
+2024-09-10 14:22:24,117 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:25,771 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:22:26,533 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:22:26,553 p=7224 u=muthuks n=ansible | TASK [join_worker_nodes_to_the_cluster : Join the worker nodes with k8s cluster] ***********************************************************************
+2024-09-10 14:22:26,582 p=7224 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:32,053 p=7224 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 14:22:32,658 p=7224 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 14:22:32,772 p=7224 u=muthuks n=ansible | TASK [check_cluster_ready_status : worker nodes have already joinded the cluster, will be Ready in few minutes] ****************************************
+2024-09-10 14:22:32,876 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:32,903 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:34,262 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:22:34,285 p=7224 u=muthuks n=ansible | TASK [check_cluster_ready_status : debug] **************************************************************************************************************
+2024-09-10 14:22:34,332 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS     ROLES           AGE   VERSION",
+        "test-k8s-cp1.ms.local   Ready      control-plane   63s   v1.31.0",
+        "test-k8s-n1.ms.local    NotReady   <none>          2s    v1.31.0",
+        "test-k8s-n2             NotReady   <none>          3s    v1.31.0"
+    ]
+}
+2024-09-10 14:22:34,375 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:34,398 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:22:34,417 p=7224 u=muthuks n=ansible | TASK [check_cluster_ready_status : Wait for all worker nodes to get Ready] *****************************************************************************
+2024-09-10 14:22:34,506 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:22:34,523 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:23:58,268 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:23:58,286 p=7224 u=muthuks n=ansible | TASK [check_cluster_ready_status : k8s cluster nodes are Ready] ****************************************************************************************
+2024-09-10 14:23:58,382 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:23:58,384 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:23:59,038 p=7224 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 14:23:59,053 p=7224 u=muthuks n=ansible | TASK [check_cluster_ready_status : debug] **************************************************************************************************************
+2024-09-10 14:23:59,086 p=7224 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS   ROLES           AGE     VERSION",
+        "test-k8s-cp1.ms.local   Ready    control-plane   2m27s   v1.31.0",
+        "test-k8s-n1.ms.local    Ready    <none>          86s     v1.31.0",
+        "test-k8s-n2             Ready    <none>          87s     v1.31.0"
+    ]
+}
+2024-09-10 14:23:59,110 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 14:23:59,123 p=7224 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 14:23:59,292 p=7224 u=muthuks n=ansible | PLAY RECAP *********************************************************************************************************************************************
+2024-09-10 14:23:59,293 p=7224 u=muthuks n=ansible | test-k8s-cp1.ms.local      : ok=63   changed=33   unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+2024-09-10 14:23:59,293 p=7224 u=muthuks n=ansible | test-k8s-n1.ms.local       : ok=39   changed=22   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+2024-09-10 14:23:59,294 p=7224 u=muthuks n=ansible | test-k8s-n2.ms.local       : ok=39   changed=21   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+2024-09-10 16:10:05,714 p=9892 u=muthuks n=ansible | localhost | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:22:07,380 p=10007 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:22:08,276 p=10007 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:22:08,499 p=10007 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:22:09,313 p=10007 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:22:46,104 p=10074 u=muthuks n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: k8s-control-plane-node
+
+2024-09-10 16:22:46,105 p=10074 u=muthuks n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2024-09-10 16:23:05,041 p=10115 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:42:07,617 p=10487 u=muthuks n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: ping
+
+2024-09-10 16:42:07,618 p=10487 u=muthuks n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2024-09-10 16:42:34,245 p=10499 u=muthuks n=ansible | hai | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname hai: Name or service not known",
+    "unreachable": true
+}
+2024-09-10 16:42:34,540 p=10499 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:42:35,163 p=10499 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:42:35,174 p=10499 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:42:35,342 p=10499 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:19,226 p=10594 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:19,343 p=10594 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:19,411 p=10594 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:19,570 p=10594 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:34,549 p=10655 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:34,623 p=10655 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:34,726 p=10655 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:43:34,796 p=10655 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:52:51,607 p=10790 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:52:52,131 p=10790 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:52:52,197 p=10790 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 16:52:52,362 p=10790 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:10:16,730 p=11690 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:10:17,264 p=11690 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:11:38,152 p=11818 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:11:38,719 p=11818 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:11:38,730 p=11818 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:11:38,962 p=11818 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:14:11,417 p=12040 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:14:11,965 p=12040 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:14:12,010 p=12040 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:14:12,169 p=12040 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:14:59,756 p=12142 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:15:00,396 p=12142 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:15:00,450 p=12142 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:15:00,597 p=12142 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:22,729 p=12255 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:23,307 p=12255 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:23,320 p=12255 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:23,538 p=12255 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:46,679 p=12345 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:46,770 p=12345 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:46,854 p=12345 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:16:46,973 p=12345 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:06,286 p=12426 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:06,476 p=12426 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:06,482 p=12426 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:06,566 p=12426 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:38,077 p=12513 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:38,218 p=12513 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:38,272 p=12513 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:17:38,410 p=12513 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:19:06,146 p=12657 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:19:06,685 p=12657 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:19:06,709 p=12657 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:19:06,940 p=12657 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:21:45,818 p=12762 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:21:46,601 p=12762 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:21:46,696 p=12762 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:21:47,086 p=12762 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:22:50,885 p=12858 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: muthuk@test-k8s-cp1.ms.local: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2024-09-10 17:22:50,889 p=12858 u=muthuks n=ansible | test-k8s-n1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: muthuk@test-k8s-n1.ms.local: Permission denied (publickey,password).",
+    "unreachable": true
+}
+2024-09-10 17:22:50,922 p=12858 u=muthuks n=ansible | test-k8s-n2.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: muthuk@test-k8s-n2.ms.local: Permission denied (publickey,password,keyboard-interactive).",
+    "unreachable": true
+}
+2024-09-10 17:22:51,135 p=12858 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:23:17,586 p=12914 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:23:18,146 p=12914 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:23:18,191 p=12914 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:23:18,345 p=12914 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-10 17:23:31,662 p=12984 u=muthuks n=ansible | PLAY [Deploy k8s cluster on linux nodes] ****************************************************************************************
+2024-09-10 17:23:31,689 p=12984 u=muthuks n=ansible | TASK [Gathering Facts] **********************************************************************************************************
+2024-09-10 17:23:33,329 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 17:23:33,433 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 17:23:33,569 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 17:23:33,644 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] ***********************************************
+2024-09-10 17:23:35,128 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:23:35,148 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 17:23:35,181 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of containerd is v1.7.22"
+}
+2024-09-10 17:23:35,192 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of runc] *****************************************************
+2024-09-10 17:23:36,239 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:23:36,255 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 17:23:36,290 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of runc is v1.1.14"
+}
+2024-09-10 17:23:36,301 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of kubernetes] ***********************************************
+2024-09-10 17:23:37,306 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:23:37,323 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 17:23:37,353 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.31.0"
+}
+2024-09-10 17:23:37,369 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : Get latest version information of calico CNI] ***********************************************
+2024-09-10 17:23:38,365 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:23:38,379 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : debug] **************************************************************************************
+2024-09-10 17:23:38,408 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.28.1"
+}
+2024-09-10 17:23:38,429 p=12984 u=muthuks n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] *************************
+2024-09-10 17:23:38,523 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 17:23:38,542 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 17:23:38,554 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 17:23:38,599 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( RedHat based systems )] *************************************
+2024-09-10 17:23:38,655 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:23:38,668 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:24:07,819 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 17:24:07,836 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system packages ( Debian based systems )] *************************************
+2024-09-10 17:24:07,862 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:24:07,903 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:26:41,825 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:26:41,842 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Upgrade the system package ( Suse based systems )] ****************************************
+2024-09-10 17:26:41,870 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:26:41,892 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:27:36,771 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:36,789 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Turn off swap if active] ******************************************************************
+2024-09-10 17:27:38,073 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:38,156 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:38,282 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:38,302 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Remove swap entry from fstab] *************************************************************
+2024-09-10 17:27:39,378 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 17:27:39,477 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:39,633 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 17:27:39,655 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load overlay kernel module] ***************************************************************
+2024-09-10 17:27:40,736 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:40,865 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:41,002 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:41,029 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Load br_netfilter kernel module] **********************************************************
+2024-09-10 17:27:41,982 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:42,126 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:42,385 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:42,402 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] ********
+2024-09-10 17:27:43,282 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:43,449 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:43,531 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:43,550 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/sysctl.d/k8s.conf and update required kernel parameters to be persistent] *****
+2024-09-10 17:27:44,305 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:44,494 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:44,751 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:44,778 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Re-load the system kernel parameters] *****************************************************
+2024-09-10 17:27:45,579 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:27:45,750 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:27:45,968 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:27:45,987 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download binary tarball of latest containerd ( v1.7.22 ) to local-ansible-control-host] ***
+2024-09-10 17:28:08,119 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:28:08,159 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes] ***
+2024-09-10 17:28:20,422 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:20,638 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:20,800 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:20,824 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Extract containerd bin under /usr/local] **************************************************
+2024-09-10 17:28:28,616 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:29,545 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:30,423 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:30,446 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create containerd configuration directory /etc/containerd] ********************************
+2024-09-10 17:28:31,721 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:31,935 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:32,109 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:32,138 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/containerd/config.toml] *******************************************************
+2024-09-10 17:28:33,159 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:33,277 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:33,826 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:33,874 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Generate containerd config and write it to /etc/containerd/config.toml] *******************
+2024-09-10 17:28:35,609 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:36,071 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:36,334 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:36,353 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Set SystemdCgroup as true in /etc/containerd/config.toml] *********************************
+2024-09-10 17:28:37,257 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:37,360 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:37,452 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:37,467 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify SystemdCgroup setting] *************************************************************
+2024-09-10 17:28:38,169 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:38,397 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:38,598 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:38,620 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ************************************************************************************
+2024-09-10 17:28:38,655 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 17:28:38,679 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 17:28:38,696 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "            SystemdCgroup = true"
+    ]
+}
+2024-09-10 17:28:38,709 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download containerd.service file from GitHub] *********************************************
+2024-09-10 17:28:40,281 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:40,304 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:40,338 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:40,354 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Reload systemd daemon] ********************************************************************
+2024-09-10 17:28:41,956 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:41,966 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local]
+2024-09-10 17:28:42,059 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local]
+2024-09-10 17:28:42,077 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start containerd.service] ******************************************************
+2024-09-10 17:28:44,316 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:44,663 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:44,735 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:44,756 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify status of containerd service] ******************************************************
+2024-09-10 17:28:45,497 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:45,767 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:45,952 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:45,969 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ************************************************************************************
+2024-09-10 17:28:46,001 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 17:28:46,025 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 17:28:46,042 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "active"
+    ]
+}
+2024-09-10 17:28:46,055 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify containerd version] ****************************************************************
+2024-09-10 17:28:46,794 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:47,121 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:47,261 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:47,279 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ************************************************************************************
+2024-09-10 17:28:47,310 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 17:28:47,336 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 17:28:47,355 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "containerd github.com/containerd/containerd v1.7.22 7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c"
+    ]
+}
+2024-09-10 17:28:47,372 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from local-ansible-control-host] *********************
+2024-09-10 17:28:47,737 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:28:47,749 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from all nodes] **************************************
+2024-09-10 17:28:48,445 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:48,695 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:48,888 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:48,909 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Download latest runc ( v1.1.14  ) binary to local-ansible-control-host] *******************
+2024-09-10 17:28:54,667 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:28:54,683 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded runc binary from local-ansible-control-host to /usr/local/bin/runc of cluster node] ***
+2024-09-10 17:28:57,327 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:57,672 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:58,090 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:58,108 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Verify runc version] **********************************************************************
+2024-09-10 17:28:58,796 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:28:58,948 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:28:59,155 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:28:59,171 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ************************************************************************************
+2024-09-10 17:28:59,206 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 17:28:59,231 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 17:28:59,249 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "runc version 1.1.14",
+        "commit: v1.1.14-0-g2c9f5602",
+        "spec: 1.0.2-dev",
+        "go: go1.22.6",
+        "libseccomp: 2.5.5"
+    ]
+}
+2024-09-10 17:28:59,267 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-runc from local-ansible-control-host] **********************************
+2024-09-10 17:28:59,594 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> local-ansible-control-host(localhost)]
+2024-09-10 17:28:59,606 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s rpm repository ( RedHat based systems )] ******************************************
+2024-09-10 17:28:59,667 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:28:59,685 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:29:00,468 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:29:00,506 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( RedHat based systems )] *******************
+2024-09-10 17:29:00,632 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:29:00,659 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:29:39,731 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:29:39,751 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s gpg apt-key] **********************************************************************
+2024-09-10 17:29:39,779 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:29:39,819 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:29:41,835 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:29:41,856 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s deb repository ( Debian based systems )] ******************************************
+2024-09-10 17:29:41,885 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:29:41,931 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:29:50,341 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:29:50,362 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( Debian based systems )] *******************
+2024-09-10 17:29:50,393 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:29:50,436 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:30:27,661 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:30:27,679 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )] ********
+2024-09-10 17:30:27,705 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:30:27,747 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:30:28,192 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:30:28,206 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s rpm repository ( Suse based systems )] ********************************************
+2024-09-10 17:30:28,232 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:30:28,254 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:30:40,309 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:30:40,325 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Work-around for conntrack dependency issue with kubelet ( Suse based systems )] ***********
+2024-09-10 17:30:40,349 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:30:40,371 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:30:47,941 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:30:47,961 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( Suse based systems )] *********************
+2024-09-10 17:30:47,986 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:30:48,008 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:31:26,527 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:31:26,546 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )] **********
+2024-09-10 17:31:26,573 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:31:26,595 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:31:28,000 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:31:28,017 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start kubelet.service] *********************************************************
+2024-09-10 17:31:29,761 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:31:30,358 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:31:30,742 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:31:30,758 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Check kubelet service status] *************************************************************
+2024-09-10 17:31:31,474 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:31:31,666 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:31:31,905 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:31:31,922 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : debug] ************************************************************************************
+2024-09-10 17:31:31,957 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 17:31:31,979 p=12984 u=muthuks n=ansible | ok: [test-k8s-n1.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 17:31:31,997 p=12984 u=muthuks n=ansible | ok: [test-k8s-n2.ms.local] => {
+    "msg": [
+        "enabled"
+    ]
+}
+2024-09-10 17:31:32,014 p=12984 u=muthuks n=ansible | TASK [prepare_all_the_cluster_nodes : Reboot executed and waiting for nodes to come online] *************************************
+2024-09-10 17:32:35,747 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:32:35,822 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:32:36,817 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:32:36,899 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait until k8s core images required for cluster creation are pulled] ******************
+2024-09-10 17:32:36,996 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:32:37,013 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:34:11,792 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:34:11,824 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Create k8s cluster using kubeadm init] ************************************************
+2024-09-10 17:34:11,882 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:34:11,896 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:34:32,366 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:34:32,391 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Copy /etc/kubernetes/admin.conf to ~/.kube] *******************************************
+2024-09-10 17:34:32,483 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:34:32,496 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:34:33,265 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:34:33,279 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait for Kubernetes API server to be healthy] *****************************************
+2024-09-10 17:34:33,361 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:34:33,375 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:34:34,328 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:34:34,353 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Applying latest calico CNI  ( v3.28.1 ) manifest using from GitHub] *******************
+2024-09-10 17:34:34,436 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:34:34,454 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:34:40,127 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:34:40,157 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Wait for control-plane to get Ready] **************************************************
+2024-09-10 17:34:40,305 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:34:40,322 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:25,170 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:25,191 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : K8s cluster control-plane node is Ready] **********************************************
+2024-09-10 17:35:25,283 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:25,299 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:26,170 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:26,186 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : debug] ********************************************************************************
+2024-09-10 17:35:26,222 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS   ROLES           AGE   VERSION",
+        "test-k8s-cp1.ms.local   Ready    control-plane   58s   v1.31.0"
+    ]
+}
+2024-09-10 17:35:26,244 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:26,259 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:26,272 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Print join command and store the value to join the worker nodes] **********************
+2024-09-10 17:35:26,338 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:26,360 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:27,821 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:27,840 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : debug] ********************************************************************************
+2024-09-10 17:35:27,891 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "kubeadm join 192.168.168.30:6443 --token scj0v1.qou98w6of6vmnxvp --discovery-token-ca-cert-hash sha256:9cd5ac5dd20617acdd23a47bdb4c53b1074e88f3fd606b656506d62b6db2bdd6 "
+    ]
+}
+2024-09-10 17:35:27,892 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:27,902 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:27,915 p=12984 u=muthuks n=ansible | TASK [install_and_configure_the_cluster : Copy join command as /tmp/kubernetes_join_command.sh to Ansible Host] *****************
+2024-09-10 17:35:27,988 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:28,008 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:29,092 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local -> localhost]
+2024-09-10 17:35:29,138 p=12984 u=muthuks n=ansible | TASK [join_worker_nodes_to_the_cluster : Copy join command from  to the worker nodes] *******************************************
+2024-09-10 17:35:29,166 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:31,097 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:35:32,636 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:35:32,678 p=12984 u=muthuks n=ansible | TASK [join_worker_nodes_to_the_cluster : Join the worker nodes with k8s cluster] ************************************************
+2024-09-10 17:35:32,740 p=12984 u=muthuks n=ansible | skipping: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:39,888 p=12984 u=muthuks n=ansible | changed: [test-k8s-n2.ms.local]
+2024-09-10 17:35:39,986 p=12984 u=muthuks n=ansible | changed: [test-k8s-n1.ms.local]
+2024-09-10 17:35:40,077 p=12984 u=muthuks n=ansible | TASK [check_cluster_ready_status : worker nodes have already joinded the cluster, will be Ready in few minutes] *****************
+2024-09-10 17:35:40,197 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:40,227 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:41,722 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:35:41,757 p=12984 u=muthuks n=ansible | TASK [check_cluster_ready_status : debug] ***************************************************************************************
+2024-09-10 17:35:41,807 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS     ROLES           AGE   VERSION",
+        "test-k8s-cp1.ms.local   Ready      control-plane   73s   v1.31.0",
+        "test-k8s-n1.ms.local    NotReady   <none>          2s    v1.31.0",
+        "test-k8s-n2.ms.local    NotReady   <none>          2s    v1.31.0"
+    ]
+}
+2024-09-10 17:35:41,833 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:41,846 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:35:41,868 p=12984 u=muthuks n=ansible | TASK [check_cluster_ready_status : Wait for all worker nodes to get Ready] ******************************************************
+2024-09-10 17:35:41,946 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:35:41,963 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:37:02,291 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:37:02,338 p=12984 u=muthuks n=ansible | TASK [check_cluster_ready_status : k8s cluster nodes are Ready] *****************************************************************
+2024-09-10 17:37:02,483 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:37:02,506 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:37:03,366 p=12984 u=muthuks n=ansible | changed: [test-k8s-cp1.ms.local]
+2024-09-10 17:37:03,388 p=12984 u=muthuks n=ansible | TASK [check_cluster_ready_status : debug] ***************************************************************************************
+2024-09-10 17:37:03,467 p=12984 u=muthuks n=ansible | ok: [test-k8s-cp1.ms.local] => {
+    "msg": [
+        "NAME                    STATUS   ROLES           AGE     VERSION",
+        "test-k8s-cp1.ms.local   Ready    control-plane   2m35s   v1.31.0",
+        "test-k8s-n1.ms.local    Ready    <none>          84s     v1.31.0",
+        "test-k8s-n2.ms.local    Ready    <none>          84s     v1.31.0"
+    ]
+}
+2024-09-10 17:37:03,469 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n1.ms.local]
+2024-09-10 17:37:03,479 p=12984 u=muthuks n=ansible | skipping: [test-k8s-n2.ms.local]
+2024-09-10 17:37:03,705 p=12984 u=muthuks n=ansible | PLAY RECAP **********************************************************************************************************************
+2024-09-10 17:37:03,705 p=12984 u=muthuks n=ansible | test-k8s-cp1.ms.local      : ok=63   changed=41   unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+2024-09-10 17:37:03,706 p=12984 u=muthuks n=ansible | test-k8s-n1.ms.local       : ok=39   changed=30   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+2024-09-10 17:37:03,706 p=12984 u=muthuks n=ansible | test-k8s-n2.ms.local       : ok=39   changed=30   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+2024-09-11 06:55:44,030 p=1715 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 06:55:46,533 p=1715 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 06:55:46,535 p=1715 u=muthuks n=ansible | test-k8s-n1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 06:55:46,660 p=1715 u=muthuks n=ansible | test-k8s-n2.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n2.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:06:28,116 p=1903 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 07:06:30,949 p=1903 u=muthuks n=ansible | test-k8s-n1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:06:30,953 p=1903 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:06:30,954 p=1903 u=muthuks n=ansible | test-k8s-n2.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n2.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:08:43,661 p=2014 u=muthuks n=ansible | local-ansible-control-host | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 07:08:46,503 p=2014 u=muthuks n=ansible | test-k8s-n2.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n2.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:08:46,504 p=2014 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:08:46,507 p=2014 u=muthuks n=ansible | test-k8s-n1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-n1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:17:17,733 p=2087 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:24:33,510 p=2179 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:38:55,590 p=2523 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:48:09,637 p=2673 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:50:16,613 p=2715 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:50:19,685 p=2724 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:52:54,500 p=2774 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:52:57,574 p=2783 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:58:32,230 p=2901 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:58:35,306 p=2910 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:59:40,901 p=2959 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 07:59:43,974 p=2968 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 08:00:06,372 p=3036 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 08:00:09,445 p=3049 u=muthuks n=ansible | test-k8s-cp1.ms.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host test-k8s-cp1.ms.local port 22: No route to host",
+    "unreachable": true
+}
+2024-09-11 08:07:19,942 p=3176 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:07:21,882 p=3196 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:07:22,244 p=3196 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:18:02,965 p=3365 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:18:04,507 p=3385 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:18:04,656 p=3385 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:22:30,307 p=3451 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:22:31,841 p=3469 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:22:32,033 p=3469 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:26:58,264 p=4812 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:26:59,777 p=4830 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:26:59,967 p=4830 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:28:31,818 p=5038 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:28:33,425 p=5056 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:28:33,606 p=5056 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:31:57,715 p=5160 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:31:59,234 p=5178 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:31:59,377 p=5178 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:32:34,352 p=5241 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:32:35,450 p=5256 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:32:35,707 p=5256 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:40:58,891 p=5321 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:41:00,417 p=5341 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:41:00,554 p=5341 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:41:31,086 p=5410 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:41:32,190 p=5425 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 08:41:32,400 p=5425 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:17:57,122 p=6622 u=muthuks n=ansible | jhbhbh | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname jhbhbh: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 09:18:35,436 p=6669 u=muthuks n=ansible | jhbhbh | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname jhbhbh: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 09:20:18,675 p=6735 u=muthuks n=ansible |  [ERROR]: User interrupted execution
+
+2024-09-11 09:20:45,687 p=6792 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:20:48,214 p=6812 u=muthuks n=ansible | jhbb | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname jhbb: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 09:22:20,345 p=6861 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:22:20,966 p=6879 u=muthuks n=ansible | jhbb | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname jhbb: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 09:24:12,458 p=6943 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:24:14,030 p=6961 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:24:14,183 p=6961 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:26:23,084 p=7069 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:26:24,584 p=7087 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:26:24,739 p=7087 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:31:56,430 p=7155 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:31:57,978 p=7173 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:31:58,130 p=7173 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 09:38:57,294 p=7625 u=muthuks n=ansible | dhjbede | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname dhjbede: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 09:45:16,478 p=7679 u=muthuks n=ansible | dhjbede | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname dhjbede: Name or service not known",
+    "unreachable": true
+}

@@ -6,6 +6,8 @@
   become: false
   tasks:
     - name: Get latest version information of k8s csi-nfs-driver from github API
+      delegate_to: localhost
+      run_once: true
       uri:
         url: https://api.github.com/repos/kubernetes-csi/csi-driver-nfs/releases/latest
         return_content: true
@@ -15,6 +17,8 @@
         var_csi_driver_nfs_latest_version: "{{ var_csi_driver_nfs_release.json.tag_name }}"
 
     - debug:
+      delegate_to: localhost
+      run_once: true
         msg: |-
           Latest stable version to be installed of k8s csi-driver-nfs is {{ var_csi_driver_nfs_latest_version }}
 
