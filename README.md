@@ -91,10 +91,10 @@ Workflow:
    ```
 
 kind note:  
-* The template can be utilized for testing and learning purpose, tailor it as per your need if required.
-* Firewall and Selinux are not managed by the template, either disable it or configure it as per your requirement.
-* The template uses github API to fetch latest stable release of all software components.
-* There is a dependency issue in SUSE, work around is applied within the template.
+* The playbook can be utilized for testing and learning purpose, tailor it as per your need if required.
+* Firewall and Selinux are not managed by the playbook, either disable it or configure it as per your requirement.
+* The playbook uses github API to fetch latest stable release of all software components.
+* There is a dependency issue in SUSE, work around is applied within the playbook.
   ( To be fixed in upcoming patch release v1.31.1 of k8s, Ref: https://github.com/kubernetes/release/issues/3711 ) 
 * Well tested on various linux distributions.
 * Your contributions help us improve this project. We welcome bug reports, feature requests, and code contributions
