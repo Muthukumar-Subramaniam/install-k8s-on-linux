@@ -1,4 +1,4 @@
-##Version : v2.0.2
+##Version : v2.1.0
 - name: Deploy k8s cluster on linux nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
   vars_files: vars.yaml

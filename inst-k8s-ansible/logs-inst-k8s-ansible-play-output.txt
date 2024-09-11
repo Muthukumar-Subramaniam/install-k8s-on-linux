@@ -1078,7 +1078,7 @@ be elsewhere in the file depending on the exact syntax problem.
 
 The offending line appears to be:
 
-##Version : v2.0.2
+##Version : v2.1.0
 - name: Deploy k8s cluster on linux nodes
   ^ here
 
@@ -3964,4 +3964,49 @@ The offending line appears to be:
     "changed": false,
     "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname dhjbede: Name or service not known",
     "unreachable": true
+}
+2024-09-11 10:44:28,305 p=9001 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:44:29,172 p=9021 u=muthuks n=ansible | hbhebde | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname hbhebde: Name or service not known",
+    "unreachable": true
+}
+2024-09-11 10:45:00,475 p=9074 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:45:02,641 p=9089 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:45:05,281 p=9089 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:47:34,217 p=9236 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:47:35,901 p=9254 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:47:36,123 p=9254 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:56:09,499 p=9789 u=muthuks n=ansible | test-k8s-cp1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:56:11,193 p=9809 u=muthuks n=ansible | test-k8s-n1.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2024-09-11 10:56:11,367 p=9809 u=muthuks n=ansible | test-k8s-n2.ms.local | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
 }

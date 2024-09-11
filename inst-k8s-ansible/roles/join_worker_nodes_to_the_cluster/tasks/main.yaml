@@ -1,4 +1,4 @@
-##Version : v2.0.2
+##Version : v2.1.0
 ###Role to Register worker nodes with the k8s cluster with kubeadm join command
 - name: Copy join command from  to the worker nodes
   copy:

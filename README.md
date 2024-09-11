@@ -1,5 +1,5 @@
 # Install k8s cluster on linux nodes with ansible-playbook
-ansible automated kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
+ansible playbook for kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
 Installs and configures single control plane node and worker nodes with latest stable k8s version available.  
 
 Suitable Environment : Development & Testing
@@ -31,7 +31,9 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 * Also make sure, sudo access with NOPASSWD is enabled for the user in all the nodes.  
 * Do ansible ping test from ansible host to all the all the cluster nodes to be.  
 
-Download the tarball of latest release containing ansible template and configs to the linux user account's home directory.
+Workflow:  
+
+1) Download the tarball of latest release of this ansible project to the linux user account's home directory.
 
 ```
 var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
@@ -45,27 +47,29 @@ tar -xzvf inst-k8s-ansible.tar.gz
 ```
 cd inst-k8s-ansible
 ```
-1) Change the hostnames of k8s cluster nodes in the k8s-cluster-inventory file as per your setup.   
-2) Change the var_k8s_pod_network_cidr variable value in k8s-cluster-inventory as per your requirement.  
-   * Currently the value of var_k8s_pod_network_cidr is set to 10.8.0.0/16    
-   * Ensure that the CIDR block you choose does not overlap with any of your existing network infra    
-3) Please do not change the group names as it is utilized by the template.    
-4) Change the ansible user name in ansible.cfg as per your setup.   
-
-That's it, you are good to go!
+2) Update host-control-plane file with the required hostname    
+3) Update host-workers file with the required hostnames 
+4) Update pod-network-cidr file with pod network CIDR.  
+   * Only networks that falls within private address space ( RFC 1918 ) are accepted.
+     * ( https://datatracker.ietf.org/doc/html/rfc1918 )
+   * As a best practice, CIDR prefixes /16 to /28 are only allowed.
+   * Please make sure it doesn't overlap with any other existing networks in your infrastructure.
+   * Please choose a CIDR block that is large enough for your environment.
+5) Run the setup.sh script to setup the provided environment for ansible play.
+6) Run the playbook if all goes well with setup.sh
 ```
-ansible-playbook inst-k8s-ansible.yaml
-```
-
-After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
-```
-ansible-playbook optional-k8s-csi-nfs-driver.yaml 
-```
-```
-ansible-playbook optional-k8s-csi-smb-driver.yaml
+ansible-playbook inst-k8s-ansible.yaml -u <user-name>
 ```
 
-Sample Execution Result of ansible-playbook inst-k8s-ansible.yaml :    
+7) After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
+```
+ansible-playbook optional-k8s-csi-nfs-driver.yaml -u <user-name> 
+```
+```
+ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
+```
+
+Sample End Result of ansible-playbook inst-k8s-ansible.yaml :    
 
 ![sample-output-execution-results](https://github.com/user-attachments/assets/a4a50841-4407-4c21-943c-0828dce76225)
 

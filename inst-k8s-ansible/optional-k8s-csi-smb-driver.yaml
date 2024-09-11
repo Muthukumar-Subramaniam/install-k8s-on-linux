@@ -1,4 +1,4 @@
-##Version : v2.0.2
+##Version : v2.1.0
 ### Optional CSI SMB Driver for k8s cluster
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI SMB Driver for k8s cluster 
@@ -6,6 +6,8 @@
   become: false
   tasks:
     - name: Get latest version information of k8s csi-smb-driver from github API
+      delegate_to: local-ansible-control-host
+      run_once: true
       uri:
         url: https://api.github.com/repos/kubernetes-csi/csi-driver-smb/releases/latest
         return_content: true
@@ -17,6 +19,8 @@
     - debug:
         msg: |-
           Latest stable version to be installed of k8s csi-driver-smb is {{ var_csi_driver_smb_latest_version }}
+      delegate_to: local-ansible-control-host
+      run_once: true
 
     - name: Install CSI SMB drivers by remote from GitHub using kubectl
       shell: curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/{{ var_csi_driver_smb_latest_version }}/deploy/install-driver.sh | bash -s {{ var_csi_driver_smb_latest_version }} --

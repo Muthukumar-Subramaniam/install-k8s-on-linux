@@ -1,4 +1,4 @@
-##Version : v2.0.2
+##Version : v2.1.0
 - name: Upgrade system packages of all the cluster nodes
   become: true
   block:

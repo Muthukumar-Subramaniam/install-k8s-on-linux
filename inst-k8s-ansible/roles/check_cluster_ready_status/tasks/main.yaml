@@ -1,4 +1,4 @@
-##Version : v2.0.2
+##Version : v2.1.0
 ### Role to check the k8s cluster Ready status
 - name: worker nodes have already joinded the cluster, will be Ready in few minutes
   shell: kubectl get nodes
