@@ -73,11 +73,14 @@ Workflow:
    ```
    <img width="479" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/d90744a2-6308-41b0-834e-25d3db0bf713">
 
-9) Run the playbook if all goes well with setup.sh
+9) Run the playbook if all goes well with above setup.sh script as shown above
    ```
    ansible-playbook inst-k8s-ansible.yaml -u <user-name>
    ```
-   Sample End Result
+   Sample End Result:
+
+   <img width="698" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/105788d3-773f-4adc-8a8b-30a6165afbd5">
+
    
 7) After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
    ```
@@ -86,12 +89,6 @@ Workflow:
    ```
    ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
    ```
-
-Sample End Result of ansible-playbook inst-k8s-ansible.yaml :    
-
-![sample-output-execution-results](https://github.com/user-attachments/assets/a4a50841-4407-4c21-943c-0828dce76225)
-
-
 
 kind note:  
 * The template can be utilized for testing and learning purpose, tailor it as per your need if required.
