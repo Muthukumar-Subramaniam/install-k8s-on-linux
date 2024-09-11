@@ -96,7 +96,7 @@ kind note:
 * The template uses github API to fetch latest stable release of all software components.
 * There is a dependency issue in SUSE, work around is applied within the template.
   ( To be fixed in upcoming patch release v1.31.1 of k8s, Ref: https://github.com/kubernetes/release/issues/3711 ) 
-* It is well tested on different linux distros.
-* Please feel free to provide your suggestions and bug reports if any.
+* Well tested on various linux distributions.
+* Your contributions help us improve this project. We welcome bug reports, feature requests, and code contributions
 
 > Have lots of fun!
