@@ -35,23 +35,23 @@ Workflow:
 
 1) Download the tarball of latest release of this ansible project to the linux user account's home directory.
 
-```
-var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
-```
-```
-wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/inst-k8s-ansible.tar.gz
-```
-```
-tar -xzvf inst-k8s-ansible.tar.gz
-```
-```
-cd inst-k8s-ansible
-```
-2) Update host-control-plane file with the required hostname  
-   * <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
+   ```
+   var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
+   ```
+   ```
+   wget https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/download/${var_latest_version}/inst-k8s-ansible.tar.gz
+   ```
+   ```
+   tar -xzvf inst-k8s-ansible.tar.gz
+   ```
+   ```
+   cd inst-k8s-ansible
+   ```
+2) Update host-control-plane file with the required hostname
+   <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
   
 4) Update host-workers file with the required hostnames
-   * <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
+   <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
 
 6) Update pod-network-cidr file with pod network CIDR.  
    * Only networks that falls within private address space ( RFC 1918 ) are accepted.  
@@ -59,7 +59,7 @@ cd inst-k8s-ansible
    * As a best practice, CIDR prefixes /16 to /28 are only allowed.  
    * Please make sure it doesn't overlap with any other existing networks in your infrastructure.  
    * Please choose a CIDR block that is large enough for your environment.  
-   * <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">
+   <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">
 
 7) Run the setup.sh script to setup the provided environment for ansible play.
    ```
