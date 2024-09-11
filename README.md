@@ -60,9 +60,9 @@ Workflow:
      * ( https://datatracker.ietf.org/doc/html/rfc1918 )  
    * As a best practice, CIDR prefixes /16 to /28 are only allowed.  
    * Please make sure it doesn't overlap with any other existing networks in your infrastructure.  
-   * Please choose a CIDR block that is large enough for your environment.  
-     
-   <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">
+   * Please choose a CIDR block that is large enough for your environment.
+
+     <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">
 
 7) Run the setup.sh script to setup the provided environment for ansible play.
    ```
