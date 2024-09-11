@@ -47,27 +47,39 @@ tar -xzvf inst-k8s-ansible.tar.gz
 ```
 cd inst-k8s-ansible
 ```
-2) Update host-control-plane file with the required hostname    
-3) Update host-workers file with the required hostnames 
-4) Update pod-network-cidr file with pod network CIDR.  
-   * Only networks that falls within private address space ( RFC 1918 ) are accepted.
-     * ( https://datatracker.ietf.org/doc/html/rfc1918 )
-   * As a best practice, CIDR prefixes /16 to /28 are only allowed.
-   * Please make sure it doesn't overlap with any other existing networks in your infrastructure.
-   * Please choose a CIDR block that is large enough for your environment.
-5) Run the setup.sh script to setup the provided environment for ansible play.
-6) Run the playbook if all goes well with setup.sh
-```
-ansible-playbook inst-k8s-ansible.yaml -u <user-name>
-```
+2) Update host-control-plane file with the required hostname  
+   * <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
+  
+4) Update host-workers file with the required hostnames
+   * <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
 
+6) Update pod-network-cidr file with pod network CIDR.  
+   * Only networks that falls within private address space ( RFC 1918 ) are accepted.  
+     * ( https://datatracker.ietf.org/doc/html/rfc1918 )  
+   * As a best practice, CIDR prefixes /16 to /28 are only allowed.  
+   * Please make sure it doesn't overlap with any other existing networks in your infrastructure.  
+   * Please choose a CIDR block that is large enough for your environment.  
+   * <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">
+
+7) Run the setup.sh script to setup the provided environment for ansible play.
+   ```
+   ./setup.sh
+   ```
+   <img width="479" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/d90744a2-6308-41b0-834e-25d3db0bf713">
+
+9) Run the playbook if all goes well with setup.sh
+   ```
+   ansible-playbook inst-k8s-ansible.yaml -u <user-name>
+   ```
+   Sample End Result
+   
 7) After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
-```
-ansible-playbook optional-k8s-csi-nfs-driver.yaml -u <user-name> 
-```
-```
-ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
-```
+   ```
+   ansible-playbook optional-k8s-csi-nfs-driver.yaml -u <user-name> 
+   ```
+   ```
+   ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
+   ```
 
 Sample End Result of ansible-playbook inst-k8s-ansible.yaml :    
 
