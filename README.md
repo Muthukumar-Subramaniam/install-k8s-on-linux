@@ -1,6 +1,6 @@
-# Install k8s cluster on linux nodes with ansible playbook
+# Install kubernetes cluster on linux nodes with ansible playbook
 ansible playbook for kubeadm based installation of latest version of kubernetes single control plane node and worker nodes on linux.  
-Installs and configures single control plane node and worker nodes with latest stable k8s version available.  
+Installs and configures single control plane node and worker nodes with latest stable kubernetes version available.  
 
 Suitable Environment : Development & Testing
 
