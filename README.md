@@ -2,18 +2,18 @@
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster using the latest stable version of Kubernetes.   
 It's designed to streamline the deployment process, ensuring consistency and reducing manual errors. The playbook automatically downloads and installs the latest stable Kubernetes release, ensuring you're deploying the most up-to-date version.  
 
-Suitable Environment : Development & Testing
+## Suitable Environment : Development & Testing
 
-System Requirements : Minimum 2 GM RAM & 2 vCPU
+## System Requirements : Minimum 2 GM RAM & 2 vCPU
 
-Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
+## Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
 
-Supported Linux distributions : 
+## Supported Linux distributions : 
 * RedHat-based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
 * Debian-based  ( Debian, Ubuntu )
 * SUSE-based  ( OpenSUSE, SLES )
 
-Also, the latest stable versions of the following components will be installed.  
+## Also, the latest stable versions of the following components will be installed.  
 * Container runtime : containerd  
 * Low-level container runtime : runc ( dependency for containerd )  
 * CNI plugin used : calico CNI   
@@ -22,7 +22,7 @@ Also, the latest stable versions of the following components will be installed.
     * csi-driver-nfs  
     * csi-driver-smb  
 
-Please install Ansible if you haven't already already.  
+## Please install Ansible if you haven't already already.  
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html   
 
 * Create a common Linux user on all nodes to be used for the cluster.   
@@ -45,15 +45,15 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
    ```
    cd inst-k8s-ansible
    ```
-2) Update the host-control-plane file with the necessary hostname.  
+### 2) Update the host-control-plane file with the necessary hostname.  
    
    <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
   
-4) Update the host-workers file with the necessary hostnames.  
+### 3) Update the host-workers file with the necessary hostnames.  
    
    <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
 
-6) Update the pod-network-cidr file with the desired pod network CIDR.  
+### 4) Update the pod-network-cidr file with the desired pod network CIDR.  
    
    <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">  
    
@@ -63,13 +63,13 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
    * Ensure that the selected CIDR prefix does not conflict with any existing networks in your infrastructure.  
    * Choose a CIDR prefix that provides sufficient address space for your cluster.  
 
-8) Run the setup.sh script to prepare the environment for the Ansible playbook.  
+### 5) Run the setup.sh script to prepare the environment for the Ansible playbook.  
    ```
    ./setup.sh
    ```
    <img width="479" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/d90744a2-6308-41b0-834e-25d3db0bf713">
 
-9) Run the playbook if the setup.sh script completes successfully.  
+### 6) Run the playbook if the setup.sh script completes successfully.  
    ```
    ansible-playbook inst-k8s-ansible.yaml -u <user-name>
    ```
@@ -77,7 +77,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 
    <img width="701" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/d1124bac-7b54-4972-8db8-f0e34d465da2">
    
-7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
+### 7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
    ```
    ansible-playbook optional-k8s-csi-nfs-driver.yaml -u <user-name> 
    ```
@@ -85,7 +85,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
    ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
    ```
 
-kind note:  
+### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.  
 * Firewall and SELinux are not configured by this playbook. You may need to disable or adjust their settings to allow proper Kubernetes functionality.  
 * The playbook utilizes the GitHub API to fetch the current stable versions of all required software components.  
@@ -93,4 +93,4 @@ kind note:
 * Your feedback and contributions are invaluable to the success of this project.  
 * Please report any bugs, suggest new features, or contribute directly to the codebase.  
 
-> Have lots of fun!
+### > Have lots of fun!
