@@ -18,7 +18,7 @@
   retries: 100
   delay: 5
 
-- name: Applying latest calico CNI  ( {{ var_calico_latest_version }} ) manifest using from GitHub 
+- name: Applying latest calico CNI  ( {{ var_calico_latest_version }} ) manifest from GitHub 
   shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
 
 - name: Wait for control-plane to get Ready
