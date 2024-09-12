@@ -29,9 +29,9 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 * Enable passwordless SSH authentication from the Ansible host to all cluster nodes.   
 * Ensure that the common user has sudo privileges without a password on all cluster nodes.  
 
-Workflow:  
+## Workflow:  
 
-1) ##Download the tarball for the most recent version of this Ansible project to the home directory of the Linux user.
+### 1) Download the tarball for the most recent version of this Ansible project to the home directory of the Linux user.
 
    ```
    var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
