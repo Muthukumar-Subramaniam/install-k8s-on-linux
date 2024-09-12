@@ -1,7 +1,6 @@
 # Install Kubernetes cluster on linux nodes with Ansible playbook
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster using the latest stable version of Kubernetes.   
-It's designed to streamline the deployment process, ensuring consistency and reducing manual errors.  
-The playbook automatically downloads and installs the latest stable Kubernetes release, ensuring you're deploying the most up-to-date version.  
+It's designed to streamline the deployment process, ensuring consistency and reducing manual errors. The playbook automatically downloads and installs the latest stable Kubernetes release, ensuring you're deploying the most up-to-date version.  
 
 Suitable Environment : Development & Testing
 
