@@ -1,5 +1,9 @@
 ##Version : v2.1.2
 ### Role to check the k8s cluster Ready status
+- set_fact:
+    var_k8s_ctrl_plane_node: "{{ ansible_host }}"
+    var_k8s_user: "{{ ansible_user }}"
+
 - name: worker nodes have already joinded the cluster, will be Ready in few minutes
   shell: kubectl get nodes
   register: var_nodes_status
@@ -24,11 +28,11 @@
 - name: Add worker role label to worker nodes
   command: sh "{{ var_label_worker_nodes_role_temp_script }}"
 
-- name: k8s cluster nodes are Ready
+- name: Your kubernetes cluster is Ready!
   shell: kubectl get nodes
   register: var_nodes_status
 
-- name: Mission accomplished! Now you can manage this k8s cluster from control plane node with user {{ var_k8s_user }}
+- name: Manage this cluster from {{ var_k8s_ctrl_plane_node }} with user {{ var_k8s_user }}
   debug:
     msg: |-
       {{ var_nodes_status.stdout_lines }}
