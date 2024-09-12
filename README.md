@@ -9,9 +9,9 @@ System Requirements : Minimum 2 GM RAM & 2 vCPU
 Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
 
 Supported Linux distributions : 
-* Red Hat based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
-* Debian based  ( Debian, Ubuntu )
-* SUSE based  ( OpenSUSE, SLES )
+* RedHat-based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
+* Debian-based  ( Debian, Ubuntu )
+* SUSE-based  ( OpenSUSE, SLES )
 
 Also, the latest stable versions of the following components will be installed.  
 * Container runtime : containerd  
