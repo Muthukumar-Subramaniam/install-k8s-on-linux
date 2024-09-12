@@ -15,7 +15,7 @@
         update_cache: true
         upgrade: full
   
-    - name: Upgrade the system package ( Suse based systems )
+    - name: Upgrade the system packages ( Suse based systems )
       when: ansible_os_family == "Suse"
       zypper:
         update_cache: true
