@@ -19,13 +19,13 @@
   retries: 100
   delay: 5
 
-- name: Copy script that add role label to worker nodes 
+- name: Copy script {{ var_label_worker_nodes_role_script }} that adds role label to the worker nodes 
   copy:
     src: "{{ var_label_worker_nodes_role_script }}"
     dest: "{{ var_label_worker_nodes_role_temp_script }}"
     mode: 0755
 
-- name: Add worker role label to worker nodes
+- name: Add worker role label to the worker nodes
   command: sh "{{ var_label_worker_nodes_role_temp_script }}"
 
 - name: Your kubernetes cluster is Ready!
