@@ -73,7 +73,7 @@ Workflow:
    ```
    ansible-playbook inst-k8s-ansible.yaml -u <user-name>
    ```
-   Sample End Result:
+   Expected Outcome:  
 
    <img width="701" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/d1124bac-7b54-4972-8db8-f0e34d465da2">
    
