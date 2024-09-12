@@ -1,15 +1,18 @@
 ##Version : v2.1.2
+- set_fact:
+    var_k8s_user: "{{ ansible_user }}"
+
 - name: Wait until k8s core images required for cluster creation are pulled
   command: sudo kubeadm config images pull
 
 - name: Create k8s cluster using kubeadm init
   command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
 
-- name: Copy /etc/kubernetes/admin.conf to ~/.kube/config of user {{ ansible_user }}
+- name: Grant access to user {{ var_k8s_user }} to manage the k8s cluster
   shell: |
-    mkdir -p /home/{{ ansible_user }}/.kube
-    sudo cp -p /etc/kubernetes/admin.conf /home/{{ ansible_user }}/.kube/config
-    sudo chown $(id -u {{ ansible_user }}):$(id -g {{ ansible_user }}) /home/{{ ansible_user }}/.kube/config
+    mkdir -p /home/{{ var_k8s_user }}/.kube
+    sudo cp -p /etc/kubernetes/admin.conf /home/{{ var_k8s_user }}/.kube/config
+    sudo chown $(id -u {{ var_k8s_user }}):$(id -g {{ var_k8s_user }}) /home/{{ var_k8s_user }}/.kube/config
 
 - name: Wait for Kubernetes API server to be healthy
   shell: curl -skL https://localhost:6443/healthz

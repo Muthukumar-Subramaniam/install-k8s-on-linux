@@ -28,7 +28,8 @@
   shell: kubectl get nodes
   register: var_nodes_status
 
-- debug:
+- name: Mission accomplished! Now you can manage this k8s cluster from control plane node with user {{ var_k8s_user }}
+  debug:
     msg: |-
       {{ var_nodes_status.stdout_lines }}
 
