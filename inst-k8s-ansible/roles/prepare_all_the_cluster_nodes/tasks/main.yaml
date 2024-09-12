@@ -239,7 +239,7 @@
     - name: Distribution ( Debian based systems )
       when: ansible_os_family == "Debian"
       block:
-        - name: Add k8s gpg apt-key
+        - name: Add k8s gpg apt-key ( Debian based systems )
           apt_key:
             keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg
             url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/Release.key

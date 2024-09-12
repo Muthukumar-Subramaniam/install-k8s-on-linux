@@ -5,7 +5,7 @@
 - name: Create k8s cluster using kubeadm init
   command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
 
-- name: Copy /etc/kubernetes/admin.conf to /home/{{ ansible_user }}/.kube/config
+- name: Copy /etc/kubernetes/admin.conf to ~/.kube/config of user {{ ansible_user }}
   shell: |
     mkdir -p /home/{{ ansible_user }}/.kube
     sudo cp -p /etc/kubernetes/admin.conf /home/{{ ansible_user }}/.kube/config
@@ -45,8 +45,6 @@
       {{ var_kubeadm_join_command.stdout_lines }}
 
 - name: Copy join command as {{ var_k8s_join_command_temp_script }} to local-ansible-control-host 
-  delegate_to: local-ansible-control-host
-  run_once: true
   local_action: shell echo "{{ var_kubeadm_join_command.stdout_lines[0] }}" > {{ var_k8s_join_command_temp_script }}
 
 ########################### EOF ##########################################
