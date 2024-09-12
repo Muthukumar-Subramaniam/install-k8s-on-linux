@@ -79,9 +79,8 @@ Workflow:
    ```
    Sample End Result:
 
-   <img width="698" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/9799eeb0-c981-4427-a286-849d75378ebe">
-
-
+   <img width="701" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/d1124bac-7b54-4972-8db8-f0e34d465da2">
+   
    
 7) After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
    ```
@@ -95,8 +94,6 @@ kind note:
 * The playbook can be utilized for testing and learning purpose, tailor it as per your need if required.
 * Firewall and Selinux are not managed by the playbook, either disable it or configure it as per your requirement.
 * The playbook uses github API to fetch latest stable release of all software components.
-* There is a dependency issue in SUSE, work around is applied within the playbook.
-  ( To be fixed in upcoming patch release v1.31.1 of k8s, Ref: https://github.com/kubernetes/release/issues/3711 ) 
 * Well tested on various linux distributions.
 * Your contributions help us improve this project. We welcome bug reports, feature requests, and code contributions
 
