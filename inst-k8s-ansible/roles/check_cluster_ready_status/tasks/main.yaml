@@ -1,4 +1,4 @@
-##Version : v2.1.1
+##Version : v2.1.2
 ### Role to check the k8s cluster Ready status
 - name: worker nodes have already joinded the cluster, will be Ready in few minutes
   shell: kubectl get nodes
@@ -15,6 +15,15 @@
   retries: 100
   delay: 5
 
+- name: Copy script that add role label to worker nodes 
+  copy:
+    src: "{{ var_label_worker_nodes_role_script }}"
+    dest: "{{ var_label_worker_nodes_role_temp_script }}"
+    mode: 0755
+
+- name: Add worker role label to worker nodes
+  command: sh "{{ var_label_worker_nodes_role_temp_script }}"
+
 - name: k8s cluster nodes are Ready
   shell: kubectl get nodes
   register: var_nodes_status
@@ -23,4 +32,4 @@
     msg: |-
       {{ var_nodes_status.stdout_lines }}
 
-########################### EOF ##########################################
+########################### EOF ###############################

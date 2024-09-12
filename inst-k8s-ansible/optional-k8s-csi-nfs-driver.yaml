@@ -1,9 +1,9 @@
-##Version : v2.1.1
+##Version : v2.1.2
 ### Optional CSI NFS Driver for k8s cluster
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI NFS Driver for k8s cluster 
   hosts: k8s_cluster_ctrl_plane_node
   roles:
-      role: install-k8s-csi-nfs-driver 
+    - role: install_k8s_csi_nfs_driver 
 
 ######################### EOF #############################

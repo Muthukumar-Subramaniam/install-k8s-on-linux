@@ -1,22 +1,22 @@
-##Version : v2.1.1
+##Version : v2.1.2
 - name: Deploy k8s cluster on linux nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
   vars_files: vars.yaml
   roles:
-    - name: Fetch latest version of software components to be installed from GitHub API
-      role: fetch_latest_version_number 
-
-    - name: Prepare all the nodes for k8s cluster installation   
-      role: prepare_all_the_cluster_nodes 
-    
-    - name: Install and configure k8s cluster on control plane node using kubeadm    
-      role: install_and_configure_the_cluster
-      when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
-
-    - name: Join worker nodes with the k8s cluster
-      role: join_worker_nodes_to_the_cluster
-      when: ( 'k8s_cluster_worker_nodes' in group_names)
-
+    #    - name: Fetch latest version of software components to be installed from GitHub API
+    #      role: fetch_latest_version_number 
+    #
+    #    - name: Prepare all the nodes for k8s cluster installation   
+    #      role: prepare_all_the_cluster_nodes 
+    #    
+    #    - name: Install and configure k8s cluster on control plane node using kubeadm    
+    #      role: install_and_configure_the_cluster
+    #      when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
+    #
+    #    - name: Join worker nodes with the k8s cluster
+    #      role: join_worker_nodes_to_the_cluster
+    #      when: ( 'k8s_cluster_worker_nodes' in group_names)
+    #
     - name: Check k8s cluster Ready status
       role: check_cluster_ready_status
       when: ( 'k8s_cluster_ctrl_plane_node' in group_names)

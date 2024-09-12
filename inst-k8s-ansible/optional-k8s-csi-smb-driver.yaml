@@ -1,9 +1,9 @@
-##Version : v2.1.1
+##Version : v2.1.2
 ### Optional CSI SMB Driver for k8s cluster
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI SMB Driver for k8s cluster 
   hosts: k8s_cluster_ctrl_plane_node
   roles:
-      role: install-k8s-csi-smb-driver 
+    - role: install_k8s_csi_smb_driver 
 
 ######################### EOF #############################

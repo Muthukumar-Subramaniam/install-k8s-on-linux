@@ -1,11 +1,11 @@
-##Version : v2.1.1
+##Version : v2.1.2
 - name: Wait until k8s core images required for cluster creation are pulled
   command: sudo kubeadm config images pull
 
 - name: Create k8s cluster using kubeadm init
   command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
 
-- name: Copy /etc/kubernetes/admin.conf to ~/.kube 
+- name: Copy /etc/kubernetes/admin.conf to /home/{{ ansible_user }}/.kube/config
   shell: |
     mkdir -p /home/{{ ansible_user }}/.kube
     sudo cp -p /etc/kubernetes/admin.conf /home/{{ ansible_user }}/.kube/config
@@ -44,8 +44,9 @@
     msg: |-
       {{ var_kubeadm_join_command.stdout_lines }}
 
-- name: Copy join command as {{ var_k8s_join_command_temp_script }} to Ansible Host
-  become: true
+- name: Copy join command as {{ var_k8s_join_command_temp_script }} to local-ansible-control-host 
+  delegate_to: local-ansible-control-host
+  run_once: true
   local_action: shell echo "{{ var_kubeadm_join_command.stdout_lines[0] }}" > {{ var_k8s_join_command_temp_script }}
 
 ########################### EOF ##########################################

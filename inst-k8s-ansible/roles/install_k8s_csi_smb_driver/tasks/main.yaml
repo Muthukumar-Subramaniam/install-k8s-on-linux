@@ -1,4 +1,4 @@
-##Version : v2.1.1
+##Version : v2.1.2
 ### Optional CSI SMB Driver for k8s cluster
 - name: Get latest version information of k8s csi-smb-driver from github API
   delegate_to: local-ansible-control-host
