@@ -1,4 +1,4 @@
-##Version : v2.1.0
+##Version : v2.1.1
 ### Role to Fetch latest version of software components to be installed from GitHub API
 - name: Get latest version information of containerd
   delegate_to: local-ansible-control-host

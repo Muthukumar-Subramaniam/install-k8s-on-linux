@@ -1,4 +1,4 @@
-##Version : v2.1.0
+##Version : v2.1.1
 - name: Wait until k8s core images required for cluster creation are pulled
   command: sudo kubeadm config images pull
 

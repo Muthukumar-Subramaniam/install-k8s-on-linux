@@ -1,4 +1,4 @@
-##Version : v2.1.0
+##Version : v2.1.1
 local-ansible-control-host ansible_host=localhost ansible_connection=local
 
 [k8s_cluster_ctrl_plane_node]

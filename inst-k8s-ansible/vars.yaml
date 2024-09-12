@@ -1,4 +1,4 @@
-##Version : v2.1.0
+##Version : v2.1.1
 var_containerd_temp_binary_tarball: "/tmp/temp-containerd.tar.gz"
 var_runc_temp_binary: "/tmp/temp-runc"
 var_k8s_join_command_temp_script: "/tmp/kubernetes_join_command.sh"
