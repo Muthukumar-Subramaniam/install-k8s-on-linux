@@ -2,18 +2,18 @@
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster using the latest stable version of Kubernetes.   
 It's designed to streamline the deployment process, ensuring consistency and reducing manual errors. The playbook automatically downloads and installs the latest stable Kubernetes release, ensuring you're deploying the most up-to-date version.  
 
-## Suitable Environment : Development & Testing
+### Suitable Environment : Development & Testing
 
-## System Requirements : Minimum 2 GM RAM & 2 vCPU
+### System Requirements : Minimum 2 GM RAM & 2 vCPU
 
-## Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
+### Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
 
-## Supported Linux distributions : 
+### Supported Linux distributions : 
 * RedHat-based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
 * Debian-based  ( Debian, Ubuntu )
 * SUSE-based  ( OpenSUSE, SLES )
 
-## Also, the latest stable versions of the following components will be installed.  
+### Also, the latest stable versions of the following components will be installed.  
 * Container runtime : containerd  
 * Low-level container runtime : runc ( dependency for containerd )  
 * CNI plugin used : calico CNI   
@@ -22,7 +22,7 @@ It's designed to streamline the deployment process, ensuring consistency and red
     * csi-driver-nfs  
     * csi-driver-smb  
 
-## Please install Ansible if you haven't already already.  
+### Please install Ansible if you haven't already already.  
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html   
 
 * Create a common Linux user on all nodes to be used for the cluster.   
@@ -93,4 +93,4 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 * Your feedback and contributions are invaluable to the success of this project.  
 * Please report any bugs, suggest new features, or contribute directly to the codebase.  
 
-### > Have lots of fun!
+### Have lots of fun!
