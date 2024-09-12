@@ -79,7 +79,8 @@ Workflow:
    ```
    Sample End Result:
 
-   <img width="698" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/105788d3-773f-4adc-8a8b-30a6165afbd5">
+   <img width="698" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/9799eeb0-c981-4427-a286-849d75378ebe">
+
 
    
 7) After the cluster is installed and Ready, if required, you can install the below k8s CSI drivers.   
