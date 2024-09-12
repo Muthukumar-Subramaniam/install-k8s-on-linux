@@ -169,6 +169,7 @@
         path: "{{ var_containerd_temp_binary_tarball }}"
         state: absent
 
+
 ###Task to Install latest version of runc using official binaries
 - name: Install latest version of runc using official binaries
   become: true
@@ -203,6 +204,7 @@
         path: "{{ var_runc_temp_binary }}"
         state: absent
 
+        
 ###Task to Configure k8s repository to install kubelet, kubeadm and kubectl packages 
 - name: Configure k8s repository to install kubelet, kubeadm and kubectl packages
   become: true
@@ -272,10 +274,7 @@
             auto_import_keys: true
             enabled: true
             state: present
-
-        - name: Work-around for conntrack dependency issue with kubelet ( Suse based systems )
-          command: zypper install -y --force-resolution --allow-unsigned-rpm https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/suse/conntrack/conntrack-1.4.5-1.46.x86_64.rpm
-
+            
         - name: Install kubelet, kubeadm and kubectl packages ( Suse based systems )
           zypper:
             update_cache: true
