@@ -3,7 +3,7 @@ This Ansible playbook automates the installation and configuration of a Kubernet
 
 #### Suitable Environment : Development & Testing
 
-#### System Requirements : Minimum 2 GM RAM & 2 vCPU
+#### System Requirements : Minimum 2 GB RAM & 2 vCPU
 
 #### Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
 
