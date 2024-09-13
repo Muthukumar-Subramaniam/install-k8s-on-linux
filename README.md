@@ -90,4 +90,4 @@ This Ansible playbook automates the installation and configuration of a Kubernet
 * Please report any bugs, suggest new features, or contribute directly to the codebase.  
 
 ### Have lots of fun!
-#### Please checkout [my blog](https://ansiblek8s.blogspot.com)
+#### Feel free to have a look at [my blog](https://ansiblek8s.blogspot.com).
