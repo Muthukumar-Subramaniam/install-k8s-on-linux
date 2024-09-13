@@ -56,8 +56,7 @@ This Ansible playbook automates the installation and configuration of a Kubernet
    
    <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">  
    
-   * Only private IP addresses, as defined in RFC 1918, are allowed.  
-     * ( https://datatracker.ietf.org/doc/html/rfc1918 )  
+   * Only private IP addresses, as defined in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) are allowed.  
    * The deployment is configured to accept CIDR prefixes exclusively within the /16 to /28 range.   
    * Ensure that the selected CIDR prefix does not conflict with any existing networks in your infrastructure.  
    * Choose a CIDR prefix that provides sufficient address space for your cluster.  
