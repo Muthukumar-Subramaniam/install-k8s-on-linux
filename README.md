@@ -22,7 +22,7 @@ This Ansible playbook automates the installation and configuration of a Kubernet
     * csi-driver-smb  
 
 #### Please install Ansible if you haven't already already.  
-https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html   
+[Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)     
 
 * Create a common Linux user on all nodes to be used for the cluster.   
 * Enable passwordless SSH authentication from the Ansible host to all cluster nodes.   
