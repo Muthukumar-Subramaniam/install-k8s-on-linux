@@ -28,7 +28,7 @@ This Ansible playbook automates the installation and configuration of a Kubernet
 
 ## Workflow:  
 
-### 1) Download the tarball for the most recent version of this Ansible project.  
+### 1) Download the tarball for [the most recent stable release of this Ansible project](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest).  
 
    ```
    var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
