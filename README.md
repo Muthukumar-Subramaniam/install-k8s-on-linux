@@ -1,5 +1,5 @@
 # Install Kubernetes cluster on linux nodes with Ansible playbook
-This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using the [most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
+This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
 
 #### Suitable Environment : Development & Testing
 
