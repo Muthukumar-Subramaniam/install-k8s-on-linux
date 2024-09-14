@@ -1,4 +1,4 @@
-##Version : v2.1.2
+##Version : v2.1.3
 ### Role to check the k8s cluster Ready status
 - set_fact:
     var_k8s_ctrl_plane_node: "{{ ansible_host }}"
