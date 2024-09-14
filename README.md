@@ -5,20 +5,18 @@
 
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
 
-----  
+Suitable Environment : Development & Testing
 
-#### Suitable Environment : Development & Testing
+System Requirements : Minimum 2 GB RAM & 2 vCPU
 
-#### System Requirements : Minimum 2 GB RAM & 2 vCPU
+Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
 
-#### Supported Platforms : Baremetal, Virtual Machines, Cloud Instances
-
-#### Supported Linux distributions : 
+Supported Linux distributions : 
 * RedHat-based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
 * Debian-based  ( Debian, Ubuntu )
 * SUSE-based  ( OpenSUSE, SLES )
 
-#### Also, the latest stable versions of the following components will be installed.  
+Also, the latest stable versions of the following components will be installed.  
 * Container runtime : containerd  
 * Low-level container runtime : runc ( dependency for containerd )  
 * CNI plugin used : calico CNI   
@@ -27,10 +25,12 @@ This Ansible playbook automates the installation and configuration of a Kubernet
     * csi-driver-nfs  
     * csi-driver-smb  
 
-#### Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) if you haven't already.     
+Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) if you haven't already.     
 * Create a common Linux user on all nodes to be used for the cluster.   
 * Enable passwordless SSH authentication from the Ansible host to all cluster nodes.   
-* Ensure that the common user has sudo privileges without a password on all cluster nodes.  
+* Ensure that the common user has sudo privileges without a password on all cluster nodes.
+
+----
 
 ## Workflow:  
 
