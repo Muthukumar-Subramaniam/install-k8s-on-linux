@@ -94,7 +94,7 @@ fi
 
 fn_print_success "[done]\n"
 
-fn_print_msg "Update the pod network CIDR provided to vars.yaml  . . . "
+fn_print_msg "Update the pod network CIDR value in vars.yaml  . . . "
 sed -i '/var_k8s_pod_network_cidr/d' ./vars.yaml
 echo "var_k8s_pod_network_cidr: \"${var_pod_network_cidr}\"" >> ./vars.yaml
 fn_print_success "[done]\n"
