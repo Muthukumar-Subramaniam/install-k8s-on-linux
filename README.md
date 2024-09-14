@@ -1,4 +1,3 @@
-![Stable Release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)
 # Ansible playbook for kubeadm-based [kubernetes](https://kubernetes.io/) cluster installation on Linux  
 
 ----  
@@ -35,7 +34,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
 ## Workflow:  
 
 ### 1) Download the tarball for [the most recent stable release of this Ansible project](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest).  
-
+   ![Stable Release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)
    ```
    var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
    ```
