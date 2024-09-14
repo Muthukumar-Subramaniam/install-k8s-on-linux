@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "stable release",
-  "message": "2.1.2",  // This will be updated when you change the version
+  "message": "2.1.2",
   "color": "brightgreen"
 }
