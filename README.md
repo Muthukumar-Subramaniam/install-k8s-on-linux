@@ -1,7 +1,5 @@
 # Ansible playbook for kubeadm-based [kubernetes](https://kubernetes.io/) cluster installation on Linux  
-
 ![Stable Release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)
-
 
 ----  
 
