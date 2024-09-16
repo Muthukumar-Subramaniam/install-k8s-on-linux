@@ -5,6 +5,8 @@
   run_once: true
   uri:
     url: https://api.github.com/repos/containerd/containerd/releases/latest
+    method: GET
+    status_code: 200
     return_content: true
   register: var_containerd_release
 
@@ -20,6 +22,8 @@
   run_once: true
   uri:
     url: https://api.github.com/repos/opencontainers/runc/releases/latest
+    method: GET
+    status_code: 200
     return_content: true
   register: var_runc_release
 
@@ -35,6 +39,8 @@
   run_once: true
   uri:
     url: https://api.github.com/repos/kubernetes/kubernetes/releases/latest
+    method: GET
+    status_code: 200
     return_content: true
   register: var_k8s_release
 
@@ -49,6 +55,8 @@
   run_once: true
   uri:
     url: https://api.github.com/repos/projectcalico/calico/releases/latest
+    method: GET
+    status_code: 200
     return_content: true
   register: var_calico_release
 
