@@ -2,6 +2,6 @@
 var_containerd_temp_binary_tarball: "/tmp/temp-containerd.tar.gz"
 var_runc_temp_binary: "/tmp/temp-runc"
 var_k8s_join_command_temp_script: "/tmp/kubernetes_join_command.sh"
-var_label_worker_nodes_role_script: "./scripts/add-role-label-for-workers.sh"
+var_label_worker_nodes_role_script: "add-role-label-for-workers.sh"
 var_label_worker_nodes_role_temp_script: "/tmp/add-role-label-for-workers.sh"
 var_k8s_pod_network_cidr: "10.8.0.0/16"
