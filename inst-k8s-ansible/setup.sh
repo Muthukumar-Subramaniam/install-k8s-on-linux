@@ -1,4 +1,4 @@
-##Version : v2.1.3
+##Version : v2.1.4
 #!/bin/bash
 var_host_file_cp="./host-control-plane"
 var_host_file_w="./host-workers"
@@ -101,7 +101,7 @@ fn_print_success "[done]\n"
 
 fn_print_msg "Update the hosts provided to the inventory . . . "
 cat >./inventory << EOF
-##Version : v2.1.3
+##Version : v2.1.4
 local-ansible-control-host ansible_host=localhost ansible_connection=local
 EOF
 echo -e "\n[k8s_cluster_ctrl_plane_node]" >> ./inventory

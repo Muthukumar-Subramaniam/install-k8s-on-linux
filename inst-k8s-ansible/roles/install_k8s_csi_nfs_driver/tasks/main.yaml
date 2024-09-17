@@ -1,4 +1,4 @@
-##Version : v2.1.3
+##Version : v2.1.4
 ### Optional CSI NFS Driver for k8s cluster
 - name: Get latest version information of k8s csi-nfs-driver from github API
   delegate_to: local-ansible-control-host
