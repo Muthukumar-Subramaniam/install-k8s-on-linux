@@ -1,0 +1,26 @@
+##Version : v2.1.5
+- name: Add k8s rpm repository ( Suse based systems )
+  become: true
+  zypper_repository:
+    description: k8s-{{ var_k8s_version_major_minor }}
+    name: k8s-{{ var_k8s_version_major_minor }}
+    repo: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
+    auto_import_keys: true
+    enabled: true
+    state: present
+    
+- name: Install kubelet, kubeadm and kubectl packages ( Suse based systems )
+  become: true
+  zypper:
+    update_cache: true
+    name:
+      - kubelet
+      - kubectl 
+      - kubeadm
+    state: present
+
+- name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )
+  become: true
+  command: zypper addlock kubelet kubeadm kubectl
+
+################################## EOF ####################################

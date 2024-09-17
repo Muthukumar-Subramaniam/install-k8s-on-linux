@@ -1,10 +1,23 @@
-##Version : v2.1.4
+##Version : v2.1.5
 ###Role to Register worker nodes with the k8s cluster with kubeadm join command
-- name: Copy join command from  to the worker nodes
-  copy:
-    src: "{{ var_k8s_join_command_temp_script }}"
-    dest: "{{ var_k8s_join_command_temp_script }}"
-    mode: 0755
+- name: Check whether the worker node has joined the cluster already
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: var_check_k8s_kubelet_conf_file
 
-- name: Join the worker nodes with k8s cluster
-  command: sudo sh "{{ var_k8s_join_command_temp_script }}"
+- name: Notify if the worker node has joined the cluster already
+  debug:
+    msg: |-
+      The worker node {{ ansible_host }} has joined the cluster already
+  when: var_check_k8s_kubelet_conf_file.stat.exists
+
+- command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['var_kubeadm_join_command'] }}"
+  become: true
+  register: var_worker_joined_output
+  when: not var_check_k8s_kubelet_conf_file.stat.exists
+
+- name: Notify output of join command result from worker node
+  debug:
+    msg: |
+      {{ var_worker_joined_output.stdout_lines }}
+  when: not var_check_k8s_kubelet_conf_file.stat.exists

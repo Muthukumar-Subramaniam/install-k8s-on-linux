@@ -1,0 +1,28 @@
+##Version : v2.1.5
+- name: Add k8s rpm repository ( RedHat based systems )
+  become: true
+  yum_repository:
+    description: k8s-{{ var_k8s_version_major_minor }}
+    name: k8s-{{ var_k8s_version_major_minor }}
+    baseurl: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
+    gpgcheck: 1
+    gpgkey: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/repodata/repomd.xml.key
+    enabled: true
+    exclude:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+
+- name: Install kubelet, kubeadm and kubectl packages ( RedHat based systems )
+  become: true
+  dnf:
+    update_cache: true
+    name:
+      - kubelet
+      - kubectl 
+      - kubeadm
+    disable_excludes: k8s-{{ var_k8s_version_major_minor }}
+    state: present
+
+################################## EOF ####################################

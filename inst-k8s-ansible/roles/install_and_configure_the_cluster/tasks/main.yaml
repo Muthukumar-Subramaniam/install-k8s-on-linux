@@ -1,12 +1,51 @@
-##Version : v2.1.4
+##Version : v2.1.5
 - set_fact:
+    var_k8s_ctrl_plane_node: "{{ ansible_host }}"
     var_k8s_user: "{{ ansible_user }}"
 
-- name: Wait until k8s core images required for cluster creation are pulled
-  command: sudo kubeadm config images pull
+- name: Check if Kubernetes config images are already pulled
+  become: true
+  shell: |
+    var_missing_images=0
+    for var_image in $(kubeadm config images list | cut -d ":" -f 1)
+    do
+      if ! crictl -r unix:///run/containerd/containerd.sock images | grep -q "$(echo ${var_image} | awk -F'/' '{print $NF}')"
+      then
+        var_missing_images=1
+      fi
+    done
+    exit $var_missing_images
+  register: var_kubeadm_image_check
+  changed_when: var_kubeadm_image_check.rc != 0
+  failed_when: false
+  ignore_errors: yes
 
-- name: Create k8s cluster using kubeadm init
-  command: sudo kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
+- name: Notify if all Kubernetes config images are already pulled
+  debug:
+    msg: |- 
+      Kubernetes config images are already pulled.
+  when: var_kubeadm_image_check.rc == 0
+
+- name: Wait until Kubernetes config images required for cluster creation are pulled
+  become: true
+  command: kubeadm config images pull
+  when: var_kubeadm_image_check.rc != 0
+
+- name: Check whether kubeadm init is performed already
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: var_check_k8s_admin_conf_file
+
+- name: Notify if kubeadm init is performed already
+  debug:
+    msg: |-
+      kubeadm init is performed already
+  when: var_check_k8s_admin_conf_file.stat.exists
+
+- name: Create k8s cluster using kubeadm init with pod network {{ var_k8s_pod_network_cidr }}
+  become: true
+  command: kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
+  when: not var_check_k8s_admin_conf_file.stat.exists
 
 - name: Grant access to user {{ var_k8s_user }} to manage the k8s cluster
   shell: |
@@ -40,14 +79,15 @@
       {{ var_nodes_status.stdout_lines }}
 
 - name: Print join command and store the value to join the worker nodes
-  command: sudo kubeadm token create --print-join-command
-  register: var_kubeadm_join_command
+  command: kubeadm token create --print-join-command
+  register: var_kubeadm_join_command_register
 
-- debug:
+- name: Notify output of created join command
+  debug:
     msg: |-
-      {{ var_kubeadm_join_command.stdout_lines }}
+      {{ var_kubeadm_join_command_register.stdout_lines }}
 
-- name: Copy join command as {{ var_k8s_join_command_temp_script }} to local-ansible-control-host 
-  local_action: shell echo "{{ var_kubeadm_join_command.stdout_lines[0] }}" > {{ var_k8s_join_command_temp_script }}
+- set_fact:
+    var_kubeadm_join_command: "{{ var_kubeadm_join_command_register.stdout }}"
 
 ########################### EOF ##########################################

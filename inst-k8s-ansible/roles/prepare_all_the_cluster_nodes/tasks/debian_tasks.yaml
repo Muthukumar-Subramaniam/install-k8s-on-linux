@@ -1,0 +1,30 @@
+##Version : v2.1.5
+- name: Add k8s gpg apt-key ( Debian based systems )
+  become: true
+  apt_key:
+    keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg
+    url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/Release.key
+    state: present
+
+- name: Add k8s deb repository ( Debian based systems )
+  become: true
+  apt_repository:
+    filename: k8s-{{ var_k8s_version_major_minor }}
+    repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/ /
+    state: present
+    update-cache: true
+
+- name: Install kubelet, kubeadm and kubectl packages ( Debian based systems )
+  become: true
+  apt:
+    name:
+      - kubelet
+      - kubectl 
+      - kubeadm
+    state: present
+
+- name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )
+  become: true
+  command: apt-mark hold kubelet kubeadm kubectl
+
+######################################### EOF ############################################# 

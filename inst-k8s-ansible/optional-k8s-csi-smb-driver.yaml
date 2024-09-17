@@ -1,4 +1,4 @@
-##Version : v2.1.4
+##Version : v2.1.5
 ### Optional CSI SMB Driver for k8s cluster
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI SMB Driver for k8s cluster 

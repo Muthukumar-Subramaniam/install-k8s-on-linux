@@ -1,4 +1,4 @@
-##Version : v2.1.4
+##Version : v2.1.5
 #!/bin/bash
 var_host_file_cp="./host-control-plane"
 var_host_file_w="./host-workers"
@@ -94,14 +94,14 @@ fi
 
 fn_print_success "[done]\n"
 
-fn_print_msg "Update the pod network CIDR value in vars.yaml  . . . "
-sed -i '/var_k8s_pod_network_cidr/d' ./vars.yaml
-echo "var_k8s_pod_network_cidr: \"${var_pod_network_cidr}\"" >> ./vars.yaml
+fn_print_msg "Update the variable of pod network CIDR with ${var_pod_network_cidr} . . . "
+sed -i '/var_k8s_pod_network_cidr/d' ./roles/install_and_configure_the_cluster/vars/main.yaml
+echo "var_k8s_pod_network_cidr: \"${var_pod_network_cidr}\"" >> ./roles/install_and_configure_the_cluster/vars/main.yaml
 fn_print_success "[done]\n"
 
 fn_print_msg "Update the hosts provided to the inventory . . . "
 cat >./inventory << EOF
-##Version : v2.1.4
+##Version : v2.1.5
 local-ansible-control-host ansible_host=localhost ansible_connection=local
 EOF
 echo -e "\n[k8s_cluster_ctrl_plane_node]" >> ./inventory

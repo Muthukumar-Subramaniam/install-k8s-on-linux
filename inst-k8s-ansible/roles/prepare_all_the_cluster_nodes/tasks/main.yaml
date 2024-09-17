@@ -1,4 +1,4 @@
-##Version : v2.1.4
+##Version : v2.1.5
 - name: Upgrade system packages of all the cluster nodes
   become: true
   block:
@@ -8,12 +8,14 @@
         update_cache: true
         name: "*"
         state: latest
+      register: var_upgrade_status
 
     - name: Upgrade the system packages ( Debian based systems )
       when: ansible_os_family == "Debian"
       apt:
         update_cache: true
         upgrade: full
+      register: var_upgrade_status
   
     - name: Upgrade the system packages ( Suse based systems )
       when: ansible_os_family == "Suse"
@@ -21,6 +23,20 @@
         update_cache: true
         name: "*"
         state: latest
+      register: var_upgrade_status
+
+
+- name: Reboot the systems that are upgraded and wait for them to come back online
+  become: true
+  reboot:
+    msg: Reboot initiated by Ansible Control Host
+    connect_timeout: 10
+    post_reboot_delay: 60
+    reboot_command: reboot
+    reboot_timeout: 600
+    test_command: whoami && systemctl is-active multi-user.target
+  when: var_upgrade_status.changed
+
 
 - name: Disable swap memory
   become: true
@@ -206,86 +222,17 @@
 
         
 ###Task to Configure k8s repository to install kubelet, kubeadm and kubectl packages 
-- name: Configure k8s repository to install kubelet, kubeadm and kubectl packages
-  become: true
-  block:
-    - name: Distribution ( RedHat based systems )
-      when: ansible_os_family == "RedHat"
-      block:
-        - name: Add k8s rpm repository ( RedHat based systems )
-          yum_repository:
-            description: k8s-{{ var_k8s_version_major_minor }}
-            name: k8s-{{ var_k8s_version_major_minor }}
-            baseurl: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
-            gpgcheck: 1
-            gpgkey: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/repodata/repomd.xml.key
-            enabled: true
-            exclude:
-              - kubelet
-              - kubeadm
-              - kubectl
-            state: present
-
-        - name: Install kubelet, kubeadm and kubectl packages ( RedHat based systems )
-          dnf:
-            update_cache: true
-            name:
-              - kubelet
-              - kubectl 
-              - kubeadm
-            disable_excludes: k8s-{{ var_k8s_version_major_minor }}
-            state: present
+- name: Tasks for RedHat based Distributions
+  when: ansible_os_family == "RedHat"
+  include_tasks: redhat_tasks.yaml
     
-    - name: Distribution ( Debian based systems )
-      when: ansible_os_family == "Debian"
-      block:
-        - name: Add k8s gpg apt-key ( Debian based systems )
-          apt_key:
-            keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg
-            url: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/Release.key
-            state: present
+- name: Tasks for Debian based Distributions
+  when: ansible_os_family == "Debian"
+  include_tasks: debian_tasks.yaml
 
-        - name: Add k8s deb repository ( Debian based systems )
-          apt_repository:
-            filename: k8s-{{ var_k8s_version_major_minor }}
-            repo: deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-{{ var_k8s_version_major_minor }}.gpg] https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/deb/ /
-            state: present
-            update-cache: true
-
-        - name: Install kubelet, kubeadm and kubectl packages ( Debian based systems )
-          apt:
-            name:
-              - kubelet
-              - kubectl 
-              - kubeadm
-            state: present
-
-        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )
-          command: apt-mark hold kubelet kubeadm kubectl
-
-    - name: Distribution ( Suse based systems )
-      when: ansible_os_family == "Suse"
-      block:
-        - name: Add k8s rpm repository ( Suse based systems )
-          zypper_repository:
-            description: k8s-{{ var_k8s_version_major_minor }}
-            name: k8s-{{ var_k8s_version_major_minor }}
-            repo: https://pkgs.k8s.io/core:/stable:/{{ var_k8s_version_major_minor }}/rpm/
-            auto_import_keys: true
-            enabled: true
-            state: present
-            
-        - name: Install kubelet, kubeadm and kubectl packages ( Suse based systems )
-          zypper:
-            update_cache: true
-            name:
-              - kubelet
-              - kubectl 
-              - kubeadm
-            state: present
-
-        - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )
-          command: zypper addlock kubelet kubeadm kubectl
+- name: Tasks for Suse based Distributions
+  when: ansible_os_family == "Suse"
+  include_tasks: suse_tasks.yaml
 
 
 ###Task to Enable and start kubelet service                 
@@ -305,19 +252,5 @@
     - debug:
         msg: |-
           kubelet service is {{ kubelet_service_info.stdout_lines }}
-
-
-###Task to Reboot all the systems for some upgrades and configuration changes to take effect
-- name: Reboot all the systems for some upgrades and configuration changes to take effect
-  become: true
-  block:
-    - name: Reboot executed and waiting for nodes to come online
-      reboot:
-        msg: Reboot initiated by Ansible Host
-        connect_timeout: 30
-        post_reboot_delay: 60
-        reboot_command: reboot
-        reboot_timeout: 600
-        test_command: whoami && systemctl is-active containerd
 
 ################################# EOF ########################################
