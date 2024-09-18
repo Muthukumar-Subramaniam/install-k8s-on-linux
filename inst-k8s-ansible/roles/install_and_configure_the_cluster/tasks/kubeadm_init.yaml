@@ -1,0 +1,24 @@
+##Version : v2.1.6
+- name: Check if kubeadm init has been performed
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: var_check_k8s_admin_conf_file
+
+- name: Notify if kubeadm init has been performed already
+  debug:
+    msg: |-
+      kubeadm init has been performed already.
+  when: var_check_k8s_admin_conf_file.stat.exists
+
+- name: Notify if kubeadm init has not been performed yet.
+  debug:
+    msg: |-
+      kubeadm init has not been performed yet. Proceeding with kubeadm init.
+  when: not var_check_k8s_admin_conf_file.stat.exists
+
+- name: Create k8s cluster using kubeadm init with pod network {{ var_k8s_pod_network_cidr }}
+  become: true
+  command: kubeadm init --pod-network-cidr={{ var_k8s_pod_network_cidr }}
+  when: not var_check_k8s_admin_conf_file.stat.exists
+
+############################ EOF ###################################

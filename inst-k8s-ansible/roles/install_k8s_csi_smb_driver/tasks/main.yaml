@@ -1,4 +1,4 @@
-##Version : v2.1.5
+##Version : v2.1.6
 ### Optional CSI SMB Driver for k8s cluster
 - name: Get latest version information of k8s csi-smb-driver from github API
   delegate_to: local-ansible-control-host
@@ -11,7 +11,8 @@
 - set_fact:
     var_csi_driver_smb_latest_version: "{{ var_csi_driver_smb_release.json.tag_name }}"
 
-- debug:
+- name: Notify the version to be installed of k8s csi-driver-smb
+  debug:
     msg: |-
       Latest stable version to be installed of k8s csi-driver-smb is {{ var_csi_driver_smb_latest_version }}
   delegate_to: local-ansible-control-host
@@ -21,7 +22,8 @@
   shell: curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/{{ var_csi_driver_smb_latest_version }}/deploy/install-driver.sh | bash -s {{ var_csi_driver_smb_latest_version }} --
   register: var_csi_driver_smb_install_logs
 
-- debug:
+- name: Notify the results from CSI SMB drivers installation
+  debug:
     msg: |-
       {{ var_csi_driver_smb_install_logs.stdout_lines }}
 
@@ -29,8 +31,10 @@
   shell: kubectl get pods -A | grep -i csi-smb
   register: var_csi_driver_smb_pods_logs
 
-- debug:
+- name: Notify that the CSI SMB drivers pod creations are started
+  debug:
     msg: |-
       {{ var_csi_driver_smb_pods_logs.stdout_lines }}
+
 
 ########################## EOF ############################

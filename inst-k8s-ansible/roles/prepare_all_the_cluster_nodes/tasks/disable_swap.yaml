@@ -1,0 +1,32 @@
+##Version : v2.1.6
+- name: Check if swap is enabled
+  become: true
+  command: swapon --show
+  register: var_swap_status
+  ignore_errors: yes
+
+- name: Disable swap if it is enabled
+  become: true
+  command: swapoff -a 
+  when: var_swap_status.stdout | length > 0
+
+- name: Remove swap entry from /etc/fstab
+  become: true
+  lineinfile:
+    path: /etc/fstab
+    state: absent
+    regexp: '^.*swap.*$'
+
+- name: Notify that swap has been disabled and removed from fstab
+  debug:
+    msg: |-
+      Swap has been disabled and removed from /etc/fstab.
+  when: var_swap_status.stdout | length > 0
+
+- name: Notify if swap is already disabled
+  debug:
+    msg: |-
+      Swap is already disabled.
+  when: var_swap_status.stdout | length == 0
+
+######################### EOF ##############################

@@ -1,15 +1,15 @@
-##Version : v2.1.5
+##Version : v2.1.6
 ### Role to check the k8s cluster Ready status
-- name: worker nodes have already joinded the cluster, will be Ready in few minutes
+- name: Get the current status of all the cluster nodes
   shell: kubectl get nodes
   register: var_nodes_status
 
-- name: Notify current status of all cluster nodes
+- name: Notify the current status of all the cluster nodes
   debug:
     msg: |-
       {{ var_nodes_status.stdout_lines }}
 
-- name: Wait for all worker nodes to get Ready
+- name: Waiting for all the worker nodes to get Ready (This might take some time)
   shell: kubectl get nodes | grep -w "NotReady" | wc -l
   register: var_number_of_nodes_not_ready
   until: var_number_of_nodes_not_ready.stdout.find("0") != -1

@@ -1,0 +1,55 @@
+## Version : v2.1.6
+- name: Upgrade the system packages (RedHat based systems)
+  become: true
+  when: ansible_os_family == "RedHat"
+  dnf:
+    update_cache: true
+    name: "*"
+    state: latest
+  register: upgrade_result_redhat
+
+- name: Upgrade the system packages (Debian based systems)
+  become: true
+  when: ansible_os_family == "Debian"
+  apt:
+    update_cache: true
+    upgrade: full
+  register: upgrade_result_debian
+
+- name: Upgrade the system packages (Suse based systems)
+  become: true
+  when: ansible_os_family == "Suse"
+  zypper:
+    update_cache: true
+    name: "*"
+    state: latest
+  register: upgrade_result_suse
+
+- name: Set the upgrade status for RedHat systems
+  set_fact:
+    upgrade_status: "{{ upgrade_status | default({}) | combine({inventory_hostname: upgrade_result_redhat.changed | default(false)}) }}"
+  when: ansible_os_family == "RedHat"
+
+- name: Set the upgrade status for Debian systems
+  set_fact:
+    upgrade_status: "{{ upgrade_status | default({}) | combine({inventory_hostname: upgrade_result_debian.changed | default(false)}) }}"
+  when: ansible_os_family == "Debian"
+
+- name: Set the upgrade status for Suse systems
+  set_fact:
+    upgrade_status: "{{ upgrade_status | default({}) | combine({inventory_hostname: upgrade_result_suse.changed | default(false)}) }}"
+  when: ansible_os_family == "Suse"
+
+# Reboot the systems that are upgraded and wait for them to come back online
+- name: Reboot the systems that are upgraded and wait for them to come back online
+  become: true
+  reboot:
+    msg: Reboot initiated by Ansible Control Host
+    connect_timeout: 10
+    post_reboot_delay: 60
+    reboot_command: reboot
+    reboot_timeout: 600
+    test_command: whoami && systemctl is-active multi-user.target
+  when: upgrade_status[inventory_hostname] | default(false)
+
+############################# EOF #####################################

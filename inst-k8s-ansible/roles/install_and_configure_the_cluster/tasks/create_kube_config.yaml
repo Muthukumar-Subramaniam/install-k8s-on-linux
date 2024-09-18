@@ -1,0 +1,26 @@
+##Version : v2.1.6
+- name: Check if Kubernetes config for user {{ var_k8s_user }} exists
+  stat:
+    path: /home/{{ var_k8s_user }}/.kube/config
+  register: var_kube_config_check
+
+- name: Notify if Kubernetes config already exists for user {{ var_k8s_user }}
+  debug:
+    msg: |-
+      Kubernetes config for user {{ var_k8s_user }} already exists.
+  when: var_kube_config_check.stat.exists
+
+- name: Notify if Kubernetes config doesn't exist for user {{ var_k8s_user }}
+  debug:
+    msg: |-
+      Kubernetes config for user {{ var_k8s_user }} doesn't exist. Proceeding to create.
+  when: not var_kube_config_check.stat.exists
+
+- name: Create Kubernetes config for user {{ var_k8s_user }} to manage the k8s cluster
+  shell: |
+    mkdir -p /home/{{ var_k8s_user }}/.kube
+    sudo cp -p /etc/kubernetes/admin.conf /home/{{ var_k8s_user }}/.kube/config
+    sudo chown $(id -u {{ var_k8s_user }}):$(id -g {{ var_k8s_user }}) /home/{{ var_k8s_user }}/.kube/config
+  when: not var_kube_config_check.stat.exists
+
+##################################### EOF ######################################

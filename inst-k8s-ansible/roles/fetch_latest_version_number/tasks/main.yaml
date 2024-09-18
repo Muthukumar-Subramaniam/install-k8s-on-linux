@@ -1,22 +1,5 @@
-##Version : v2.1.5
+##Version : v2.1.6
 ### Role to Fetch latest version of software components to be installed from GitHub API
-- name: Get latest version information of containerd
-  delegate_to: local-ansible-control-host
-  run_once: true
-  uri:
-    url: https://api.github.com/repos/containerd/containerd/releases/latest
-    method: GET
-    status_code: 200
-    return_content: true
-  register: var_containerd_release
-
-- debug:
-    msg: |-
-      Latest stable version to be installed of containerd is {{ var_containerd_release.json.tag_name }}
-  delegate_to: local-ansible-control-host
-  run_once: true
-
-    
 - name: Get latest version information of runc
   delegate_to: local-ansible-control-host
   run_once: true
@@ -27,9 +10,28 @@
     return_content: true
   register: var_runc_release
 
-- debug:
+- name: Notify the runc version to be installed
+  debug:
     msg: |-
       Latest stable version to be installed of runc is {{ var_runc_release.json.tag_name }}
+  delegate_to: local-ansible-control-host
+  run_once: true
+
+
+- name: Get latest version information of containerd
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: https://api.github.com/repos/containerd/containerd/releases/latest
+    method: GET
+    status_code: 200
+    return_content: true
+  register: var_containerd_release
+
+- name: Notify the containerd version to be installed
+  debug:
+    msg: |-
+      Latest stable version to be installed of containerd is {{ var_containerd_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -44,11 +46,13 @@
     return_content: true
   register: var_k8s_release
 
-- debug:
+- name: Notify the kubernetes version to be installed
+  debug:
     msg: |-
       Latest stable version to be installed of kubernetes is {{ var_k8s_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
+
 
 - name: Get latest version information of calico CNI
   delegate_to: local-ansible-control-host
@@ -60,19 +64,20 @@
     return_content: true
   register: var_calico_release
 
-- debug:
+- name: Notify the calico CNI version to be installed
+  debug:
     msg: |-
       Latest stable version to be installed of calico CNI is {{ var_calico_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
+
 - name: Set captured version information as global variables for all nodes
   set_fact:
-    var_containerd_latest_version: "{{ var_containerd_release.json.tag_name }}"
     var_runc_latest_version: "{{ var_runc_release.json.tag_name }}"
+    var_containerd_latest_version: "{{ var_containerd_release.json.tag_name }}"
     var_k8s_latest_version: "{{ var_k8s_release.json.tag_name }}"
     var_k8s_version_major_minor: "{{ var_k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
     var_calico_latest_version: "{{ var_calico_release.json.tag_name }}"
-
 
 ################################## EOF ###############################

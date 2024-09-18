@@ -1,4 +1,4 @@
-##Version : v2.1.5
+##Version : v2.1.6
 - name: Add k8s gpg apt-key ( Debian based systems )
   become: true
   apt_key:

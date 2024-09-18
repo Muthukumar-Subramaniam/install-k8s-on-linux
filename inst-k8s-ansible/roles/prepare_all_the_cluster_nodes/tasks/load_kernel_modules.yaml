@@ -1,0 +1,21 @@
+##Version : v2.1.6
+- name: Load the required kernel modules
+  become: true
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - overlay
+    - br_netfilter
+
+- name: Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent
+  become: true
+  blockinfile:
+    create: true
+    path: /etc/modules-load.d/k8s.conf
+    block: |
+      overlay
+      br_netfilter
+    state: present
+
+############################## EOF #################################

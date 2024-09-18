@@ -1,0 +1,36 @@
+##Version : v2.1.6
+- name: Check if the Kubernetes config images have already been pulled
+  become: true
+  shell: |
+    var_missing_images=0
+    for var_image in $(kubeadm config images list | cut -d ":" -f 1)
+    do
+      if ! crictl -r unix:///run/containerd/containerd.sock images | grep -q "$(echo ${var_image} | awk -F'/' '{print $NF}')"
+      then
+        var_missing_images=1
+      fi
+    done
+    exit $var_missing_images
+  register: var_kubeadm_image_check
+  changed_when: var_kubeadm_image_check.rc != 0
+  failed_when: false
+  ignore_errors: yes
+
+- name: Notify if Kubernetes config images have already been pulled
+  debug:
+    msg: |- 
+      Kubernetes config images have already been pulled.
+  when: var_kubeadm_image_check.rc == 0
+
+- name: Notify if Kubernetes config images have not been pulled yet
+  debug:
+    msg: |- 
+      Kubernetes config images have not been pulled yet. Proceeding to pull the required images.
+  when: var_kubeadm_image_check.rc != 0
+
+- name: Wait until Kubernetes config images required for cluster creation are pulled
+  become: true
+  command: kubeadm config images pull
+  when: var_kubeadm_image_check.rc != 0
+
+####################################### EOF #########################################

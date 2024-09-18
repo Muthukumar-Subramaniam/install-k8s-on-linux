@@ -1,0 +1,96 @@
+##Version : v2.1.6
+- name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
+  delegate_to: local-ansible-control-host
+  run_once: true
+  get_url:
+    url: https://github.com/containerd/containerd/releases/download/{{ var_containerd_latest_version }}/containerd-{{ var_containerd_latest_version | regex_replace('v', '') }}-linux-amd64.tar.gz
+    dest: "{{ var_containerd_temp_binary_tarball }}"
+
+- name: Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes
+  copy:
+    src: "{{ var_containerd_temp_binary_tarball }}"
+    dest: "{{ var_containerd_temp_binary_tarball }}"
+    mode: 755
+
+- name: Extract containerd bin under /usr/local
+  become: true
+  unarchive:
+    remote_src: true
+    src: "{{ var_containerd_temp_binary_tarball }}"
+    dest: /usr/local 
+    owner: root
+    group: root
+    mode: 755
+
+- name: Create containerd configuration directory /etc/containerd
+  become: true
+  file:
+    path: /etc/containerd
+    state: directory
+    mode: 0755
+
+- name: Create /etc/containerd/config.toml
+  become: true
+  file:
+    path: /etc/containerd/config.toml
+    state: touch
+
+- name: Generate containerd config and write it to /etc/containerd/config.toml
+  shell: containerd config default | sudo tee /etc/containerd/config.toml
+
+- name: Set SystemdCgroup as true in /etc/containerd/config.toml for runc
+  become: true
+  replace:  
+    path: /etc/containerd/config.toml
+    regexp: 'SystemdCgroup = false'
+    replace: 'SystemdCgroup = true'
+
+- name: Check SystemdCgroup setting of containerd for runc
+  command: grep 'SystemdCgroup' /etc/containerd/config.toml
+  register: var_SystemdCgroup_output
+
+- name: Notify SystemdCgroup setting of containerd for runc
+  debug:
+    msg: |-
+      SystemdCgroup setting of containerd for runc is {{ var_SystemdCgroup_output.stdout_lines }}
+
+- name: Download containerd.service file from GitHub
+  become: true
+  get_url:
+    url: "https://raw.githubusercontent.com/containerd/containerd/main/containerd.service"
+    dest: /etc/systemd/system/containerd.service
+
+- name: Reload systemd daemon
+  become: true
+  systemd:
+    name: daemon-reload
+
+- name: Enable and start containerd.service
+  become: true
+  systemd:
+    name: containerd.service
+    enabled: yes
+    state: started
+
+- name: Verify status of containerd service
+  command: systemctl is-active containerd
+  register: var_containerd_service_status
+
+- name: Notify status of containerd service
+  debug:
+    msg: |-
+      status of containerd service is {{ var_containerd_service_status.stdout_lines }}
+
+- name: Clean up {{ var_containerd_temp_binary_tarball }} from local-ansible-control-host
+  delegate_to: local-ansible-control-host
+  run_once: true
+  file:
+    path: "{{ var_containerd_temp_binary_tarball }}"
+    state: absent
+
+- name: Clean up {{ var_containerd_temp_binary_tarball }} from all nodes
+  file:
+    path: "{{ var_containerd_temp_binary_tarball }}"
+    state: absent
+
+################################# EOF #######################################

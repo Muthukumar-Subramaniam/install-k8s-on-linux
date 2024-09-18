@@ -1,4 +1,4 @@
-##Version : v2.1.5
+##Version : v2.1.6
 - name: Add k8s rpm repository ( RedHat based systems )
   become: true
   yum_repository:
