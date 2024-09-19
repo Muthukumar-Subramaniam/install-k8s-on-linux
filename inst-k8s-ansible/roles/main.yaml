@@ -1,0 +1,26 @@
+# roles/firewalld_setup/tasks/main.yaml
+
+- name: Check if firewalld is installed
+  ansible.builtin.command: "firewall-cmd --state"
+  register: firewalld_check
+  changed_when: false
+  ignore_errors: true
+  failed_when: false  # Ensure this check does not fail the playbook
+
+- name: Check if firewalld is active
+  ansible.builtin.systemd:
+    name: firewalld
+    state: active
+  register: firewalld_status
+  changed_when: false
+  when: firewalld_check.rc == 0
+  failed_when: false  # Ensure this check does not fail the playbook
+
+- name: Notify if firewalld is not installed or not running
+  ansible.builtin.debug:
+    msg: "Firewalld is not installed or running. Skipping firewall configuration."
+  when: firewalld_check.rc != 0 or firewalld_status.status != "active"
+
+- name: Include firewalld rules for Kubernetes
+  include_tasks: apply_rules.yaml
+  when: firewalld_status.status == "active"
