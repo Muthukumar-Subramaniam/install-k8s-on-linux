@@ -95,5 +95,4 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
 * Your feedback and contributions are invaluable to the success of this project.  
 * Please report any bugs, suggest new features, or contribute directly to the codebase.  
 
-### Have lots of fun!
-#### Feel free to have a look at [my blog](https://ansiblek8s.blogspot.com).
+### Have lots of fun!  
