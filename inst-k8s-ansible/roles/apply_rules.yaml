@@ -34,9 +34,9 @@
     - 6443/tcp   # Kubernetes API server
     - 2379-2380/tcp  # etcd
     - 10250/tcp  # Kubelet API server
-    - 10251/tcp  # kube-scheduler
-    - 10252/tcp  # kube-controller-manager
-    - 10249/tcp  # Kube Proxy
+    - 10256/tcp  # kube-proxy
+    - 10257/tcp  # kube-controller-manager
+    - 10259/tcp  # Kube-scheduler
     - 30000-32767/tcp  # NodePort range
   when: "'k8s-ctrl-plane' in group_names"
   become: true
@@ -50,7 +50,7 @@
     state: enabled
   loop:
     - 10250/tcp  # Kubelet API server
-    - 10249/tcp  # Kube Proxy
+    - 10256/tcp  # Kube Proxy
     - 30000-32767/tcp  # NodePort range
   when: "'k8s-worker' in group_names"
   become: true
