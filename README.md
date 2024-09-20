@@ -88,8 +88,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
 
 ### Kindly note:  
-* This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.  
-* Firewall and SELinux are not configured by this playbook. You may need to disable or adjust their settings to allow proper Kubernetes functionality.  
+* This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    
 * The playbook utilizes the GitHub API to fetch the current stable versions of all required software components.  
 * Compatible with a wide range of Linux distributions.  
 * Your feedback and contributions are invaluable to the success of this project.  
