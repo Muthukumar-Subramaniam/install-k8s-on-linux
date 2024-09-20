@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Add k8s rpm repository ( Suse based systems )
   become: true
   zypper_repository:

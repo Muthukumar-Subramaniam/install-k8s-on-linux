@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Install and configure the kubernetes cluster on linux nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
   roles:
@@ -7,6 +7,9 @@
 
     - name: Prepare all the nodes for k8s cluster installation   
       role: prepare_all_the_cluster_nodes 
+
+    - name: Apply firewalld rules if it is running
+      role: apply_rules_for_firewalld
     
     - name: Install and configure k8s cluster on control plane node using kubeadm    
       role: install_and_configure_the_cluster

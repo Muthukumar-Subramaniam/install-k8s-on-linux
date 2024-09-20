@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Check if Kubernetes config for user {{ var_k8s_user }} exists
   stat:
     path: /home/{{ var_k8s_user }}/.kube/config

@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Check if Calico CNI manifest has been applied already
   shell: kubectl get pods -A | grep 'calico'
   register: var_calico_check

@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Check if swap is enabled
   become: true
   command: swapon --show

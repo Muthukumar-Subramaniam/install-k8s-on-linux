@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 - name: Check if the Kubernetes config images have already been pulled
   become: true
   shell: |

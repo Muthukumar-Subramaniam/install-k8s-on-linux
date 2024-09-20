@@ -1,0 +1,25 @@
+##Version : v2.1.7
+- name: Check if firewalld is active
+  become: true
+  command: systemctl is-active firewalld
+  register: var_firewalld_status
+  changed_when: false
+  failed_when: false
+
+- name: Notify if firewalld is not running
+  debug:
+    msg: |-
+      Firewalld is not running. Skipping firewall configuration.
+  when: var_firewalld_status.stdout != "active"
+
+- name: Notify if firewalld is running
+  debug:
+    msg: |-
+      Firewalld is running. Proceeding with the necessary configuration.
+  when: var_firewalld_status.stdout == "active"
+
+- name: Include tasks to apply firewalld rules for Kubernetes and Calico CNI
+  include_tasks: apply_rules.yaml
+  when: var_firewalld_status.stdout == "active"
+
+########################## EOF ##############################

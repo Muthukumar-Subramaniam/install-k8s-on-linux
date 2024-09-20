@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 ### Role to Fetch latest version of software components to be installed from GitHub API
 - name: Get latest version information of runc
   delegate_to: local-ansible-control-host

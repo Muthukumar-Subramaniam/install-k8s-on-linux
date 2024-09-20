@@ -1,4 +1,4 @@
-##Version : v2.1.6
+##Version : v2.1.7
 ###Role to Register worker nodes with the k8s cluster with kubeadm join command
 - name: Check whether the worker node has joined the cluster already
   stat:

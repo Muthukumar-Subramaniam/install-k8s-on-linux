@@ -1,0 +1,58 @@
+##Version : v2.1.7
+- name: Allow Kubernetes related ports for control plane node
+  become: true
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    zone: public
+    permanent: true
+    immediate: true
+    state: enabled
+  loop:
+    - 6443/tcp   # Kubernetes API server
+    - 2379-2380/tcp  # etcd
+    - 10250/tcp  # Kubelet API server
+    - 10256/tcp  # kube-proxy
+    - 10257/tcp  # kube-controller-manager
+    - 10259/tcp  # Kube-scheduler
+    - 30000-32767/tcp  # NodePort range
+  when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
+
+- name: Allow Kubernetes related ports for worker nodes
+  become: true
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    zone: public
+    permanent: true
+    immediate: true
+    state: enabled
+  loop:
+    - 10250/tcp  # Kubelet API server
+    - 10256/tcp  # Kube Proxy
+    - 30000-32767/tcp  # NodePort range
+  when: ( 'k8s_cluster_worker_nodes' in group_names)
+
+- name: Allow calico related ports in all nodes
+  become: true
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    zone: public
+    permanent: true
+    immediate: true
+    state: enabled
+  loop:
+    - 179/tcp      # BGP port
+    - 4789/udp     # VXLAN port
+    - 5473/tcp     # Calico port for tigera operator agent
+    - 51820/udp    # WireGuard port for Calico
+    - 51821/udp    # Another WireGuard port for Calico
+
+- name: Allow IP-in-IP encapsulation for Calico (Protocol 4) in all nodes
+  become: true
+  ansible.posix.firewalld:
+    protocol: 4
+    zone: public
+    permanent: true
+    immediate: true
+    state: enabled
+
+############################ EOF ###########################
