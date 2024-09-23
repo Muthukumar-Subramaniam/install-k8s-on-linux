@@ -68,8 +68,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
    ./setup.py
    ```
-   <img width="491" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/fa725172-1f20-4cd5-bc7c-0c5109d8d7ac">
-
+   <img width="490" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/52fdec4f-08b7-49a6-ace3-a02b70ff83f6">
 
 ### 6) Run the playbook if the setup.py script completes successfully.  
    ```
