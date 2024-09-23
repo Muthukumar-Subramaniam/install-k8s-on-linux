@@ -16,13 +16,13 @@ Supported Linux distributions :
 * SUSE-based  ( OpenSUSE, SLES )
 
 Also, the latest stable versions of the following components will be installed.  
-* Container runtime : containerd  
-* Low-level container runtime : runc ( dependency for containerd )  
-* CNI plugin used : calico CNI   
+* Container runtime : [containerd](https://github.com/containerd/containerd)  
+* Low-level container runtime : [runc](https://github.com/opencontainers/runc) ( dependency for containerd )  
+* CNI plugin used : [calico](https://github.com/projectcalico/calico) CNI   
 * Optionally, you can also install  
   * k8s CSI drivers :  
-    * csi-driver-nfs  
-    * csi-driver-smb  
+    * [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs)  
+    * [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb)  
 
 Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) if you haven't already.     
 * Create a common Linux user on all nodes to be used for the cluster.   
