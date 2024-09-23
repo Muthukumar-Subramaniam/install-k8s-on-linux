@@ -64,14 +64,14 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    * Ensure that the selected CIDR prefix does not conflict with any existing networks in your infrastructure.  
    * Choose a CIDR prefix that provides sufficient address space for your cluster.  
 
-### 5) Run the setup.sh script to prepare the environment for the Ansible playbook.  
+### 5) Run the setup.py script to prepare the environment for the Ansible playbook.  
    ```
-   ./setup.sh
+   ./setup.py
    ```
    <img width="491" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/fa725172-1f20-4cd5-bc7c-0c5109d8d7ac">
 
 
-### 6) Run the playbook if the setup.sh script completes successfully.  
+### 6) Run the playbook if the setup.py script completes successfully.  
    ```
    ansible-playbook inst-k8s-ansible.yaml -u <user-name>
    ```

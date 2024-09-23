@@ -1,4 +1,4 @@
-##Version : v2.1.7
+##Version : v2.2.0
 - name: Allow Kubernetes related ports for control plane node
   become: true
   ansible.posix.firewalld:

@@ -1,4 +1,4 @@
-##Version : v2.1.7
+##Version : v2.2.0
 - name: Check if kubeadm init has been performed
   stat:
     path: /etc/kubernetes/admin.conf

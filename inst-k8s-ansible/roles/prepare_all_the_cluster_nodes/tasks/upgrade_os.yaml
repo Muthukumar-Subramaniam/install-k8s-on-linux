@@ -1,4 +1,4 @@
-## Version : v2.1.7
+## Version : v2.2.0
 - name: Upgrade the system packages (RedHat based systems)
   become: true
   when: ansible_os_family == "RedHat"

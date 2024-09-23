@@ -1,4 +1,4 @@
-##Version : v2.1.7
+##Version : v2.2.0
 ###Tasks to upgrade the system packages
 - name: Include tasks to upgrade the system packages
   include_tasks: upgrade_os.yaml 

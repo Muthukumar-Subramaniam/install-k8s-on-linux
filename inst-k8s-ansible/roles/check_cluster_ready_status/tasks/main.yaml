@@ -1,4 +1,4 @@
-##Version : v2.1.7
+##Version : v2.2.0
 ### Role to check the k8s cluster Ready status
 - name: Get the current status of all the cluster nodes
   shell: kubectl get nodes
@@ -13,7 +13,7 @@
   shell: kubectl get nodes | grep -w "NotReady" | wc -l
   register: var_number_of_nodes_not_ready
   until: var_number_of_nodes_not_ready.stdout.find("0") != -1
-  retries: 100
+  retries: 200
   delay: 5
 
 - name: Add worker role label to the worker nodes
