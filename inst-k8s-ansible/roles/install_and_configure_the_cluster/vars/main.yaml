@@ -1,2 +1,2 @@
-##Version : v2.2.0
+##Version : v2.2.1
 var_k8s_pod_network_cidr: "10.8.0.0/16"
