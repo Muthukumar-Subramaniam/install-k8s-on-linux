@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 ### Role to check the k8s cluster Ready status
 - name: Get the current status of all the cluster nodes
   shell: kubectl get nodes
@@ -13,7 +13,7 @@
   shell: kubectl get nodes | grep -w "NotReady" | wc -l
   register: var_number_of_nodes_not_ready
   until: var_number_of_nodes_not_ready.stdout.find("0") != -1
-  retries: 200
+  retries: 500
   delay: 5
 
 - name: Add worker role label to the worker nodes
@@ -23,6 +23,26 @@
         kubectl label node $var_k8s_node node-role.kubernetes.io/worker=true
     done
     exit
+
+- name: Get the status of cluster nodes
+  shell: kubectl get nodes
+  register: var_nodes_status
+
+- name: All the cluster nodes are Ready!
+  debug:
+    msg: |-
+      {{ var_nodes_status.stdout_lines }}
+
+- name: Capture the total number of k8s system pods
+  shell: kubectl get pods -A --no-headers | wc -l
+  register: var_total_number_of_k8s_pods
+
+- name: Wait for all the k8s system pods to come online (This might take some time)
+  shell: kubectl get pods -A --no-headers | grep 'Running' |  wc -l
+  register: var_number_of_running_k8s_pods
+  until: var_number_of_running_k8s_pods.stdout | int == var_total_number_of_k8s_pods.stdout | int
+  retries: 500
+  delay: 5
 
 - name: Your kubernetes cluster is Ready!
   shell: kubectl get nodes

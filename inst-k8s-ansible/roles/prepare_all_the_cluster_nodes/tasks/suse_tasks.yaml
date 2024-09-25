@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 - name: Add k8s rpm repository ( Suse based systems )
   become: true
   zypper_repository:
@@ -15,8 +15,9 @@
     update_cache: true
     name:
       - kubelet
-      - kubectl 
       - kubeadm
+      - kubectl 
+      - bash-completion 
     state: present
 
 - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )

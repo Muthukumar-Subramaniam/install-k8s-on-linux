@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 ###Tasks to install and configure metallb for k8s cluster
 - name: Get latest version information of MetalLB from GitHub API
   delegate_to: local-ansible-control-host
@@ -64,6 +64,10 @@
 - name: Apply MetalLB IPAddressPool and L2Advertisement manifests
   shell: kubectl apply -f /tmp/metallb_config.yaml
 
+- name: Get the current status of metallb-system pods
+  shell: kubectl get pods -n metallb-system
+  register: var_metallb_pods_logs
+
 - name: Get MetalLB IPAddressPool details
   shell: |
     kubectl get ipaddresspools.metallb.io -n metallb-system
@@ -73,3 +77,10 @@
   debug:
     msg: |-
       {{ var_metallb_ip_pool_status.stdout_lines }}
+
+- name: Successfully deployed MetalLB LoadBalancer for the k8s cluster
+  debug:
+    msg: |-
+      {{ var_metallb_pods_logs.stdout_lines }}
+
+############################## EOF ################################

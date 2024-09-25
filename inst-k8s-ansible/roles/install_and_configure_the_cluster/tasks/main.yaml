@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 - set_fact:
     var_k8s_ctrl_plane_node: "{{ ansible_host }}"
     var_k8s_user: "{{ ansible_user }}"
@@ -20,7 +20,7 @@
   shell: curl -skL https://localhost:6443/healthz
   register: var_api_server_health_status
   until: var_api_server_health_status.stdout.find("ok") != -1
-  retries: 100
+  retries: 500
   delay: 5
 
 ###Tasks to apply Calico CNI manifest
@@ -31,7 +31,7 @@
 - name: Wait for control-plane to get Ready
   shell: kubectl get nodes | grep -w " Ready "
   register: var_control_plane_ready_status
-  retries: 100
+  retries: 500
   until: var_control_plane_ready_status.stdout.find("Ready") != -1
   delay: 5
 

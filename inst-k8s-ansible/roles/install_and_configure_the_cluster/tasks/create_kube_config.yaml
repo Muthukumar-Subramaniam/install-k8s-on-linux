@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 - name: Check if Kubernetes config for user {{ var_k8s_user }} exists
   stat:
     path: /home/{{ var_k8s_user }}/.kube/config
@@ -21,6 +21,7 @@
     mkdir -p /home/{{ var_k8s_user }}/.kube
     sudo cp -p /etc/kubernetes/admin.conf /home/{{ var_k8s_user }}/.kube/config
     sudo chown $(id -u {{ var_k8s_user }}):$(id -g {{ var_k8s_user }}) /home/{{ var_k8s_user }}/.kube/config
+    echo 'source <(kubectl completion bash)' >> /home/{{ var_k8s_user }}/.bashrc
   when: not var_kube_config_check.stat.exists
 
 ##################################### EOF ######################################

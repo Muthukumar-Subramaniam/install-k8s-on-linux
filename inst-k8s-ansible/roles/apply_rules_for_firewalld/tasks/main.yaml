@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 - name: Check if firewalld is active
   become: true
   command: systemctl is-active firewalld

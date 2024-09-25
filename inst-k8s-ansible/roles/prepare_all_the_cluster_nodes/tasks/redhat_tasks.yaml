@@ -1,4 +1,4 @@
-##Version : v2.2.2
+##Version : v2.2.3
 - name: Add k8s rpm repository ( RedHat based systems )
   become: true
   yum_repository:
@@ -20,8 +20,9 @@
     update_cache: true
     name:
       - kubelet
-      - kubectl 
       - kubeadm
+      - kubectl 
+      - bash-completion 
     disable_excludes: k8s-{{ var_k8s_version_major_minor }}
     state: present
 
