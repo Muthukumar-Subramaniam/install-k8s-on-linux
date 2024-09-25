@@ -32,9 +32,9 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
 
 ----
 
-## Workflow:  
+### Workflow:  
 
-### 1) Download the tarball for the most recent stable release of this Ansible project.  
+#### 1) Download the tarball for the most recent stable release of this Ansible project.  
    [![stable release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest)
    ```
    var_latest_version=$(curl -skL https://api.github.com/repos/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest | jq -r '.tag_name' 2>>/dev/null | tr -d '[:space:]')
@@ -94,7 +94,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
 
 
-## Kindly note:  
+### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    
 * The playbook utilizes the GitHub API to fetch the current stable versions of all required software components.  
 * Compatible with a wide range of Linux distributions.  
