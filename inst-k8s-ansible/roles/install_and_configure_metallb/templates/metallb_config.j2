@@ -1,0 +1,17 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: k8s-metallb-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - {{ var_k8s_metallb_ip_pool_range }}  # Reserve IP range for LoadBalancer services
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - k8s-metallb-ip-pool

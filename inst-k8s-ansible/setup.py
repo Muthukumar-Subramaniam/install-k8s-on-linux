@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##Version : v2.2.1
+##Version : v2.2.2
 
 import os
 import re
@@ -123,6 +123,16 @@ if subprocess.call(['ansible', '-u', var_ansible_user, '-m', 'ping', 'k8s_cluste
     fn_msg_setup()
     exit(1)
 
+fn_print_msg(f"Update remote username (ansible_user) to ansible.cfg . . . ")
+with open('./ansible.cfg', 'r+') as f:
+    lines = f.readlines()
+    f.seek(0)
+    f.writelines(line for line in lines if 'remote_user' not in line)
+    f.write(f'remote_user={var_ansible_user}\n')
+    f.truncate()
+
+fn_print_success("[done]\n")
+
 fn_print_success("\nAll set, you are good to go!\n")
 fn_print_note("You can now run the playbook whenever you are ready!\n")
-fn_print_note(f"ansible-playbook ./inst-k8s-ansible.yaml -u {var_ansible_user}\n\n")
+fn_print_note(f"./inst-k8s-ansible.yaml\n\n")

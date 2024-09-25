@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+##Version : v2.2.2
+### Optional metallb installation for k8s cluster
+### Run it if required only after the k8s cluster is Ready
+
+- name: Install and configure MetalLB for k8s cluster 
+  hosts: k8s_cluster_ctrl_plane_node
+  vars:
+    var_k8s_metallb_ip_pool_range: "192.168.168.201-192.168.168.255" # Change it as per your environment
+  roles:
+    - role: install_and_configure_metallb 
+
+######################### EOF #############################

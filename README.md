@@ -20,9 +20,10 @@ Also, the latest stable versions of the following components will be installed.
 * Low-level container runtime : [runc](https://github.com/opencontainers/runc) ( dependency for containerd )  
 * CNI plugin used : [calico](https://github.com/projectcalico/calico) CNI   
 * Optionally, you can also install  
-  * k8s CSI drivers :  
+  * CSI drivers for kubernetes :  
     * [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs)  
-    * [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb)  
+    * [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb) 
+  * [MetalLB](https://github.com/metallb/metallb) LoadBalancer for kubernetes.  
 
 Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) if you haven't already.     
 * Create a common Linux user on all nodes to be used for the cluster.   
@@ -72,7 +73,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
 
 ### 6) Run the playbook if the setup.py script completes successfully.  
    ```
-   ansible-playbook inst-k8s-ansible.yaml -u <user-name>
+   ./inst-k8s-ansible.yaml
    ```
    Expected Outcome:  
 
@@ -80,11 +81,17 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    
 ### 7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
    ```
-   ansible-playbook optional-k8s-csi-nfs-driver.yaml -u <user-name> 
+   ./optional-k8s-csi-nfs-driver.yaml
    ```
    ```
-   ansible-playbook optional-k8s-csi-smb-driver.yaml -u <user-name>
+   ./optional-k8s-csi-smb-driver.yaml
    ```
+
+### 8) You can also optionally install the MetalLB LoadBalancer if required.  
+    * Note: Please make sure to change the address pool range as per your environment and requirement. 
+    ```
+    ./optional-install-metallb.yaml
+
 
 ### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    

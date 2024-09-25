@@ -1,0 +1,75 @@
+##Version : v2.2.2
+###Tasks to install and configure metallb for k8s cluster
+- name: Get latest version information of MetalLB from GitHub API
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: https://api.github.com/repos/metallb/metallb/releases/latest
+    return_content: true
+  register: var_metallb_release
+
+- set_fact:
+    var_metallb_latest_version: "{{ var_metallb_release.json.tag_name }}"
+
+- name: Notify the version to be installed of MetalLB
+  debug:
+    msg: |-
+      Latest stable version to be installed of MetalLB is {{ var_metallb_latest_version }}
+  delegate_to: local-ansible-control-host
+  run_once: true
+
+- name: Install MetalLB using manifest from GitHub with kubectl
+  shell: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/{{ var_metallb_latest_version }}/config/manifests/metallb-native.yaml
+  register: var_metallb_install_logs
+
+- name: Notify the results from metallb installation
+  debug:
+    msg: |-
+      {{ var_metallb_install_logs.stdout_lines }}
+
+- name: Get the status of metallb-system pods being deployed
+  shell: kubectl get pods -n metallb-system
+  register: var_metallb_pods_logs
+
+- name: Notify the status of metallb-system pods being deployed
+  debug:
+    msg: |-
+      {{ var_metallb_pods_logs.stdout_lines }}
+
+- name: Capture the number of metallb-system pods being deployed
+  shell: kubectl get pods -n metallb-system --no-headers | wc -l
+  register: var_total_number_of_metallb_pods
+
+- name: Waiting for all the metallb-system pods to be Running
+  shell: kubectl get pods -n metallb-system --no-headers | grep 'Running' |  wc -l
+  register: var_number_of_running_metallb_pods
+  until: var_number_of_running_metallb_pods.stdout | int == var_total_number_of_metallb_pods.stdout | int
+  retries: 500
+  delay: 5
+
+- name: Get the current status of metallb-system pods
+  shell: kubectl get pods -n metallb-system
+  register: var_metallb_pods_logs
+
+- name: Notify the status of metallb-system pods
+  debug:
+    msg: |-
+      {{ var_metallb_pods_logs.stdout_lines }}
+
+- name: Create MetalLB IPAddressPool and L2Advertisement
+  template:
+    src: metallb_config.j2
+    dest: /tmp/metallb_config.yaml  # Temporary file before applying
+
+- name: Apply MetalLB IPAddressPool and L2Advertisement manifests
+  shell: kubectl apply -f /tmp/metallb_config.yaml
+
+- name: Get MetalLB IPAddressPool details
+  shell: |
+    kubectl get ipaddresspools.metallb.io -n metallb-system
+  register: var_metallb_ip_pool_status 
+
+- name: Notify MetalLB IPAddressPool details
+  debug:
+    msg: |-
+      {{ var_metallb_ip_pool_status.stdout_lines }}
