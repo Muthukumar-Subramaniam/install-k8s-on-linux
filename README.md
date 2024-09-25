@@ -48,15 +48,15 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
    cd inst-k8s-ansible
    ```
-### 2) Update the host-control-plane file with the necessary hostname.  
+#### 2) Update the host-control-plane file with the necessary hostname.  
    
    <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
   
-### 3) Update the host-workers file with the necessary hostnames.  
+#### 3) Update the host-workers file with the necessary hostnames.  
    
    <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
 
-### 4) Update the pod-network-cidr file with the desired pod network CIDR.  
+#### 4) Update the pod-network-cidr file with the desired pod network CIDR.  
    
    <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">  
    
@@ -65,13 +65,13 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    * Ensure that the selected CIDR prefix does not conflict with any existing networks in your infrastructure.  
    * Choose a CIDR prefix that provides sufficient address space for your cluster.  
 
-### 5) Run the setup.py script to prepare the environment for the Ansible playbook.  
+#### 5) Run the setup.py script to prepare the environment for the Ansible playbook.  
    ```
    ./setup.py
    ```
    <img width="490" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/52fdec4f-08b7-49a6-ace3-a02b70ff83f6">
 
-### 6) Run the playbook if the setup.py script completes successfully.  
+#### 6) Run the playbook if the setup.py script completes successfully.  
    ```
    ./inst-k8s-ansible.yaml
    ```
@@ -79,7 +79,7 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
 
    <img width="701" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/d1124bac-7b54-4972-8db8-f0e34d465da2">
    
-### 7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
+#### 7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
    ```
    ./optional-k8s-csi-nfs-driver.yaml
    ```
@@ -87,14 +87,14 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ./optional-k8s-csi-smb-driver.yaml
    ```
 
-### 8) You can also optionally install the MetalLB LoadBalancer if required.  
+#### 8) You can also optionally install the MetalLB LoadBalancer if required.  
    Note: Please make sure to change the address pool range in the playbook as per your environment and requirement. 
    ```
    ./optional-install-metallb.yaml
    ```
 
 
-### Kindly note:  
+## Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    
 * The playbook utilizes the GitHub API to fetch the current stable versions of all required software components.  
 * Compatible with a wide range of Linux distributions.  
