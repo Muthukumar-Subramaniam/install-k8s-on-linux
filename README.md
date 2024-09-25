@@ -88,9 +88,10 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
 
 ### 8) You can also optionally install the MetalLB LoadBalancer if required.  
-    * Note: Please make sure to change the address pool range as per your environment and requirement. 
+   Note: Please make sure to change the address pool range in the playbook as per your environment and requirement. 
     ```
     ./optional-install-metallb.yaml
+    ```
 
 
 ### Kindly note:  
