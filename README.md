@@ -50,16 +50,18 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
 #### 2) Update the host-control-plane file with the necessary hostname.  
    
-   <img width="410" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/1d465756-4e88-462f-94cd-5b7c8df36d6e">
+   <img width="362" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/ff689ceb-554a-438b-83e4-efd0b19e0170">
+
   
 #### 3) Update the host-workers file with the necessary hostnames.  
    
-   <img width="372" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/e0476ec1-4ca3-412d-ba72-5a02bf6e17bf">
+   <img width="340" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/ec9b0598-9502-4ba2-ac52-9254e9093500">
+
 
 #### 4) Update the pod-network-cidr file with the desired pod network CIDR.  
    
-   <img width="404" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/278507ea-aec9-4535-8097-4b1ac4a49101">  
-   
+   <img width="354" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/92aaab26-f9a1-43fe-830f-a56ed19eba0a">
+  
    * Only private IP addresses, as defined in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) are allowed.  
    * The deployment is configured to accept CIDR prefixes exclusively within the /16 to /28 range.   
    * Ensure that the selected CIDR prefix does not conflict with any existing networks in your infrastructure.  
@@ -69,7 +71,8 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
    ./setup.py
    ```
-   <img width="490" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/52fdec4f-08b7-49a6-ace3-a02b70ff83f6">
+   <img width="497" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/40cd5400-457b-4428-89b4-8d5d43690f6c">
+
 
 #### 6) Run the playbook if the setup.py script completes successfully.  
    ```
@@ -77,21 +80,37 @@ Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_gu
    ```
    Expected Outcome:  
 
-   <img width="701" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/d1124bac-7b54-4972-8db8-f0e34d465da2">
+   <img width="704" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/c550925f-1dc4-4536-b1dc-fdfe230749ca">
+
    
 #### 7) Once the Kubernetes cluster is successfully installed and ready, you can optionally install the following CSI drivers.     
    ```
    ./optional-k8s-csi-nfs-driver.yaml
    ```
+  Expected Outcome:  
+  
+  <img width="702" alt="Screenshot-csi-driver-nfs" src="https://github.com/user-attachments/assets/40732420-acd2-4a09-94d8-128ac44634ce">  
+   
    ```
    ./optional-k8s-csi-smb-driver.yaml
    ```
+   Expected Outcome:  
+
+   <img width="694" alt="Screenshot-csi-driver-smb" src="https://github.com/user-attachments/assets/595d50a9-19d8-474c-97bd-e6ee72c09584">
+
 
 #### 8) You can also optionally install the MetalLB LoadBalancer if required.  
    Note: Please make sure to change the address pool range in the playbook as per your environment and requirement. 
+
+   <img width="634" alt="Screenshot-metallb-ip-pool" src="https://github.com/user-attachments/assets/c59970f3-c28d-41d2-b906-ca891dce0ce1">
+
    ```
    ./optional-install-metallb.yaml
    ```
+   Expected Outcome:  
+
+   <img width="699" alt="Screenshot-metallb" src="https://github.com/user-attachments/assets/ca42347a-9b44-43af-9aa2-229713a11192">
+
 
 
 ### Kindly note:  
