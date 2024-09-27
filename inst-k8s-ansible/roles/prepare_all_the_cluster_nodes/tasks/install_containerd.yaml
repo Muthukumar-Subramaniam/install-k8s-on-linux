@@ -1,4 +1,4 @@
-##Version : v2.2.3
+##Version : v2.2.4
 - name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
@@ -48,6 +48,7 @@
 - name: Check SystemdCgroup setting of containerd for runc
   command: grep 'SystemdCgroup' /etc/containerd/config.toml
   register: var_SystemdCgroup_output
+  changed_when: false
 
 - name: Notify SystemdCgroup setting of containerd for runc
   debug:
@@ -75,6 +76,7 @@
 - name: Verify status of containerd service
   command: systemctl is-active containerd
   register: var_containerd_service_status
+  changed_when: false
 
 - name: Notify status of containerd service
   debug:

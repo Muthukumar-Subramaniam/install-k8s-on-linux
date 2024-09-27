@@ -1,8 +1,9 @@
-##Version : v2.2.3
+##Version : v2.2.4
 - name: Check if kubeadm init has been performed
   stat:
     path: /etc/kubernetes/admin.conf
   register: var_check_k8s_admin_conf_file
+  changed_when: false
 
 - name: Notify if kubeadm init has been performed already
   debug:

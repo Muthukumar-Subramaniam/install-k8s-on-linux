@@ -1,4 +1,4 @@
-##Version : v2.2.3
+##Version : v2.2.4
 ### Role to Fetch latest version of software components to be installed from GitHub API
 - name: Get latest version information of runc
   delegate_to: local-ansible-control-host
@@ -9,6 +9,7 @@
     status_code: 200
     return_content: true
   register: var_runc_release
+  changed_when: false
 
 - name: Notify the runc version to be installed
   debug:
@@ -27,6 +28,7 @@
     status_code: 200
     return_content: true
   register: var_containerd_release
+  changed_when: false
 
 - name: Notify the containerd version to be installed
   debug:
@@ -45,6 +47,7 @@
     status_code: 200
     return_content: true
   register: var_k8s_release
+  changed_when: false
 
 - name: Notify the kubernetes version to be installed
   debug:
@@ -63,6 +66,7 @@
     status_code: 200
     return_content: true
   register: var_calico_release
+  changed_when: false
 
 - name: Notify the calico CNI version to be installed
   debug:

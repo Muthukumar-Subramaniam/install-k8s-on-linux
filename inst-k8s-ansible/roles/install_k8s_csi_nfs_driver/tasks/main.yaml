@@ -1,5 +1,24 @@
-##Version : v2.2.3
+##Version : v2.2.4
 ### Optional CSI NFS Driver for k8s cluster
+- name: Check whether csi-nfs-driver is already installed
+  shell: |
+    if kubectl get pods -A | grep -i 'csi-nfs'
+    then
+      exit 0
+    else
+      exit 1
+    fi
+  register: var_csi_nfs_install_status
+  failed_when: false
+  changed_when: false
+  ignore_errors: true
+
+- name: Notify if csi-nfs-driver is already installed
+  debug:
+    msg: |-
+      csi-nfs-driver is already installed.
+  when: var_csi_nfs_install_status.rc == 0
+
 - name: Get latest version information of k8s csi-nfs-driver from github API
   delegate_to: local-ansible-control-host
   run_once: true
@@ -7,9 +26,12 @@
     url: https://api.github.com/repos/kubernetes-csi/csi-driver-nfs/releases/latest
     return_content: true
   register: var_csi_driver_nfs_release
+  changed_when: false
+  when: var_csi_nfs_install_status.rc == 1
 
 - set_fact:
     var_csi_driver_nfs_latest_version: "{{ var_csi_driver_nfs_release.json.tag_name }}"
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Notify the version to be installed of k8s csi-driver-nfs
   debug:
@@ -17,28 +39,36 @@
       Latest stable version to be installed of k8s csi-driver-nfs is {{ var_csi_driver_nfs_latest_version }}
   delegate_to: local-ansible-control-host
   run_once: true
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Install CSI NFS drivers by remote from GitHub using kubectl
   shell: curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/{{ var_csi_driver_nfs_latest_version }}/deploy/install-driver.sh | bash -s {{ var_csi_driver_nfs_latest_version }} --
   register: var_csi_driver_nfs_install_logs
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Notify the results from CSI NFS drivers installation
   debug:
     msg: |-
       {{ var_csi_driver_nfs_install_logs.stdout_lines }}
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Get the creation status of csi-nfs-driver pods
   shell: kubectl get pods -A | grep -i 'csi-nfs'
   register: var_csi_driver_nfs_pods_logs
+  changed_when: false
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Notify creation of CSI NFS driver pods
   debug:
     msg: |-
       {{ var_csi_driver_nfs_pods_logs.stdout_lines }}
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Capture the total number of CSI NFS driver pods
   shell: kubectl get pods -A --no-headers | grep -i 'csi-nfs' | wc -l
   register: var_total_number_of_nfs_pods
+  changed_when: false
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Wait for all the CSI NFS driver pods to come online (This might take some time)
   shell: kubectl get pods -A --no-headers | grep -i 'csi-nfs' | grep 'Running' |  wc -l
@@ -46,14 +76,24 @@
   until: var_number_of_running_nfs_pods.stdout | int == var_total_number_of_nfs_pods.stdout | int
   retries: 500
   delay: 5
+  changed_when: false
+  when: var_csi_nfs_install_status.rc == 1
 
 - name: Get the current status of csi-nfs-driver pods
   shell: kubectl get pods -A | grep -i 'csi-nfs'
   register: var_csi_driver_nfs_pods_logs
+  changed_when: false
+
+- name: Status of csi-nfs-driver pods if already installed
+  debug:
+    msg: |-
+      {{ var_csi_driver_nfs_pods_logs.stdout_lines }}
+  when: var_csi_nfs_install_status.rc == 0
 
 - name: Successfully deployed CSI NFS driver pods for k8s cluster
   debug:
     msg: |-
       {{ var_csi_driver_nfs_pods_logs.stdout_lines }}
+  when: var_csi_nfs_install_status.rc == 1
 
 ######################################## EOF #########################################

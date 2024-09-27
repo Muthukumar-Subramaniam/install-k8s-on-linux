@@ -1,9 +1,10 @@
-##Version : v2.2.3
+##Version : v2.2.4
 ###Role to Register worker nodes with the k8s cluster with kubeadm join command
 - name: Check whether the worker node has joined the cluster already
   stat:
     path: /etc/kubernetes/kubelet.conf
   register: var_check_k8s_kubelet_conf_file
+  changed_when: false
 
 - name: Notify about the worker nodes that has joined the cluster already
   debug:

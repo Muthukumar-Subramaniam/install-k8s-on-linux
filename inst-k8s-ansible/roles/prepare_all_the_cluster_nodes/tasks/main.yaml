@@ -1,4 +1,4 @@
-##Version : v2.2.3
+##Version : v2.2.4
 ###Tasks to upgrade the system packages
 - name: Include tasks to upgrade the system packages
   include_tasks: upgrade_os.yaml 
@@ -25,6 +25,7 @@
   register: var_runc_check
   ignore_errors: true
   failed_when: false
+  changed_when: false
 
 - name: Notify if runc is already installed
   debug:
@@ -45,6 +46,7 @@
 - name: Check runc version
   command: runc --version
   register: var_check_runc_version
+  changed_when: false
 
 - name: Notify runc version
   debug:
@@ -58,6 +60,7 @@
   register: var_containerd_check
   ignore_errors: true
   failed_when: false  
+  changed_when: false
 
 - name: Notify if containerd is already installed
   debug:
@@ -78,31 +81,13 @@
 - name: Check containerd version
   command: containerd --version
   register: var_check_containerd_version
+  changed_when: false
 
 - name: Notify containerd version
   debug:
     msg: |-
       containerd version is {{ var_check_containerd_version.stdout_lines }}
 
-- name: Restart containerd service to ensure it is running properly
-  become: yes 
-  systemd:
-    name: containerd
-    state: restarted
-
-- name: Check containerd service status after the restart
-  become: yes 
-  systemd:
-    name: containerd
-    state: started
-  register: var_containerd_service_status_after_restart
-
-- name: Notify containerd service status after the restart
-  debug:
-    msg: containerd service status after restart is {{ var_containerd_service_status_after_restart.status.ActiveState }}
-  when: var_containerd_service_status_after_restart is defined
-
-        
 ###Task to install kubelet, kubeadm and kubectl packages 
 - name: Tasks for RedHat based Distributions to install kubelet, kubeadm and kubectl packages
   when: ansible_os_family == "RedHat"
@@ -128,6 +113,7 @@
 - name: Check kubelet service status
   command: systemctl is-enabled kubelet
   register: kubelet_service_status
+  changed_when: false
 
 - name: Notify if the kubelet service is enabled
   debug:

@@ -1,5 +1,5 @@
 #!/usr/bin/env ansible-playbook
-##Version : v2.2.3
+##Version : v2.2.4
 - name: Install and configure the kubernetes cluster on linux nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
   roles:

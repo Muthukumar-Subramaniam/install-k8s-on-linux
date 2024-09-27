@@ -1,4 +1,4 @@
-##Version : v2.2.3
+##Version : v2.2.4
 - set_fact:
     var_k8s_ctrl_plane_node: "{{ ansible_host }}"
     var_k8s_user: "{{ ansible_user }}"
@@ -22,6 +22,7 @@
   until: var_api_server_health_status.stdout.find("ok") != -1
   retries: 500
   delay: 5
+  changed_when: false
 
 ###Tasks to apply Calico CNI manifest
 - name: Include tasks to apply Calico CNI manifest
@@ -34,10 +35,12 @@
   retries: 500
   until: var_control_plane_ready_status.stdout.find("Ready") != -1
   delay: 5
+  changed_when: false
 
 - name: Get the status of control-plane node
   shell: kubectl get nodes | grep -i 'control-plane'
   register: var_nodes_status
+  changed_when: false
 
 - name: Notify the status of control-plane node
   debug:
@@ -48,6 +51,7 @@
 - name: Create kubeadm token required for joining the worker nodes with the cluster
   command: kubeadm token create --print-join-command
   register: var_kubeadm_join_command_register
+  changed_when: false
 
 - set_fact:
     var_kubeadm_join_command: "{{ var_kubeadm_join_command_register.stdout }}"

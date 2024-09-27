@@ -1,9 +1,10 @@
-##Version : v2.2.3
+##Version : v2.2.4
 - name: Check if swap is enabled
   become: true
   command: swapon --show
   register: var_swap_status
   ignore_errors: yes
+  changed_when: false
 
 - name: Disable swap if it is enabled
   become: true

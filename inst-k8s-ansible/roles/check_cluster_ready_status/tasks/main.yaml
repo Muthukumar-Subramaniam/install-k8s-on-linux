@@ -1,8 +1,9 @@
-##Version : v2.2.3
+##Version : v2.2.4
 ### Role to check the k8s cluster Ready status
 - name: Get the current status of all the cluster nodes
   shell: kubectl get nodes
   register: var_nodes_status
+  changed_when: false
 
 - name: Notify the current status of all the cluster nodes
   debug:
@@ -15,6 +16,22 @@
   until: var_number_of_nodes_not_ready.stdout.find("0") != -1
   retries: 500
   delay: 5
+  changed_when: false
+
+- name: Check whether worker role label is assigned already
+  shell: |
+    var_worker_node_count=$(kubectl get nodes --no-headers | grep -i -v 'control-plane' | wc -l)
+    var_labeled_worker_node_count=$(kubectl get nodes --no-headers | awk '{ print $3 }' | grep worker | wc -l)
+    if [ "${var_worker_node_count}" -ne "${var_labeled_worker_node_count}" ]
+    then
+      exit 1
+    else
+      exit 0
+    fi
+  register: var_worker_role_label_status
+  failed_when: false
+  changed_when: false
+  ignore_errors: true
 
 - name: Add worker role label to the worker nodes
   shell: |
@@ -23,10 +40,12 @@
         kubectl label node $var_k8s_node node-role.kubernetes.io/worker=true
     done
     exit
+  when: var_worker_role_label_status.rc == 1
 
 - name: Get the status of cluster nodes
   shell: kubectl get nodes
   register: var_nodes_status
+  changed_when: false
 
 - name: All the cluster nodes are Ready!
   debug:
@@ -36,6 +55,7 @@
 - name: Capture the total number of k8s system pods
   shell: kubectl get pods -A --no-headers | wc -l
   register: var_total_number_of_k8s_pods
+  changed_when: false
 
 - name: Wait for all the k8s system pods to come online (This might take some time)
   shell: kubectl get pods -A --no-headers | grep 'Running' |  wc -l
@@ -43,10 +63,12 @@
   until: var_number_of_running_k8s_pods.stdout | int == var_total_number_of_k8s_pods.stdout | int
   retries: 500
   delay: 5
+  changed_when: false
 
 - name: Your kubernetes cluster is Ready!
   shell: kubectl get nodes
   register: var_nodes_status
+  changed_when: false
 
 - name: Manage this cluster from {{ var_k8s_ctrl_plane_node }} with user {{ var_k8s_user }}
   debug:

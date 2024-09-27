@@ -1,8 +1,9 @@
-##Version : v2.2.3
+##Version : v2.2.4
 - name: Check if Kubernetes config for user {{ var_k8s_user }} exists
   stat:
     path: /home/{{ var_k8s_user }}/.kube/config
   register: var_kube_config_check
+  changed_when: false
 
 - name: Notify if Kubernetes config already exists for user {{ var_k8s_user }}
   debug:
