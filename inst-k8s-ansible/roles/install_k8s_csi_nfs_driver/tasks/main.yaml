@@ -1,4 +1,4 @@
-##Version : v2.2.4
+##Version : v2.2.5
 ### Optional CSI NFS Driver for k8s cluster
 - name: Check whether csi-nfs-driver is already installed
   shell: |

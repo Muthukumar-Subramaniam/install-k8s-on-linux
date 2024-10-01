@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-##Version : v2.2.4
+##Version : v2.2.5
 
 import os
 import re
+import ipaddress
 import subprocess
 
 var_host_file_cp = "./host-control-plane"
@@ -59,26 +60,43 @@ with open(var_pod_network_file, 'r') as f:
     var_pod_network_cidr = f.read().strip()
 
 fn_print_msg("Validate the pod network CIDR . . .")
-
-cidr_pattern = r'^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.0/[0-9]{1,2}$'
-if not re.match(cidr_pattern, var_pod_network_cidr):
+# Check if the CIDR matches the basic pattern
+var_cidr_pattern = r'^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/[0-9]{1,2}$'
+if not re.match(var_cidr_pattern, var_pod_network_cidr):
     fn_print_fail(f"\nInvalid pod network CIDR {var_pod_network_cidr} is provided in the file {var_pod_network_file}!\n")
     fn_msg_setup()
     exit(1)
 
-if not re.search(r'^(192\.168|10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.)', var_pod_network_cidr):
-    fn_print_fail(f"\nThe pod network CIDR {var_pod_network_cidr} provided in the file {var_pod_network_file} doesn't fall under private address space (RFC 1918)!\n")
-    fn_msg_setup()
-    exit(1)
+try:
+    # Create an IP network object
+    var_network = ipaddress.ip_network(var_pod_network_cidr, strict=False)
 
-if re.match(r'^10\.96\.', var_pod_network_cidr):
-    fn_print_fail(f"\nThe pod network CIDR {var_pod_network_cidr} overlaps with Kubernetes default internal Cluster IP network 10.96.0.0/16!\n")
-    fn_msg_setup()
-    exit(1)
+    # Check if the network address matches the provided CIDR
+    if str(var_network.network_address) != var_pod_network_cidr.split('/')[0]:
+        fn_print_fail(f"\nThe network part {var_pod_network_cidr.split('/')[0]} does not match the prefix length /{var_network.prefixlen} in the file {var_pod_network_file}!")
+        fn_print_fail(f"\nMaybe you are looking for {var_network.network_address}/{var_network.prefixlen}!\n")
+        fn_msg_setup()
+        exit(1)
 
-cidr_prefix = int(var_pod_network_cidr.split('/')[1])
-if cidr_prefix < 16 or cidr_prefix > 28:
-    fn_print_fail(f"\nInvalid pod network CIDR prefix /{cidr_prefix} in the file {var_pod_network_file}, as a best practice only /16 to /28 is accepted!\n")
+    # Additional validations
+    if not re.search(r'^(192\.168|10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.)', str(var_network)):
+        fn_print_fail(f"\nThe pod network CIDR {var_pod_network_cidr} provided in the file {var_pod_network_file} doesn't fall under private address space (RFC 1918)!\n")
+        fn_msg_setup()
+        exit(1)
+
+    if str(var_network.network_address).startswith("10.96."):
+        fn_print_fail(f"\nThe pod network CIDR {var_pod_network_cidr} overlaps with Kubernetes default internal Cluster IP network 10.96.0.0/16!\n")
+        fn_msg_setup()
+        exit(1)
+
+    var_cidr_prefix = var_network.prefixlen
+    if var_cidr_prefix < 16 or var_cidr_prefix > 28:
+        fn_print_fail(f"\nInvalid pod network CIDR prefix /{var_cidr_prefix} in the file {var_pod_network_file}, as a best practice only /16 to /28 is accepted!\n")
+        fn_msg_setup()
+        exit(1)
+
+except ValueError as e:
+    fn_print_fail(f"\nError validating pod network CIDR: {e}")
     fn_msg_setup()
     exit(1)
 

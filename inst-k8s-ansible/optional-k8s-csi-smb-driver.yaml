@@ -1,5 +1,5 @@
 #!/usr/bin/env ansible-playbook
-##Version : v2.2.4
+##Version : v2.2.5
 ### Optional CSI SMB Driver for k8s cluster
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI SMB Driver for k8s cluster 

@@ -1,4 +1,4 @@
-##Version : v2.2.4
+##Version : v2.2.5
 ###Tasks to install and configure metallb for k8s cluster
 - name: Check whether MetalLB is already installed
   shell: |

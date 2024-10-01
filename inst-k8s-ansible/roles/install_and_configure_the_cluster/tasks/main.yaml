@@ -1,4 +1,4 @@
-##Version : v2.2.4
+##Version : v2.2.5
 - set_fact:
     var_k8s_ctrl_plane_node: "{{ ansible_host }}"
     var_k8s_user: "{{ ansible_user }}"
