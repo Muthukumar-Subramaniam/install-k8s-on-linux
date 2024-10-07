@@ -104,7 +104,7 @@ Supported Platforms: Baremetal, Virtual Machines, Cloud Instances
 
    <img width="699" alt="Screenshot-metallb" src="https://github.com/user-attachments/assets/ca42347a-9b44-43af-9aa2-229713a11192">
 
-#### That's all for now! Your trust and engagement means a lot, and I hope you find the playbook useful.
+### That's all for now! Your trust and engagement means a lot, and I hope you find the playbook useful.
 
 ### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    
