@@ -4,11 +4,11 @@
 
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
 
-Suitable Environment: Development & Testing
+#### Suitable Environment: **Development & Testing**
 
-System Requirements: Minimum 2 GB RAM & 2 vCPU
+#### System Requirements: **Minimum 2 GB RAM & 2 vCPU**
 
-Supported Platforms: Baremetal, Virtual Machines, Cloud Instances
+#### Supported Platforms: **Baremetal, Virtual Machines, Cloud Instances**
 
 #### Supported Linux distributions: 
 * RedHat-based ( Fedora, RHEL, Rocky Linux, Almalinux, Oracle Linux ) 
