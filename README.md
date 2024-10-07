@@ -3,6 +3,7 @@
 ----  
 
 This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
+We understand that there’s Kubespray, which is much more powerful and allows for a lot of customizations, but this playbook is lightweight and simple. It might be a good option for those looking to set up a quick and easy development and testing environment of Kubernetes on Linux.  
 
 **Suitable Environment:** Development & Testing
 
@@ -104,7 +105,7 @@ This Ansible playbook automates the installation and configuration of a Kubernet
 
    <img width="699" alt="Screenshot-metallb" src="https://github.com/user-attachments/assets/ca42347a-9b44-43af-9aa2-229713a11192">
 
-### That's all for now! Your trust and engagement means a lot, and I hope you find the playbook useful.
+### That's all for now! Your trust and engagement means a lot, and we hope you find the playbook useful.
 
 ### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    
