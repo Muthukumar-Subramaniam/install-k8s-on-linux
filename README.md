@@ -36,7 +36,7 @@ Supported Platforms: Baremetal, Virtual Machines, Cloud Instances
 
 ----
 
-### Workflow:  
+### Step-by-Step Workflow:    
 
 #### Step 1) Copy and execute the below command snippet to extract the tarball for the most recent stable release of this Ansible project.  
    [![stable release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest)
