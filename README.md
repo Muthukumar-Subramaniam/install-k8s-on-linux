@@ -74,7 +74,7 @@ Supported Platforms: Baremetal, Virtual Machines, Cloud Instances
 
    <img width="704" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/c550925f-1dc4-4536-b1dc-fdfe230749ca">
 
-   Great work! Your cluster is now ready to use.  
+### Great work! Your cluster is now ready to use.  
    
 #### Optional Step 1) To install CSI NFS Driver for the kubernetes cluster if required.
    ```
