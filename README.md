@@ -19,9 +19,9 @@ Supported Platforms: Baremetal, Virtual Machines, Cloud Instances
 * Please [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) on the machine where you plan to run the playbook if you haven’t done so already.
 * Prepare the cluster nodes by installing any of the above mentioned supported Linux distributions, even with a minimal installation.
 * Please ensure that you have DNS set up that resolves all the involved hosts, or update the host files on all hosts with the necessary entries for each involved host.
-* Create a common Linux user on all cluster nodes to be used for the cluster.
-* Enable passwordless SSH authentication from the Ansible host to all cluster nodes.
-* Ensure that the common user has sudo privileges without a password on all cluster nodes.
+* Create a common Linux user on all cluster nodes, which will be used for the cluster installation.
+* Enable passwordless SSH authentication from the Ansible host to all cluster nodes using the common user created earlier.  
+* Ensure the common user has passwordless sudo privileges on all cluster nodes.
  
 #### The main playbook installs and configures the latest stable versions of the following required components.   
 * Container orchestrator: [kubernetes](https://github.com/kubernetes/kubernetes)
