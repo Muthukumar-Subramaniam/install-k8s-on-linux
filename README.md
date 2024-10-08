@@ -42,7 +42,7 @@ We understand that there’s Kubespray, which is much more powerful and allows f
 #### Step 1) Copy and execute the below command snippet to extract the tarball for the most recent stable release of this Ansible project.  
    [![stable release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest)
    ```
-   var_repo_release="Muthukumar-Subramaniam/install-k8s-on-linux/releases"; var_latest_version=$(curl -skL https://api.github.com/repos/${var_repo_release}/latest | jq -r '.tag_name' 2>/dev/null); curl -sL https://github.com/${var_repo_release}/download/${var_latest_version}/inst-k8s-ansible.tar.gz | tar -xzvf - && cd inst-k8s-ansible
+   curl -sSL https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest/download/inst-k8s-ansible.tar.gz | tar -xzvf - && cd inst-k8s-ansible
    ```
 #### Step 2) Update the host-control-plane file with the necessary hostname.  
    
