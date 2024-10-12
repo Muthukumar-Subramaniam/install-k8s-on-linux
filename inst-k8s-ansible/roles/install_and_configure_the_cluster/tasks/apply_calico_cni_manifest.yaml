@@ -1,25 +1,29 @@
-##Version : v2.2.5
-- name: Check if Calico CNI manifest has been applied already
-  shell: kubectl get pods -A | grep 'calico'
-  register: var_calico_check
-  ignore_errors: true
+##Version : v2.2.6
+- name: Gather the list of pods from all namespaces
+  command: kubectl get pods -A --no-headers 
+  register: var_list_of_all_pods
   failed_when: false
   changed_when: false
+  ignore_errors: true
+
+- name: Check if Calico CNI manifest has been applied already
+  set_fact:
+    var_calico_cni_manifest: "{{ 'applied_already' if (var_list_of_all_pods.stdout_lines | select('search', 'calico') | list | length > 0) else 'not_yet_applied' }}"
 
 - name: Notify if Calico CNI manifest has been applied already
   debug:
     msg: |-
       Calico CNI manifest has been applied already.
-  when: var_calico_check.rc == 0
+  when: var_calico_cni_manifest == 'applied_already'
 
 - name: Notify if Calico CNI manifest has not been applied yet
   debug:
     msg: |-
       Calico CNI manifest has not been applied yet. Proceeding to apply.
-  when: var_calico_check.rc != 0
+  when: var_calico_cni_manifest == 'not_yet_applied'
 
 - name: Applying latest calico CNI  ( {{ var_calico_latest_version }} ) manifest from GitHub 
-  shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
-  when: var_calico_check.rc != 0
+  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ var_calico_latest_version }}/manifests/calico.yaml
+  when: var_calico_cni_manifest == 'not_yet_applied'
 
 ############################### EOF ###################################

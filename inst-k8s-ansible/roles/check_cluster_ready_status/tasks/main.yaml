@@ -1,7 +1,7 @@
-##Version : v2.2.5
+##Version : v2.2.6
 ### Role to check the k8s cluster Ready status
 - name: Get the current status of all the cluster nodes
-  shell: kubectl get nodes
+  command: kubectl get nodes
   register: var_nodes_status
   changed_when: false
 
@@ -11,39 +11,50 @@
       {{ var_nodes_status.stdout_lines }}
 
 - name: Waiting for all the worker nodes to get Ready (This might take some time)
-  shell: kubectl get nodes | grep -w "NotReady" | wc -l
-  register: var_number_of_nodes_not_ready
-  until: var_number_of_nodes_not_ready.stdout.find("0") != -1
+  command: kubectl get nodes
+  register: var_number_of_nodes_ready_status
+  until: var_number_of_nodes_ready_status.stdout_lines | select('search', 'NotReady') | list | length == 0
   retries: 500
   delay: 5
   changed_when: false
 
-- name: Check whether worker role label is assigned already
-  shell: |
-    var_worker_node_count=$(kubectl get nodes --no-headers | grep -i -v 'control-plane' | wc -l)
-    var_labeled_worker_node_count=$(kubectl get nodes --no-headers | awk '{ print $3 }' | grep worker | wc -l)
-    if [ "${var_worker_node_count}" -ne "${var_labeled_worker_node_count}" ]
-    then
-      exit 1
-    else
-      exit 0
-    fi
-  register: var_worker_role_label_status
-  failed_when: false
+- name: Get the list of worker nodes with label details
+  command: kubectl get nodes --no-headers --show-labels
+  register: var_worker_nodes
   changed_when: false
-  ignore_errors: true
 
-- name: Add worker role label to the worker nodes
-  shell: |
-    for var_k8s_node in $(kubectl get nodes --no-headers | grep -i -v 'control-plane' | awk '{ print $1 }')
-    do
-        kubectl label node $var_k8s_node node-role.kubernetes.io/worker=true
-    done
-    exit
-  when: var_worker_role_label_status.rc == 1
+- name: Segregate worker nodes into those with and without the worker role label
+  set_fact:
+    var_labeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | select('search', 'node-role.kubernetes.io/worker=true') | list }}"
+    var_unlabeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | select('search', 'control-plane', invert=True) | select('search', 'node-role.kubernetes.io/worker=true', invert=True) | list }}"
+
+- name: Notify the names of the worker nodes to which the worker role label has been assigned already
+  debug:
+    msg: |
+      {{ var_labeled_worker_nodes }}
+  when: var_labeled_worker_nodes | length > 0
+
+- name: Notify the names of the worker nodes to which the worker role label hasn't been assigned yet
+  debug:
+    msg: |
+      {{ var_unlabeled_worker_nodes }}
+  when: var_unlabeled_worker_nodes | length > 0
+
+- name: Add worker role label to unlabeled worker nodes
+  community.kubernetes.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Node
+      metadata:
+        name: "{{ item.split(' ')[0] }}"  # Get the node name from the first part of the line
+        labels:
+          node-role.kubernetes.io/worker: "true"
+  loop: "{{ var_unlabeled_worker_nodes }}"
+  when: var_unlabeled_worker_nodes | length > 0
 
 - name: Get the status of cluster nodes
-  shell: kubectl get nodes
+  command: kubectl get nodes
   register: var_nodes_status
   changed_when: false
 
@@ -52,21 +63,16 @@
     msg: |-
       {{ var_nodes_status.stdout_lines }}
 
-- name: Capture the total number of k8s system pods
-  shell: kubectl get pods -A --no-headers | wc -l
-  register: var_total_number_of_k8s_pods
-  changed_when: false
-
 - name: Wait for all the k8s system pods to come online (This might take some time)
-  shell: kubectl get pods -A --no-headers | grep 'Running' |  wc -l
-  register: var_number_of_running_k8s_pods
-  until: var_number_of_running_k8s_pods.stdout | int == var_total_number_of_k8s_pods.stdout | int
+  command: kubectl get pods -A --no-headers
+  register: var_k8s_pods_status
+  until: var_k8s_pods_status.stdout_lines | select('search', 'Running') | list | length == var_k8s_pods_status.stdout_lines | list | length
   retries: 500
   delay: 5
   changed_when: false
 
 - name: Your kubernetes cluster is Ready!
-  shell: kubectl get nodes
+  command: kubectl get nodes
   register: var_nodes_status
   changed_when: false
 

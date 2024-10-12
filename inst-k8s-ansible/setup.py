@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-##Version : v2.2.5
+##Version : v2.2.6
 
 import os
 import re

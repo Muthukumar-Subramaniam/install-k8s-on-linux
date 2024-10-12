@@ -1,4 +1,4 @@
-##Version : v2.2.5
+##Version : v2.2.6
 ###Tasks to upgrade the system packages
 - name: Include tasks to upgrade the system packages
   include_tasks: upgrade_os.yaml 
@@ -21,7 +21,7 @@
 
 ###Tasks to install runc
 - name: Check if runc is already installed
-  shell: command -v runc
+  command: command -v runc
   register: var_runc_check
   ignore_errors: true
   failed_when: false
@@ -56,7 +56,7 @@
 
 ###Task to install containered
 - name: Check if containerd is already installed
-  shell: command -v containerd
+  command: command -v containerd
   register: var_containerd_check
   ignore_errors: true
   failed_when: false  

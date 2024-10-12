@@ -1,4 +1,4 @@
-##Version : v2.2.5
+##Version : v2.2.6
 - name: Add k8s gpg apt-key ( Debian based systems )
   become: true
   apt_key:
@@ -24,23 +24,14 @@
       - bash-completion 
     state: present
 
-- name: Check whether kubelet, kubeadm and kubectl packages are locked ( Debian based systems )
-  become: true
-  shell: |
-    if apt-mark showhold | grep -i -E '(kubeadm|kubectl|kubelet)'
-    then
-      exit 0
-    else
-      exit 1
-    fi
-  register: var_k8s_packages_debian_lock_status
-  failed_when: false
-  changed_when: false
-  ignore_errors: true
-
 - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Debian based systems )
   become: true
-  command: apt-mark hold kubelet kubeadm kubectl
-  when: var_k8s_packages_debian_lock_status.rc == 1
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: "hold"
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
 
 ######################################### EOF ############################################# 

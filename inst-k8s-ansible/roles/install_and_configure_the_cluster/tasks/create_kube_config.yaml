@@ -1,28 +1,24 @@
-##Version : v2.2.5
-- name: Check if Kubernetes config for user {{ var_k8s_user }} exists
-  stat:
-    path: /home/{{ var_k8s_user }}/.kube/config
-  register: var_kube_config_check
-  changed_when: false
+##Version : v2.2.6
+- name: Create directory /home/{{ var_k8s_user }}/.kube
+  file:
+    path: /home/{{ var_k8s_user }}/.kube
+    state: directory
 
-- name: Notify if Kubernetes config already exists for user {{ var_k8s_user }}
-  debug:
-    msg: |-
-      Kubernetes config for user {{ var_k8s_user }} already exists.
-  when: var_kube_config_check.stat.exists
+- name: Copy /etc/kubernetes/admin.conf to /home/{{ var_k8s_user }}/.kube/config
+  become: true
+  copy:
+    src: /etc/kubernetes/admin.conf
+    remote_src: true
+    dest: /home/{{ var_k8s_user }}/.kube/config
+    owner: {{ var_k8s_user }}
+    group: {{ var_k8s_user }}
+    mode: "0600"
 
-- name: Notify if Kubernetes config doesn't exist for user {{ var_k8s_user }}
-  debug:
-    msg: |-
-      Kubernetes config for user {{ var_k8s_user }} doesn't exist. Proceeding to create.
-  when: not var_kube_config_check.stat.exists
-
-- name: Create Kubernetes config for user {{ var_k8s_user }} to manage the k8s cluster
-  shell: |
-    mkdir -p /home/{{ var_k8s_user }}/.kube
-    sudo cp -p /etc/kubernetes/admin.conf /home/{{ var_k8s_user }}/.kube/config
-    sudo chown $(id -u {{ var_k8s_user }}):$(id -g {{ var_k8s_user }}) /home/{{ var_k8s_user }}/.kube/config
-    echo 'source <(kubectl completion bash)' >> /home/{{ var_k8s_user }}/.bashrc
-  when: not var_kube_config_check.stat.exists
+- name: Add kubectl completion to .bashrc of user {{ var_k8s_user }}
+  lineinfile:
+    path: /home/{{ var_k8s_user }}/.bashrc
+    regexp: '^source <\(kubectl completion bash\)$'
+    line: 'source <(kubectl completion bash)'
+    state: present
 
 ##################################### EOF ######################################

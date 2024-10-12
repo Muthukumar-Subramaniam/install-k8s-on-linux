@@ -1,25 +1,23 @@
-##Version : v2.2.5
-### Optional CSI SMB Driver for k8s cluster
-- name: Check whether csi-smb-driver is already installed
-  shell: |
-    if kubectl get pods -A | grep -i 'csi-smb'
-    then
-      exit 0
-    else
-      exit 1
-    fi
-  register: var_csi_smb_install_status
+##Version : v2.2.6
+### Optional csi-smb-driver for k8s cluster
+- name: Gather the list of pods from all namespaces
+  command: kubectl get pods -A --no-headers 
+  register: var_list_of_all_pods
   failed_when: false
   changed_when: false
   ignore_errors: true
+
+- name: Check if csi-smb-driver is present in the pods list
+  set_fact:
+    var_csi_smb_install_status: "{{ 'already_installed' if (var_list_of_all_pods.stdout_lines | select('search', 'csi-smb') | list | length > 0) else 'not_yet_installed' }}"
 
 - name: Notify if csi-smb-driver is already installed
   debug:
     msg: |-
       csi-smb-driver is already installed.
-  when: var_csi_smb_install_status.rc == 0
+  when: var_csi_smb_install_status == 'already_installed'
 
-- name: Get latest version information of k8s csi-smb-driver from github API
+- name: Get latest version information of csi-smb-driver from GitHub API
   delegate_to: local-ansible-control-host
   run_once: true
   uri:
@@ -27,11 +25,11 @@
     return_content: true
   register: var_csi_driver_smb_release
   changed_when: false
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
 - set_fact:
     var_csi_driver_smb_latest_version: "{{ var_csi_driver_smb_release.json.tag_name }}"
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
 - name: Notify the version to be installed of k8s csi-driver-smb
   debug:
@@ -39,61 +37,75 @@
       Latest stable version to be installed of k8s csi-driver-smb is {{ var_csi_driver_smb_latest_version }}
   delegate_to: local-ansible-control-host
   run_once: true
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Install CSI SMB drivers by remote from GitHub using kubectl
-  shell: curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/{{ var_csi_driver_smb_latest_version }}/deploy/install-driver.sh | bash -s {{ var_csi_driver_smb_latest_version }} --
+- name: Download the install-driver.sh script for csi-driver-smb from GitHub
+  get_url:
+    url: "https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/{{ var_csi_driver_smb_latest_version }}/deploy/install-driver.sh"
+    dest: "/tmp/install-csi-driver-smb.sh"
+    mode: '0755'
+  when: var_csi_smb_install_status == 'not_yet_installed'
+
+- name: Install csi-smb-driver
+  command: /tmp/install-csi-driver-smb.sh {{ var_csi_driver_smb_latest_version }}
   register: var_csi_driver_smb_install_logs
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Notify the results from CSI SMB drivers installation
+- name: Notify the results from csi-smb-driver installation
   debug:
     msg: |-
       {{ var_csi_driver_smb_install_logs.stdout_lines }}
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Get the creation status of csi-smb-driver pods
-  shell: kubectl get pods -A | grep -i 'csi-smb'
-  register: var_csi_driver_smb_pods_logs
+- name: Gather current status of pods from all namespaces
+  command: kubectl get pods -A --no-headers
+  register: var_list_of_all_pods
+  failed_when: false
   changed_when: false
-  when: var_csi_smb_install_status.rc == 1
+  ignore_errors: true
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Notify creation of CSI SMB driver pods
+- name: Get the status csi-smb-driver pods being deployed
+  set_fact:
+    var_csi_driver_smb_pods_logs: {{ var_list_of_all_pods.stdout_lines | select('search', 'csi-smb') | list }}
+  when: var_csi_smb_install_status == 'not_yet_installed'
+
+- name: Notify creation of csi-smb-driver pods
   debug:
     msg: |-
-      {{ var_csi_driver_smb_pods_logs.stdout_lines }}
-  when: var_csi_smb_install_status.rc == 1
+      {{ var_csi_driver_smb_pods_logs }}
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Capture the total number of CSI SMB driver pods
-  shell: kubectl get pods -A --no-headers | grep -i 'csi-smb' | wc -l
-  register: var_total_number_of_smb_pods
-  changed_when: false
-  when: var_csi_smb_install_status.rc == 1
-
-- name: Wait for all the CSI SMB driver pods to come online (This might take some time)
-  shell: kubectl get pods -A --no-headers | grep -i 'csi-smb' | grep 'Running' |  wc -l
-  register: var_number_of_running_smb_pods
-  until: var_number_of_running_smb_pods.stdout | int == var_total_number_of_smb_pods.stdout | int
+- name: Waiting for all the csi-smb-driver to be Running
+  command: kubectl get pods -A --no-headers
+  register: var_list_of_all_pods
+  until: var_list_of_all_pods.stdout_lines | select('search', 'csi-smb') | select('search', 'Running') | list | length == var_list_of_all_pods.stdout_lines | select('search', 'csi-smb') | list | length
   retries: 500
   delay: 5
   changed_when: false
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
-- name: Get the current status of csi-smb-driver pods
-  shell: kubectl get pods -A | grep -i 'csi-smb'
-  register: var_csi_driver_smb_pods_logs
+- name: Gather current status of pods from all namespaces
+  command: kubectl get pods -A --no-headers
+  register: var_list_of_all_pods
+  failed_when: false
   changed_when: false
+  ignore_errors: true
+
+- name: Get the current status csi-smb-driver pods
+  set_fact:
+    var_csi_driver_smb_pods_logs: {{ var_list_of_all_pods.stdout_lines | select('search', 'csi-smb') | list }}
 
 - name: Status of csi-smb-driver pods if already installed
   debug:
     msg: |-
       {{ var_csi_driver_smb_pods_logs.stdout_lines }}
-  when: var_csi_smb_install_status.rc == 0
+  when: var_csi_smb_install_status == 'already_installed'
 
-- name: Successfully deployed CSI SMB driver pods for k8s cluster
+- name: Successfully deployed csi-smb-driver pods for k8s cluster
   debug:
     msg: |-
       {{ var_csi_driver_smb_pods_logs.stdout_lines }}
-  when: var_csi_smb_install_status.rc == 1
+  when: var_csi_smb_install_status == 'not_yet_installed'
 
 ######################################## EOF #########################################

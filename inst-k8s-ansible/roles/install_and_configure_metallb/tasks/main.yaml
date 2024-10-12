@@ -1,23 +1,21 @@
-##Version : v2.2.5
+##Version : v2.2.6
 ###Tasks to install and configure metallb for k8s cluster
-- name: Check whether MetalLB is already installed
-  shell: |
-    if kubectl get pods -A | grep -i 'metallb'
-    then
-      exit 0
-    else
-      exit 1
-    fi
-  register: var_metallb_install_status
+- name: Gather the list of pods from all namespaces
+  command: kubectl get pods -A --no-headers 
+  register: var_all_pods_list
   failed_when: false
   changed_when: false
   ignore_errors: true
+
+- name: Check if MetalLB is present in the pods list
+  set_fact:
+    var_metallb_install_status: "{{ 'already_installed' if (var_all_pods_list.stdout_lines | select('search', 'metallb') | list | length > 0) else 'not_yet_installed' }}"
 
 - name: Notify if MetalLB is already installed
   debug:
     msg: |-
       MetalLB is already installed.
-  when: var_metallb_install_status.rc == 0
+  when: var_metallb_install_status == 'already_installed'
 
 - name: Get latest version information of MetalLB from GitHub API
   delegate_to: local-ansible-control-host
@@ -27,11 +25,11 @@
     return_content: true
   register: var_metallb_release
   changed_when: false
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - set_fact:
     var_metallb_latest_version: "{{ var_metallb_release.json.tag_name }}"
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Notify the version to be installed of MetalLB
   debug:
@@ -39,76 +37,57 @@
       Latest stable version to be installed of MetalLB is {{ var_metallb_latest_version }}
   delegate_to: local-ansible-control-host
   run_once: true
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Install MetalLB using manifest from GitHub with kubectl
-  shell: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/{{ var_metallb_latest_version }}/config/manifests/metallb-native.yaml
+  command: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/{{ var_metallb_latest_version }}/config/manifests/metallb-native.yaml
   register: var_metallb_install_logs
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Notify the results from metallb installation
   debug:
     msg: |-
       {{ var_metallb_install_logs.stdout_lines }}
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Get the status of metallb-system pods being deployed
-  shell: kubectl get pods -n metallb-system
+  command: kubectl get pods -n metallb-system
   register: var_metallb_pods_logs
   changed_when: false
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Notify the status of metallb-system pods being deployed
   debug:
     msg: |-
       {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status.rc == 1
-
-- name: Capture the number of metallb-system pods being deployed
-  shell: kubectl get pods -n metallb-system --no-headers | wc -l
-  register: var_total_number_of_metallb_pods
-  changed_when: false
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Waiting for all the metallb-system pods to be Running
-  shell: kubectl get pods -n metallb-system --no-headers | grep 'Running' |  wc -l
-  register: var_number_of_running_metallb_pods
-  until: var_number_of_running_metallb_pods.stdout | int == var_total_number_of_metallb_pods.stdout | int
+  command: kubectl get pods -n metallb-system --no-headers
+  register: var_current_metallb_pods_status
+  until: var_current_metallb_pods_status.stdout_lines | select('search', 'Running') | list | length == var_current_metallb_pods_status.stdout_lines | list | length
   retries: 500
   delay: 5
   changed_when: false
-  when: var_metallb_install_status.rc == 1
-
-- name: Get the current status of metallb-system pods
-  shell: kubectl get pods -n metallb-system
-  register: var_metallb_pods_logs
-  changed_when: false
-  when: var_metallb_install_status.rc == 1
-
-- name: Notify the status of metallb-system pods
-  debug:
-    msg: |-
-      {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Create MetalLB IPAddressPool and L2Advertisement
   template:
     src: metallb_config.j2
     dest: /tmp/metallb_config.yaml  # Temporary file before applying
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Apply MetalLB IPAddressPool and L2Advertisement manifests
-  shell: kubectl apply -f /tmp/metallb_config.yaml
-  when: var_metallb_install_status.rc == 1
+  command: kubectl apply -f /tmp/metallb_config.yaml
+  when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Get the current status of metallb-system pods
-  shell: kubectl get pods -n metallb-system
+  command: kubectl get pods -n metallb-system
   register: var_metallb_pods_logs
   changed_when: false
 
 - name: Get MetalLB IPAddressPool details
-  shell: |
-    kubectl get ipaddresspools.metallb.io -n metallb-system
+  command: kubectl get ipaddresspools.metallb.io -n metallb-system
   register: var_metallb_ip_pool_status 
   changed_when: false
 
@@ -121,12 +100,12 @@
   debug:
     msg: |-
       {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status.rc == 0
+  when: var_metallb_install_status == 'already_installed'
 
 - name: Successfully deployed MetalLB LoadBalancer for the k8s cluster
   debug:
     msg: |-
       {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status.rc == 1
+  when: var_metallb_install_status == 'not_yet_installed'
 
 ############################## EOF ################################

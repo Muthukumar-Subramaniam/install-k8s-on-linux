@@ -1,4 +1,4 @@
-##Version : v2.2.5
+##Version : v2.2.6
 - name: Add k8s rpm repository ( Suse based systems )
   become: true
   zypper_repository:
@@ -20,23 +20,31 @@
       - bash-completion 
     state: present
 
-- name: Check whether kubelet, kubeadm and kubectl packages are locked ( Suse based systems )
+- name: Ensure /etc/zypp/locks file exists ( Suse based systems )
   become: true
-  shell: |
-    if zypper locks | grep -i -E '(kubeadm|kubectl|kubelet)'
-    then
-      exit 0
-    else
-      exit 1
-    fi
-  register: var_k8s_packages_suse_lock_status
-  failed_when: false
-  changed_when: false
-  ignore_errors: true
+  file:
+    path: /etc/zypp/locks
+    state: touch
+    mode: '0644'
+    owner: root
+    group: root
 
 - name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )
   become: true
-  command: zypper addlock kubelet kubeadm kubectl
-  when: var_k8s_packages_suse_lock_status.rc == 1
+  blockinfile:
+    path: /etc/zypp/locks
+    block: |
+
+      type: package
+      match_type: glob
+      case_sensitive: on
+      solvable_name: {{ item }}
+
+    insertafter: EOF
+    marker: ""
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
 
 ################################## EOF ####################################

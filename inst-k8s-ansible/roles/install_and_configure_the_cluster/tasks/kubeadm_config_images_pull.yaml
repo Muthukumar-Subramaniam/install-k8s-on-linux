@@ -1,36 +1,44 @@
-##Version : v2.2.5
-- name: Check if the Kubernetes config images have already been pulled
+##Version : v2.2.6
+- name: Get the list of Kubernetes config images
   become: true
-  shell: |
-    var_missing_images=0
-    for var_image in $(kubeadm config images list | cut -d ":" -f 1)
-    do
-      if ! crictl -r unix:///run/containerd/containerd.sock images | grep -q "$(echo ${var_image} | awk -F'/' '{print $NF}')"
-      then
-        var_missing_images=1
-      fi
-    done
-    exit $var_missing_images
-  register: var_kubeadm_image_check
-  changed_when: var_kubeadm_image_check.rc != 0
-  failed_when: false
-  ignore_errors: yes
+  command: kubeadm config images list
+  register: var_kubeadm_images_list
+  changed_when: false
 
-- name: Notify if Kubernetes config images have already been pulled
+- name: Get the list of pulled images by crictl
+  become: true
+  command: crictl -r unix:///run/containerd/containerd.sock images
+  register: var_crictl_images_list
+  changed_when: false
+
+- name: Extract Kubernetes config image names
+  set_fact:
+    var_kubeadm_image_names: "{{ var_kubeadm_images_list.stdout_lines | map('regex_replace', ':.+', '') | map('regex_replace', '.*/', '') | list }}"
+
+- name: Extract names of Kubernetes images pulled by crictl
+  set_fact:
+    var_crictl_image_names: "{{ var_crictl_images_list.stdout_lines | select('search', 'registry.k8s.io') | map('regex_replace', ':.+', '') | map('regex_replace', '.*\/', '') | list }}"
+
+- name: Find Kubernetes images yet to be pulled
+  set_fact:
+    var_missing_images: "{{ var_kubeadm_image_names | difference(var_crictl_image_names | intersect(var_kubeadm_image_names)) }}"
+
+- name: Notify if all Kubernetes config images have already been pulled
   debug:
-    msg: |- 
-      Kubernetes config images have already been pulled.
-  when: var_kubeadm_image_check.rc == 0
+    msg: "All Kubernetes config images have already been pulled."
+  when: var_missing_images | length == 0
 
 - name: Notify if Kubernetes config images have not been pulled yet
   debug:
-    msg: |- 
-      Kubernetes config images have not been pulled yet. Proceeding to pull the required images.
-  when: var_kubeadm_image_check.rc != 0
+    msg: |
+      Kubernetes config images have not been pulled yet.
+      Following images are yet to be pulled.
+      {{ var_missing_images }}
+  when: var_missing_images | length > 0
 
-- name: Wait until Kubernetes config images required for cluster creation are pulled
+- name: Pulling Kubernetes config images (this might take some time)
   become: true
   command: kubeadm config images pull
-  when: var_kubeadm_image_check.rc != 0
+  when: var_missing_images | length > 0
 
 ####################################### EOF #########################################

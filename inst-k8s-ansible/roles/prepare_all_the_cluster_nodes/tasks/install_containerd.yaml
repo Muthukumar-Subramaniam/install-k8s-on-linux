@@ -1,4 +1,4 @@
-##Version : v2.2.5
+##Version : v2.2.6
 - name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
@@ -35,8 +35,17 @@
     path: /etc/containerd/config.toml
     state: touch
 
-- name: Generate containerd config and write it to /etc/containerd/config.toml
-  shell: containerd config default | sudo tee /etc/containerd/config.toml
+- name: Generate containerd config
+  become: true
+  command: containerd config default
+  register: var_containerd_config
+  changed_when: false
+
+- name: Write containerd config to /etc/containerd/config.toml
+  become: true
+  copy:
+    content: "{{ var_containerd_config.stdout }}"
+    dest: /etc/containerd/config.toml
 
 - name: Set SystemdCgroup as true in /etc/containerd/config.toml for runc
   become: true
