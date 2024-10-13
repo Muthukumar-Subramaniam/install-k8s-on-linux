@@ -31,10 +31,10 @@
 
 - name: Notify if Kubernetes config images have not been pulled yet
   debug:
-    msg: |-
-      Kubernetes config images have not been pulled yet.
-      Following images are yet to be pulled.
-      {{ var_missing_images }}
+    msg:
+      - "Kubernetes config images have not been pulled yet."
+      - "Following images are yet to be pulled:"
+      - "{{ var_missing_images }}"
   when: var_missing_images | length > 0
 
 - name: Pulling Kubernetes config images (this might take some time)
