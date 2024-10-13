@@ -13,24 +13,25 @@
 
 - name: Extract Kubernetes config image names
   set_fact:
-    var_kubeadm_image_names: "{{ var_kubeadm_images_list.stdout_lines | map('regex_replace', ':.+', '') | map('regex_replace', '.*/', '') | list }}"
+    var_kubeadm_image_names: "{{ var_kubeadm_images_list.stdout_lines | map('regex_replace', ':.+', '') | map('regex_replace', '.*\/', '') | list }}"
 
 - name: Extract names of Kubernetes images pulled by crictl
   set_fact:
-    var_crictl_image_names: "{{ var_crictl_images_list.stdout_lines | select('search', 'registry.k8s.io') | map('regex_replace', ':.+', '') | map('regex_replace', '.*\/', '') | list }}"
+    var_crictl_image_names: "{{ var_crictl_images_list.stdout_lines | select('search', 'registry.k8s.io') | map('regex_replace', '^(?:.*\/)?([^ ]+).*$', '\\1') | list }}"
 
 - name: Find Kubernetes images yet to be pulled
   set_fact:
-    var_missing_images: "{{ var_kubeadm_image_names | difference(var_crictl_image_names | intersect(var_kubeadm_image_names)) }}"
+    var_missing_images: "{{ var_kubeadm_image_names | difference(var_crictl_image_names) }}"
 
 - name: Notify if all Kubernetes config images have already been pulled
   debug:
-    msg: "All Kubernetes config images have already been pulled."
+    msg: |-
+      All Kubernetes config images have already been pulled.
   when: var_missing_images | length == 0
 
 - name: Notify if Kubernetes config images have not been pulled yet
   debug:
-    msg: |
+    msg: |-
       Kubernetes config images have not been pulled yet.
       Following images are yet to be pulled.
       {{ var_missing_images }}

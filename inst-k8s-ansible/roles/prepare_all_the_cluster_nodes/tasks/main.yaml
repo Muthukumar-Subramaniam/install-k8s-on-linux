@@ -21,23 +21,16 @@
 
 ###Tasks to install runc
 - name: Check if runc is already installed
-  command: command -v runc
+  command: runc --version
   register: var_runc_check
   ignore_errors: true
   failed_when: false
   changed_when: false
 
-- name: Notify if runc is already installed
+- name: Notify about runc installation status
   debug:
     msg: |-
-      runc is already installed.
-  when: var_runc_check.rc == 0
-
-- name: Notify if runc is not installed
-  debug:
-    msg: |-
-      runc is not installed. Proceeding with installation.
-  when: var_runc_check.rc != 0
+      runc is {{ 'already installed.' if var_runc_check.rc == 0 else 'not installed. Proceeding with installation.' }}
 
 - name: Include tasks to download and install runc
   include_tasks: install_runc.yaml
@@ -56,23 +49,16 @@
 
 ###Task to install containered
 - name: Check if containerd is already installed
-  command: command -v containerd
+  command: containerd --version
   register: var_containerd_check
   ignore_errors: true
   failed_when: false  
   changed_when: false
 
-- name: Notify if containerd is already installed
+- name: Notify about containerd installation status
   debug:
     msg: |-
-      Containerd is already installed.
-  when: var_containerd_check.rc == 0
-
-- name: Notify if containerd is not installed
-  debug:
-    msg: |-
-      Containerd is not installed. Proceeding with installation.
-  when: var_containerd_check.rc != 0
+      Containerd is {{ 'already installed.' if var_containerd_check.rc == 0 else 'not installed. Proceeding with installation.' }}
 
 - name: Include tasks to download and install containerd
   include_tasks: install_containerd.yaml

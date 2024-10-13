@@ -20,31 +20,25 @@
       - bash-completion 
     state: present
 
-- name: Ensure /etc/zypp/locks file exists ( Suse based systems )
+- name: Check package lock status of kubelet, kubeadm and kubectl (SUSE-based systems)
   become: true
-  file:
-    path: /etc/zypp/locks
-    state: touch
-    mode: '0644'
-    owner: root
-    group: root
+  command: zypper locks
+  register: var_k8s_packages_suse_lock_status
+  failed_when: false
+  changed_when: false
+  ignore_errors: true
 
-- name: Lock kubelet, kubeadm and kubectl packages from upgrades ( Suse based systems )
+- name: Check if kubelet, kubeadm and kubectl packages are locked already (SUSE-based systems)
+  set_fact:
+    var_k8s_packages_locked: "{{ var_k8s_packages_suse_lock_status.stdout | regex_search('kubeadm|kubectl|kubelet') is not none }}"
+
+- name: Lock kubelet, kubeadm and kubectl packages from upgrades (SUSE-based systems)
   become: true
-  blockinfile:
-    path: /etc/zypp/locks
-    block: |
-
-      type: package
-      match_type: glob
-      case_sensitive: on
-      solvable_name: {{ item }}
-
-    insertafter: EOF
-    marker: ""
+  command: zypper addlock {{ item }}
   loop:
     - kubelet
     - kubeadm
     - kubectl
+  when: not var_k8s_packages_locked
 
 ################################## EOF ####################################

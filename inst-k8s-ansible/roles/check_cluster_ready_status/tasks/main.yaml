@@ -26,30 +26,22 @@
 - name: Segregate worker nodes into those with and without the worker role label
   set_fact:
     var_labeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | select('search', 'node-role.kubernetes.io/worker=true') | list }}"
-    var_unlabeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | select('search', 'control-plane', invert=True) | select('search', 'node-role.kubernetes.io/worker=true', invert=True) | list }}"
+    var_unlabeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | reject('search', 'control-plane') | reject('search', 'node-role.kubernetes.io/worker=true') | list }}"
 
 - name: Notify the names of the worker nodes to which the worker role label has been assigned already
   debug:
-    msg: |
+    msg: |-
       {{ var_labeled_worker_nodes }}
   when: var_labeled_worker_nodes | length > 0
 
 - name: Notify the names of the worker nodes to which the worker role label hasn't been assigned yet
   debug:
-    msg: |
+    msg: |-
       {{ var_unlabeled_worker_nodes }}
   when: var_unlabeled_worker_nodes | length > 0
 
 - name: Add worker role label to unlabeled worker nodes
-  community.kubernetes.k8s:
-    state: present
-    definition:
-      apiVersion: v1
-      kind: Node
-      metadata:
-        name: "{{ item.split(' ')[0] }}"  # Get the node name from the first part of the line
-        labels:
-          node-role.kubernetes.io/worker: "true"
+  command: kubectl label node "{{ item.split(' ')[0] }}" node-role.kubernetes.io/worker=true
   loop: "{{ var_unlabeled_worker_nodes }}"
   when: var_unlabeled_worker_nodes | length > 0
 

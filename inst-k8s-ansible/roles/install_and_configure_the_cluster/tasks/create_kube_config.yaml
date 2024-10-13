@@ -1,7 +1,7 @@
 ##Version : v2.2.6
 - name: Create directory /home/{{ var_k8s_user }}/.kube
   file:
-    path: /home/{{ var_k8s_user }}/.kube
+    path: "/home/{{ var_k8s_user }}/.kube"
     state: directory
 
 - name: Copy /etc/kubernetes/admin.conf to /home/{{ var_k8s_user }}/.kube/config
@@ -9,14 +9,14 @@
   copy:
     src: /etc/kubernetes/admin.conf
     remote_src: true
-    dest: /home/{{ var_k8s_user }}/.kube/config
-    owner: {{ var_k8s_user }}
-    group: {{ var_k8s_user }}
+    dest: "/home/{{ var_k8s_user }}/.kube/config"
+    owner: "{{ var_k8s_user }}"
+    group: "{{ var_k8s_user }}"
     mode: "0600"
 
 - name: Add kubectl completion to .bashrc of user {{ var_k8s_user }}
   lineinfile:
-    path: /home/{{ var_k8s_user }}/.bashrc
+    path: "/home/{{ var_k8s_user }}/.bashrc"
     regexp: '^source <\(kubectl completion bash\)$'
     line: 'source <(kubectl completion bash)'
     state: present

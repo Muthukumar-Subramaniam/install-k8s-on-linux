@@ -36,7 +36,6 @@
     state: touch
 
 - name: Generate containerd config
-  become: true
   command: containerd config default
   register: var_containerd_config
   changed_when: false
