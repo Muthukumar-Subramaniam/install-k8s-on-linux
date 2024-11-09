@@ -1,4 +1,4 @@
-##Version : v2.2.6
+##Version : v2.2.7
 - name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
@@ -45,23 +45,6 @@
   copy:
     content: "{{ var_containerd_config.stdout }}"
     dest: /etc/containerd/config.toml
-
-- name: Set SystemdCgroup as true in /etc/containerd/config.toml for runc
-  become: true
-  replace:  
-    path: /etc/containerd/config.toml
-    regexp: 'SystemdCgroup = false'
-    replace: 'SystemdCgroup = true'
-
-- name: Check SystemdCgroup setting of containerd for runc
-  command: grep 'SystemdCgroup' /etc/containerd/config.toml
-  register: var_SystemdCgroup_output
-  changed_when: false
-
-- name: Notify SystemdCgroup setting of containerd for runc
-  debug:
-    msg: |-
-      SystemdCgroup setting of containerd for runc is {{ var_SystemdCgroup_output.stdout_lines }}
 
 - name: Download containerd.service file from GitHub
   become: true
