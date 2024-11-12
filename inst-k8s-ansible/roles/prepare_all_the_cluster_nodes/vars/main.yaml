@@ -1,3 +1,2 @@
-##Version : v2.2.7
 var_containerd_temp_binary_tarball: "/tmp/temp-containerd.tar.gz"
 var_runc_temp_binary: "/tmp/temp-runc"

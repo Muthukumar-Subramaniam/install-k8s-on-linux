@@ -1,4 +1,3 @@
-##Version : v2.2.7
 - name: Gather the list of pods from all namespaces
   command: kubectl get pods -A --no-headers 
   register: var_list_of_all_pods

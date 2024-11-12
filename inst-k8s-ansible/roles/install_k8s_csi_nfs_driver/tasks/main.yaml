@@ -1,4 +1,3 @@
-##Version : v2.2.7
 ### Optional csi-nfs-driver for k8s cluster
 - name: Gather the list of pods from all namespaces
   command: kubectl get pods -A --no-headers 

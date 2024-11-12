@@ -1,4 +1,3 @@
-##Version : v2.2.7
 - name: Create directory /home/{{ var_k8s_user }}/.kube
   file:
     path: "/home/{{ var_k8s_user }}/.kube"

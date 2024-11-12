@@ -1,4 +1,3 @@
-##Version : v2.2.7
 - name: Get the list of Kubernetes config images
   become: true
   command: kubeadm config images list

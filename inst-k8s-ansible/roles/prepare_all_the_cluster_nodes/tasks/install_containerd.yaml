@@ -1,4 +1,3 @@
-##Version : v2.2.7
 - name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true

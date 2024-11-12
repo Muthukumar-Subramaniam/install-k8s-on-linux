@@ -1,4 +1,3 @@
-##Version : v2.2.7
 - name: Load the required kernel modules
   become: true
   modprobe:
