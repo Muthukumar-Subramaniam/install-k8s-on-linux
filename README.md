@@ -40,7 +40,7 @@ We understand that there’s Kubespray, which is much more powerful and allows f
 ### Step-by-Step Workflow:    
 
 #### Step 1) Copy and execute the below command snippet to extract the tarball for the most recent stable release of this Ansible project.  
-   [![stable release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/inst-k8s-ansible/playbook_version.json)](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest)
+   [![stable release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Muthukumar-Subramaniam/install-k8s-on-linux/main/playbook_version.json)](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest)
    ```
    curl -sSL https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest/download/inst-k8s-ansible.tar.gz | tar -xzvf - && cd inst-k8s-ansible
    ```
