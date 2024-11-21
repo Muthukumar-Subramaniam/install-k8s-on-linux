@@ -45,6 +45,13 @@
     content: "{{ var_containerd_config.stdout }}"
     dest: /etc/containerd/config.toml
 
+- name: Update SystemdCgroup as true in /etc/containerd/config.toml for runc
+  become: true
+  lineinfile:
+    path: /etc/containerd/config.toml
+    insertafter: '^.*containerd\.runtimes\.runc\.options.*$'
+    line: '            SystemdCgroup = true'
+
 - name: Download containerd.service file from GitHub
   become: true
   get_url:
