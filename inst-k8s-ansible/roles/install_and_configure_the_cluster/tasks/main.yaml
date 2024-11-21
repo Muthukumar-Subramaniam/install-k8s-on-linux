@@ -35,6 +35,7 @@
   until: var_control_plane_ready_status.stdout_lines | select('search', ' Ready ') | list | length > 0 
   delay: 5
   changed_when: false
+  failed_when: false
 
 - name: Get the status of control-plane node
   command: kubectl get nodes --no-headers -l node-role.kubernetes.io/control-plane

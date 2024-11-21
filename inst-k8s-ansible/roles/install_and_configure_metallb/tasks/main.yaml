@@ -68,6 +68,7 @@
   retries: 500
   delay: 5
   changed_when: false
+  failed_when: false
   when: var_metallb_install_status == 'not_yet_installed'
 
 - name: Create MetalLB IPAddressPool and L2Advertisement

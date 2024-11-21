@@ -82,6 +82,7 @@
   retries: 500
   delay: 5
   changed_when: false
+  failed_when: false
   when: var_csi_nfs_install_status == 'not_yet_installed'
 
 - name: Gather current status of pods from all namespaces
