@@ -73,7 +73,7 @@ We understand that there’s Kubespray, which is much more powerful and allows f
    ```
    Expected Outcome:  
 
-   <img width="704" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/c550925f-1dc4-4536-b1dc-fdfe230749ca">
+   <img width="695" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/363a8107-0a08-4cda-996f-cb5e8fb9e7bd" />
 
 ### Great work! Your cluster is now ready to use.  
    
