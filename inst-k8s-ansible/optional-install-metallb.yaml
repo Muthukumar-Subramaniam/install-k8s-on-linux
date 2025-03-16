@@ -4,8 +4,9 @@
 
 - name: Install and configure MetalLB for k8s cluster 
   hosts: k8s_cluster_ctrl_plane_node
+  gather_facts: false
   vars:
-    var_k8s_metallb_ip_pool_range: "192.168.168.201-192.168.168.255" # Change it as per your environment
+    k8s_metallb_ip_pool_range: "10.160.0.101-10.160.0.150" # Change it as per your environment
   roles:
     - role: install_and_configure_metallb 
 

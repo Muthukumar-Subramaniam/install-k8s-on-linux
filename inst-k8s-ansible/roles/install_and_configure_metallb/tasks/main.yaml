@@ -1,20 +1,19 @@
 ###Tasks to install and configure metallb for k8s cluster
-- name: Gather the list of pods from all namespaces
-  command: kubectl get pods -A --no-headers 
-  register: var_all_pods_list
+- name: Check if metallb-system namespace already exist
+  command: kubectl get namespaces
+  register: metallb_namespace_status
   failed_when: false
   changed_when: false
   ignore_errors: true
 
-- name: Check if MetalLB is present in the pods list
-  set_fact:
-    var_metallb_install_status: "{{ 'already_installed' if (var_all_pods_list.stdout_lines | select('search', 'metallb') | list | length > 0) else 'not_yet_installed' }}"
+- set_fact:
+    metallb_install_status: "{{ 'already_installed' if (metallb_namespace_status.stdout_lines | select('search', 'metallb') | list | length > 0) else 'not_yet_installed' }}"
 
 - name: Notify if MetalLB is already installed
   debug:
     msg: |-
       MetalLB is already installed.
-  when: var_metallb_install_status == 'already_installed'
+  when: metallb_install_status == 'already_installed'
 
 - name: Get latest version information of MetalLB from GitHub API
   delegate_to: local-ansible-control-host
@@ -22,90 +21,91 @@
   uri:
     url: https://api.github.com/repos/metallb/metallb/releases/latest
     return_content: true
-  register: var_metallb_release
+  register: metallb_release
   changed_when: false
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - set_fact:
-    var_metallb_latest_version: "{{ var_metallb_release.json.tag_name }}"
-  when: var_metallb_install_status == 'not_yet_installed'
+    metallb_latest_version: "{{ metallb_release.json.tag_name }}"
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Notify the version to be installed of MetalLB
   debug:
     msg: |-
-      Latest stable version to be installed of MetalLB is {{ var_metallb_latest_version }}
+      Latest stable version to be installed of MetalLB is {{ metallb_latest_version }}
   delegate_to: local-ansible-control-host
   run_once: true
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Install MetalLB using manifest from GitHub with kubectl
-  command: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/{{ var_metallb_latest_version }}/config/manifests/metallb-native.yaml
-  register: var_metallb_install_logs
-  when: var_metallb_install_status == 'not_yet_installed'
+  command: kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/{{ metallb_latest_version }}/config/manifests/metallb-native.yaml
+  register: metallb_install_logs
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Notify the results from metallb installation
   debug:
     msg: |-
-      {{ var_metallb_install_logs.stdout_lines }}
-  when: var_metallb_install_status == 'not_yet_installed'
+      {{ metallb_install_logs.stdout_lines }}
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Get the status of metallb-system pods being deployed
-  command: kubectl get pods -n metallb-system
-  register: var_metallb_pods_logs
+  command: kubectl get pods -n metallb-system --no-headers
+  register: metallb_pods_logs
   changed_when: false
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Notify the status of metallb-system pods being deployed
   debug:
     msg: |-
-      {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status == 'not_yet_installed'
+      {{ metallb_pods_logs.stdout_lines }}
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Waiting for all the metallb-system pods to be Running
   command: kubectl get pods -n metallb-system --no-headers
-  register: var_current_metallb_pods_status
-  until: var_current_metallb_pods_status.stdout_lines | select('search', 'Running') | list | length == var_current_metallb_pods_status.stdout_lines | list | length
+  register: metallb_pods_status
+  until: metallb_pods_status.stdout_lines | select('search', '^(\\S+)\\s+(\\d+)/(\\2)\\s+Running') | list | length == metallb_pods_status.stdout_lines | length
   retries: 500
   delay: 5
   changed_when: false
   failed_when: false
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Create MetalLB IPAddressPool and L2Advertisement
   template:
     src: metallb_config.j2
     dest: /tmp/metallb_config.yaml  # Temporary file before applying
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Apply MetalLB IPAddressPool and L2Advertisement manifests
   command: kubectl apply -f /tmp/metallb_config.yaml
-  when: var_metallb_install_status == 'not_yet_installed'
+  when: metallb_install_status == 'not_yet_installed'
 
 - name: Get the current status of metallb-system pods
   command: kubectl get pods -n metallb-system
-  register: var_metallb_pods_logs
+  register: metallb_pods_logs
   changed_when: false
+  failed_when: false
 
 - name: Get MetalLB IPAddressPool details
   command: kubectl get ipaddresspools.metallb.io -n metallb-system
-  register: var_metallb_ip_pool_status 
+  register: metallb_ip_pool_status 
   changed_when: false
 
 - name: Notify MetalLB IPAddressPool details
   debug:
     msg: |-
-      {{ var_metallb_ip_pool_status.stdout_lines }}
+      {{ metallb_ip_pool_status.stdout_lines }}
 
 - name: Status of MetalLB pods if already installed
   debug:
     msg: |-
-      {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status == 'already_installed'
+      {{ metallb_pods_logs.stdout_lines }}
+  when: metallb_install_status == 'already_installed'
 
 - name: Successfully deployed MetalLB LoadBalancer for the k8s cluster
   debug:
     msg: |-
-      {{ var_metallb_pods_logs.stdout_lines }}
-  when: var_metallb_install_status == 'not_yet_installed'
+      {{ metallb_pods_logs.stdout_lines }}
+  when: metallb_install_status == 'not_yet_installed'
 
 ############################## EOF ################################

@@ -1,18 +1,18 @@
 ### Role to check the k8s cluster Ready status
 - name: Get the current status of all the cluster nodes
   command: kubectl get nodes
-  register: var_nodes_status
+  register: nodes_status
   changed_when: false
 
 - name: Notify the current status of all the cluster nodes
   debug:
     msg: |-
-      {{ var_nodes_status.stdout_lines }}
+      {{ nodes_status.stdout_lines }}
 
 - name: Waiting for all the worker nodes to get Ready (This might take some time)
   command: kubectl get nodes
-  register: var_number_of_nodes_ready_status
-  until: var_number_of_nodes_ready_status.stdout_lines | select('search', 'NotReady') | list | length == 0
+  register: number_of_nodes_ready_status
+  until: number_of_nodes_ready_status.stdout_lines | select('search', 'NotReady') | list | length == 0
   retries: 500
   delay: 5
   changed_when: false
@@ -20,45 +20,45 @@
 
 - name: Get the list of worker nodes with label details
   command: kubectl get nodes --no-headers --show-labels
-  register: var_worker_nodes
+  register: worker_nodes
   changed_when: false
 
 - name: Segregate worker nodes into those with and without the worker role label
   set_fact:
-    var_labeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | select('search', 'node-role.kubernetes.io/worker=true') | list }}"
-    var_unlabeled_worker_nodes: "{{ var_worker_nodes.stdout_lines | reject('search', 'control-plane') | reject('search', 'node-role.kubernetes.io/worker=true') | list }}"
+    labeled_worker_nodes: "{{ worker_nodes.stdout_lines | select('search', 'node-role.kubernetes.io/worker=true') | list }}"
+    unlabeled_worker_nodes: "{{ worker_nodes.stdout_lines | reject('search', 'control-plane') | reject('search', 'node-role.kubernetes.io/worker=true') | list }}"
 
 - name: Notify the names of the worker nodes to which the worker role label has been assigned already
   debug:
     msg: |-
-      {{ var_labeled_worker_nodes }}
-  when: var_labeled_worker_nodes | length > 0
+      {{ labeled_worker_nodes }}
+  when: labeled_worker_nodes | length > 0
 
 - name: Notify the names of the worker nodes to which the worker role label hasn't been assigned yet
   debug:
     msg: |-
-      {{ var_unlabeled_worker_nodes }}
-  when: var_unlabeled_worker_nodes | length > 0
+      {{ unlabeled_worker_nodes }}
+  when: unlabeled_worker_nodes | length > 0
 
 - name: Add worker role label to unlabeled worker nodes
   command: kubectl label node "{{ item.split(' ')[0] }}" node-role.kubernetes.io/worker=true
-  loop: "{{ var_unlabeled_worker_nodes }}"
-  when: var_unlabeled_worker_nodes | length > 0
+  loop: "{{ unlabeled_worker_nodes }}"
+  when: unlabeled_worker_nodes | length > 0
 
 - name: Get the status of cluster nodes
   command: kubectl get nodes
-  register: var_nodes_status
+  register: nodes_status
   changed_when: false
 
 - name: All the cluster nodes are Ready!
   debug:
     msg: |-
-      {{ var_nodes_status.stdout_lines }}
+      {{ nodes_status.stdout_lines }}
 
 - name: Wait for all the k8s system pods to come online (This might take some time)
-  command: kubectl get pods -A --no-headers
-  register: var_k8s_pods_status
-  until: var_k8s_pods_status.stdout_lines | select('search', 'Running') | list | length == var_k8s_pods_status.stdout_lines | list | length
+  command: kubectl get pods -n kube-system --no-headers
+  register: k8s_pods_status
+  until: k8s_pods_status.stdout_lines | select('search', '^(\\S+)\\s+(\\d+)/(\\2)\\s+Running') | list | length == k8s_pods_status.stdout_lines | length 
   retries: 500
   delay: 5
   changed_when: false
@@ -66,12 +66,12 @@
 
 - name: Your kubernetes cluster is Ready!
   command: kubectl get nodes
-  register: var_nodes_status
+  register: nodes_status
   changed_when: false
 
-- name: Manage this cluster from {{ var_k8s_ctrl_plane_node }} with user {{ var_k8s_user }}
+- name: Manage this cluster from {{ k8s_ctrl_plane_node }} with user {{ k8s_user }}
   debug:
     msg: |-
-      {{ var_nodes_status.stdout_lines }}
+      {{ nodes_status.stdout_lines }}
 
 ########################### EOF ###############################

@@ -1,21 +1,21 @@
-- name: Download official binary tarball of latest containerd ( {{ var_containerd_latest_version  }} ) to local-ansible-control-host
+- name: Download official binary tarball of latest containerd ( {{ containerd_latest_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   get_url:
-    url: https://github.com/containerd/containerd/releases/download/{{ var_containerd_latest_version }}/containerd-{{ var_containerd_latest_version | regex_replace('v', '') }}-linux-amd64.tar.gz
-    dest: "{{ var_containerd_temp_binary_tarball }}"
+    url: https://github.com/containerd/containerd/releases/download/{{ containerd_latest_version }}/containerd-{{ containerd_latest_version | regex_replace('v', '') }}-linux-amd64.tar.gz
+    dest: "{{ containerd_temp_binary_tarball }}"
 
 - name: Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes
   copy:
-    src: "{{ var_containerd_temp_binary_tarball }}"
-    dest: "{{ var_containerd_temp_binary_tarball }}"
+    src: "{{ containerd_temp_binary_tarball }}"
+    dest: "{{ containerd_temp_binary_tarball }}"
     mode: 755
 
 - name: Extract containerd bin under /usr/local
   become: true
   unarchive:
     remote_src: true
-    src: "{{ var_containerd_temp_binary_tarball }}"
+    src: "{{ containerd_temp_binary_tarball }}"
     dest: /usr/local 
     owner: root
     group: root
@@ -36,13 +36,13 @@
 
 - name: Generate containerd config
   command: containerd config default
-  register: var_containerd_config
+  register: containerd_config
   changed_when: false
 
 - name: Write containerd config to /etc/containerd/config.toml
   become: true
   copy:
-    content: "{{ var_containerd_config.stdout }}"
+    content: "{{ containerd_config.stdout }}"
     dest: /etc/containerd/config.toml
 
 - name: Update SystemdCgroup as true in /etc/containerd/config.toml for runc
@@ -72,24 +72,24 @@
 
 - name: Verify status of containerd service
   command: systemctl is-active containerd
-  register: var_containerd_service_status
+  register: containerd_service_status
   changed_when: false
 
 - name: Notify status of containerd service
   debug:
     msg: |-
-      status of containerd service is {{ var_containerd_service_status.stdout_lines }}
+      status of containerd service is {{ containerd_service_status.stdout_lines }}
 
-- name: Clean up {{ var_containerd_temp_binary_tarball }} from local-ansible-control-host
+- name: Clean up {{ containerd_temp_binary_tarball }} from local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   file:
-    path: "{{ var_containerd_temp_binary_tarball }}"
+    path: "{{ containerd_temp_binary_tarball }}"
     state: absent
 
-- name: Clean up {{ var_containerd_temp_binary_tarball }} from all nodes
+- name: Clean up {{ containerd_temp_binary_tarball }} from all nodes
   file:
-    path: "{{ var_containerd_temp_binary_tarball }}"
+    path: "{{ containerd_temp_binary_tarball }}"
     state: absent
 
 ################################# EOF #######################################

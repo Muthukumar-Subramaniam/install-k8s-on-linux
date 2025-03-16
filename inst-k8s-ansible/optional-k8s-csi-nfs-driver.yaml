@@ -3,6 +3,7 @@
 ### Run it if required only after the k8s cluster is Ready
 - name: Install CSI NFS Driver for k8s cluster 
   hosts: k8s_cluster_ctrl_plane_node
+  gather_facts: false
   roles:
     - role: install_k8s_csi_nfs_driver 
 

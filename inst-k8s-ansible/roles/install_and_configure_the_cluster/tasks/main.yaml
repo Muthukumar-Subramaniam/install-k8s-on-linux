@@ -1,6 +1,6 @@
 - set_fact:
-    var_k8s_ctrl_plane_node: "{{ ansible_host }}"
-    var_k8s_user: "{{ ansible_user }}"
+    k8s_ctrl_plane_node: "{{ ansible_host }}"
+    k8s_user: "{{ ansible_user }}"
 
 ###Tasks for kubeadm config images pull
 - name: Include tasks for kubeadm config images pull
@@ -11,14 +11,14 @@
   include_tasks: kubeadm_init.yaml
 
 ###Tasks to create Kubernetes config for the k8s user
-- name: Include tasks for creating Kubernetes config for user {{ var_k8s_user }}
+- name: Include tasks for creating Kubernetes config for user {{ k8s_user }}
   include_tasks: create_kube_config.yaml
 
 ###Task to check Kube API server's health
 - name: Checking Kube API server's health (this might take some time).
   command: curl -skL https://localhost:6443/healthz
-  register: var_api_server_health_status
-  until: var_api_server_health_status.stdout.find("ok") != -1
+  register: api_server_health_status
+  until: api_server_health_status.stdout.find("ok") != -1
   retries: 500
   delay: 5
   changed_when: false
@@ -30,30 +30,30 @@
 ###Tasks to check Ready status of control-plane node
 - name: Wait for control-plane to get Ready
   command: kubectl get nodes --no-headers -l node-role.kubernetes.io/control-plane
-  register: var_control_plane_ready_status
+  register: control_plane_ready_status
   retries: 500
-  until: var_control_plane_ready_status.stdout_lines | select('search', ' Ready ') | list | length > 0 
+  until: control_plane_ready_status.stdout_lines | select('search', ' Ready ') | list | length > 0 
   delay: 5
   changed_when: false
   failed_when: false
 
 - name: Get the status of control-plane node
   command: kubectl get nodes --no-headers -l node-role.kubernetes.io/control-plane
-  register: var_nodes_status
+  register: nodes_status
   changed_when: false
 
 - name: Notify the status of control-plane node
   debug:
     msg: |-
-      {{ var_nodes_status.stdout_lines }}
+      {{ nodes_status.stdout_lines }}
 
 ###Tasks to create kubeadm token required for joining the worker nodes with the cluster
 - name: Create kubeadm token required for joining the worker nodes with the cluster
   command: kubeadm token create --print-join-command
-  register: var_kubeadm_join_command_register
+  register: kubeadm_join_command_register
   changed_when: false
 
 - set_fact:
-    var_kubeadm_join_command: "{{ var_kubeadm_join_command_register.stdout }}"
+    kubeadm_join_command: "{{ kubeadm_join_command_register.stdout }}"
 
 ########################### EOF ##########################################

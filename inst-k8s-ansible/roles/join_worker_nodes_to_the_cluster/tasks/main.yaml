@@ -2,31 +2,31 @@
 - name: Check whether the worker node has joined the cluster already
   stat:
     path: /etc/kubernetes/kubelet.conf
-  register: var_check_k8s_kubelet_conf_file
+  register: check_k8s_kubelet_conf_file
   changed_when: false
 
 - name: Notify about the worker nodes that has joined the cluster already
   debug:
     msg: |-
       The worker node {{ ansible_host }} has joined the cluster already
-  when: var_check_k8s_kubelet_conf_file.stat.exists
+  when: check_k8s_kubelet_conf_file.stat.exists
 
 - name: Notify about the worker nodes that has not joined the cluster yet
   debug:
     msg: |-
       The worker node {{ ansible_host }} has not joined the cluster yet, Proceeding to join
-  when: not var_check_k8s_kubelet_conf_file.stat.exists
+  when: not check_k8s_kubelet_conf_file.stat.exists
 
 - name: Join the available worker nodes with the cluster
-  command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['var_kubeadm_join_command'] }}"
+  command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['kubeadm_join_command'] }}"
   become: true
-  register: var_worker_joined_output
-  when: not var_check_k8s_kubelet_conf_file.stat.exists
+  register: worker_joined_output
+  when: not check_k8s_kubelet_conf_file.stat.exists
 
 - name: Notify join command results from worker nodes that has joined the cluster
   debug:
     msg: |
-      {{ var_worker_joined_output.stdout_lines }}
-  when: not var_check_k8s_kubelet_conf_file.stat.exists
+      {{ worker_joined_output.stdout_lines }}
+  when: not check_k8s_kubelet_conf_file.stat.exists
 
 ################################# EOF ######################################

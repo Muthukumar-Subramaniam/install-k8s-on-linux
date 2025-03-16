@@ -7,13 +7,13 @@
     method: GET
     status_code: 200
     return_content: true
-  register: var_runc_release
+  register: runc_release
   changed_when: false
 
 - name: Notify the runc version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of runc is {{ var_runc_release.json.tag_name }}
+      Latest stable version to be installed of runc is {{ runc_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -26,13 +26,13 @@
     method: GET
     status_code: 200
     return_content: true
-  register: var_containerd_release
+  register: containerd_release
   changed_when: false
 
 - name: Notify the containerd version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of containerd is {{ var_containerd_release.json.tag_name }}
+      Latest stable version to be installed of containerd is {{ containerd_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -45,13 +45,13 @@
     method: GET
     status_code: 200
     return_content: true
-  register: var_k8s_release
+  register: k8s_release
   changed_when: false
 
 - name: Notify the kubernetes version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of kubernetes is {{ var_k8s_release.json.tag_name }}
+      Latest stable version to be installed of kubernetes is {{ k8s_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -64,23 +64,23 @@
     method: GET
     status_code: 200
     return_content: true
-  register: var_calico_release
+  register: calico_release
   changed_when: false
 
 - name: Notify the calico CNI version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of calico CNI is {{ var_calico_release.json.tag_name }}
+      Latest stable version to be installed of calico CNI is {{ calico_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
 
 
 - name: Set captured version information as global variables for all nodes
   set_fact:
-    var_runc_latest_version: "{{ var_runc_release.json.tag_name }}"
-    var_containerd_latest_version: "{{ var_containerd_release.json.tag_name }}"
-    var_k8s_latest_version: "{{ var_k8s_release.json.tag_name }}"
-    var_k8s_version_major_minor: "{{ var_k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
-    var_calico_latest_version: "{{ var_calico_release.json.tag_name }}"
+    runc_latest_version: "{{ runc_release.json.tag_name }}"
+    containerd_latest_version: "{{ containerd_release.json.tag_name }}"
+    k8s_latest_version: "{{ k8s_release.json.tag_name }}"
+    k8s_version_major_minor: "{{ k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
+    calico_latest_version: "{{ calico_release.json.tag_name }}"
 
 ################################## EOF ###############################

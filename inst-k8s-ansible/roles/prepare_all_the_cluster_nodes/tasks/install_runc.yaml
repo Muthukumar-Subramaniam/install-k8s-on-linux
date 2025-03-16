@@ -1,25 +1,25 @@
-- name: Download latest official runc ( {{ var_runc_latest_version }}  ) binary to local-ansible-control-host
+- name: Download latest official runc ( {{ runc_latest_version }}  ) binary to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   get_url:
-    url: "https://github.com/opencontainers/runc/releases/download/{{ var_runc_latest_version }}/runc.amd64"
-    dest: "{{ var_runc_temp_binary }}"
+    url: "https://github.com/opencontainers/runc/releases/download/{{ runc_latest_version }}/runc.amd64"
+    dest: "{{ runc_temp_binary }}"
     mode: 0755
 
 - name: Copy downloaded runc binary from local-ansible-control-host to /usr/local/bin/runc of cluster node
   become: true
   copy:
-    src: "{{ var_runc_temp_binary }}"
+    src: "{{ runc_temp_binary }}"
     dest: /usr/local/bin/runc
     owner: root
     group: root
     mode: 755
      
-- name: Clean up {{ var_runc_temp_binary }} from local-ansible-control-host
+- name: Clean up {{ runc_temp_binary }} from local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   file:
-    path: "{{ var_runc_temp_binary }}"
+    path: "{{ runc_temp_binary }}"
     state: absent
 
 ########################################### EOF ############################################
