@@ -9,12 +9,12 @@ pod_network_cidr_path = '../pod-network-cidr'
 
 # Write to host-control-plane
 with open(host_control_plane_path, 'w') as file:
-    file.write("k8s-cp1.gcp.lab\n")
+    file.write("k8s-cp1.gcp.local\n")
 
 # Write to host-workers
 with open(host_workers_path, 'w') as file:
-    file.write("k8s-w1.gcp.lab\n")
-    file.write("k8s-w2.gcp.lab\n")
+    file.write("k8s-w1.gcp.local\n")
+    file.write("k8s-w2.gcp.local\n")
 
 # Write to pod-network-cidr
 with open(pod_network_cidr_path, 'w') as file:
