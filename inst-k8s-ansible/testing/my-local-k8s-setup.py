@@ -11,12 +11,12 @@ metallb_config_yaml='../optional-install-metallb.yaml'
 
 # Write to host-control-plane
 with open(host_control_plane_path, 'w') as file:
-    file.write("k8s-cp1.ms.local\n")
+    file.write("k8s-cp1.lab.local\n")
 
 # Write to host-workers
 with open(host_workers_path, 'w') as file:
-    file.write("k8s-w1.ms.local\n")
-    file.write("k8s-w2.ms.local\n")
+    file.write("k8s-w1.lab.local\n")
+    file.write("k8s-w2.lab.local\n")
 
 # Write to pod-network-cidr
 with open(pod_network_cidr_path, 'w') as file:
@@ -25,7 +25,7 @@ with open(pod_network_cidr_path, 'w') as file:
 # Update metallb IP range
 with open(metallb_config_yaml, "r") as f:
     content = f.read()
-new_line = '    k8s_metallb_ip_pool_range: "192.168.168.201-192.168.168.255" # Change it as per your environment'
+new_line = '    k8s_metallb_ip_pool_range: "10.10.20.201-10.10.20.255" # Change it as per your environment'
 updated_content = re.sub(r'^.*k8s_metallb_ip_pool_range:.*$', new_line, content, flags=re.MULTILINE)
 with open(metallb_config_yaml, "w") as f:
     f.write(updated_content)

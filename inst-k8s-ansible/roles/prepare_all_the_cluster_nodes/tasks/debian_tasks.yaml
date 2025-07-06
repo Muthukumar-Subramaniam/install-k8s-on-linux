@@ -13,13 +13,27 @@
     state: present
     update-cache: true
 
+- name: Get list of kubernetes versions with apt-cache ( Debian based systems )
+  become: true
+  command: apt-cache madison kubectl
+  register: kubectl_versions
+  changed_when: false
+
+- name: Extract exact version string of kubernetes versions ( Debian based systems )
+  set_fact:
+    k8s_package_version: "{{ item.split('|')[1] | trim }}"
+  loop: "{{ kubectl_versions.stdout_lines }}"
+  when: item.split('|')[1] | trim is match('^' + (k8s_latest_version | regex_replace('^v', '')) + '-')
+  loop_control:
+    label: "{{ item }}"
+
 - name: Install kubelet, kubeadm and kubectl packages ( Debian based systems )
   become: true
   apt:
     name:
-      - kubelet
-      - kubeadm
-      - kubectl 
+      - "kubelet={{ k8s_package_version }}"
+      - "kubeadm={{ k8s_package_version }}"
+      - "kubectl={{ k8s_package_version }}"
       - bash-completion 
     state: present
 

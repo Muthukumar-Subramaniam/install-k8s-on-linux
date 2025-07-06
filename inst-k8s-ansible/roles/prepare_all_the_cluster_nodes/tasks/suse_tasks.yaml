@@ -13,9 +13,9 @@
   zypper:
     update_cache: true
     name:
-      - kubelet
-      - kubeadm
-      - kubectl 
+      - "kubelet-{{ k8s_latest_version | regex_replace('^v', '') }}"
+      - "kubeadm-{{ k8s_latest_version | regex_replace('^v', '') }}"
+      - "kubectl-{{ k8s_latest_version | regex_replace('^v', '') }}"
       - bash-completion 
     state: present
 

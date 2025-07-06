@@ -83,4 +83,20 @@
     k8s_version_major_minor: "{{ k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
     calico_latest_version: "{{ calico_release.json.tag_name }}"
 
+- name: Write captured version info to /etc/inst-k8s-ansible-vars on control plane node
+  copy:
+    dest: /etc/inst-k8s-ansible-vars
+    content: |
+      runc_latest_version: "{{ runc_latest_version }}"
+      containerd_latest_version: "{{ containerd_latest_version }}"
+      k8s_latest_version: "{{ k8s_latest_version }}"
+      k8s_version_major_minor: "{{ k8s_version_major_minor }}"
+      calico_latest_version: "{{ calico_latest_version }}"
+    owner: root
+    group: root
+    mode: '0644'
+  run_once: true
+  become: true
+  delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+
 ################################## EOF ###############################

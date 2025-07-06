@@ -1,0 +1,6 @@
+#SPDX-License-Identifier: MIT-0
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - version_cache_check_in_control_plane

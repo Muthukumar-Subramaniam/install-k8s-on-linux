@@ -2,8 +2,13 @@
 - name: Install and configure the kubernetes cluster on linux nodes
   hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
   roles:
+    - name: Fetch if version cache file exists in control plan node
+      role: version_cache_check_in_control_plane
+      when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
+
     - name: Fetch latest version of software components to be installed from GitHub API
       role: fetch_latest_version_number 
+      when: not (version_cache_loaded | default(false))
 
     - name: Prepare all the nodes for k8s cluster installation   
       role: prepare_all_the_cluster_nodes 

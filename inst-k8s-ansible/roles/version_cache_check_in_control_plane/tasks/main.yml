@@ -1,0 +1,41 @@
+# tasks file for version_cache_check_in_control_plane
+---
+- name: Check if version cache file exists in control plane node
+  stat:
+    path: /etc/inst-k8s-ansible-vars
+  register: version_file_stat
+  changed_when: false
+  delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+
+- name: Fetch version cache file from control plane node if it exists
+  fetch:
+    src: /etc/inst-k8s-ansible-vars
+    dest: "/tmp/inst-k8s-ansible-vars-{{ inventory_hostname }}"
+    flat: yes
+  when: version_file_stat.stat.exists
+  delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+
+- name: Load version variables from fetched cache file
+  include_vars:
+    file: "/tmp/inst-k8s-ansible-vars-{{ inventory_hostname }}"
+  when: version_file_stat.stat.exists
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['all'] }}"
+  run_once: true
+
+- name: Set fact if version cache loaded
+  set_fact:
+    version_cache_loaded: true
+  when: version_file_stat.stat.exists
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['all'] }}"
+  run_once: true
+
+- name: versions details of software components to be installed
+  debug:
+    msg:
+      - "stable version to be installed of kubernetes : {{ k8s_latest_version | default('not loaded') }}"
+      - "stable version to be installed of containerd : {{ containerd_latest_version | default('not loaded') }}"
+      - "stable version to be installed of runc       : {{ runc_latest_version | default('not loaded') }}"
+      - "stable version to be installed of calico     : {{ calico_latest_version | default('not loaded') }}"
+  when: version_file_stat.stat.exists

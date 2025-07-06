@@ -6,7 +6,7 @@
   hosts: k8s_cluster_ctrl_plane_node
   gather_facts: false
   vars:
-    k8s_metallb_ip_pool_range: "10.160.0.101-10.160.0.150" # Change it as per your environment
+    k8s_metallb_ip_pool_range: "10.10.20.201-10.10.20.255" # Change it as per your environment
   roles:
     - role: install_and_configure_metallb 
 
