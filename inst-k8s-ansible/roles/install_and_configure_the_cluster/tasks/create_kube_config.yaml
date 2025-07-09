@@ -3,6 +3,11 @@
     path: "/home/{{ k8s_user }}/.kube"
     state: directory
 
+- name: Get primary group of the k8s admin user {{ k8s_user }}
+  command: "id -gn {{ k8s_user }}"
+  register: primary_group_of_k8s_user
+  changed_when: false
+
 - name: Copy /etc/kubernetes/admin.conf to /home/{{ k8s_user }}/.kube/config
   become: true
   copy:
@@ -10,7 +15,7 @@
     remote_src: true
     dest: "/home/{{ k8s_user }}/.kube/config"
     owner: "{{ k8s_user }}"
-    group: "{{ k8s_user }}"
+    group: "{{ primary_group_of_k8s_user.stdout }}"
     mode: "0600"
 
 - name: Add kubectl completion to .bashrc of user {{ k8s_user }}
