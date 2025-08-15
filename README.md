@@ -2,8 +2,10 @@
 
 ----  
 
-This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
-We understand that there’s Kubespray, which is much more powerful and allows for a lot of customizations, but this playbook is lightweight and simple. It might be a good option for those looking to set up a quick and easy development and testing environment of Kubernetes on Linux.  
+This Ansible playbook automates the installation and configuration of a Kubernetes cluster on Linux, supporting both single control plane and HA control plane setups, using the [latest stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
+
+While Kubespray provides extensive features and customization options, this playbook remains lightweight and simple, making it an ideal choice for quickly setting up a development or testing Kubernetes environment on Linux.
+
 
 **Suitable Environment:** Development & Testing
 
@@ -23,6 +25,7 @@ We understand that there’s Kubespray, which is much more powerful and allows f
 * Create a common Linux user on all cluster nodes, which will be used for the cluster installation.
 * Enable passwordless SSH authentication from the Ansible host to all cluster nodes using the common user created earlier.  
 * Ensure the common user has passwordless sudo privileges on all cluster nodes.
+* For HA cluster setups, ensure that the control plane endpoint is configured via a load balancer such as NGINX, HAProxy, or any load balancer of your choice.
  
 #### The main playbook installs and configures the latest stable versions of the following required components.   
 * Container orchestrator: [kubernetes](https://github.com/kubernetes/kubernetes)
@@ -44,9 +47,35 @@ We understand that there’s Kubespray, which is much more powerful and allows f
    ```
    curl -sSL https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux/releases/latest/download/inst-k8s-ansible.tar.gz | tar -xzvf - && cd inst-k8s-ansible
    ```
-#### Step 2) Update the host-control-plane file with the necessary hostname.  
+#### Step 2) Update the host-control-plane file with the necessary hostnames.  
+
+   Use a single control plane node for a single control plane setup. For HA cluster setups, ensure a minimum of 3 control plane nodes, and always use an odd number of nodes.
+
+   Single Control Plane Setup
    
    <img width="362" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/ff689ceb-554a-438b-83e4-efd0b19e0170">
+
+   HA Control Plane Setup
+
+   <img width="550" height="120" alt="Screenshot 2025-08-15 at 10 07 01 PM" src="https://github.com/user-attachments/assets/fd7e1fd4-e240-40e4-8b52-ac8aedf9871a" />
+
+   Additional Step for HA Control Plane Setup
+
+   **Update the file** `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.
+
+   **Port configuration:**  
+       If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
+       Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.
+
+   **Load balancer:**  
+       You can use any load balancer of your choice (NGINX, HAProxy, etc.) for the control plane endpoint.
+    
+   <img width="572" height="78" alt="Screenshot 2025-08-15 at 10 09 09 PM" src="https://github.com/user-attachments/assets/8e4d4ba2-fe67-40e0-99b3-87e44b1504ea" />
+
+    ( Or )
+
+   <img width="577" height="71" alt="Screenshot 2025-08-15 at 10 10 17 PM" src="https://github.com/user-attachments/assets/a46cd99a-2c59-4333-8b92-4479a8c42f9b" />
+
   
 #### Step 3) Update the host-workers file with the necessary hostnames.  
    
