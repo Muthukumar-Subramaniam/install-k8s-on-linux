@@ -65,9 +65,9 @@ Use a single control plane node for a single control plane setup. For HA cluster
 * Update the file** `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.  
 
 * Port configuration:  
-  * If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
-  * Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.  
-    
+  If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
+  Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.   
+
    <img width="572" height="78" alt="Screenshot 2025-08-15 at 10 09 09 PM" src="https://github.com/user-attachments/assets/8e4d4ba2-fe67-40e0-99b3-87e44b1504ea" />
 
     ( Or )
