@@ -1,0 +1,44 @@
+- name: Get the list of Kubernetes config images
+  become: true
+  command: kubeadm config images list
+  register: kubeadm_images_list
+  changed_when: false
+
+- name: Get the list of pulled images by crictl
+  become: true
+  command: crictl -r unix:///run/containerd/containerd.sock images
+  register: crictl_images_list
+  changed_when: false
+
+- name: Extract Kubernetes config image names
+  set_fact:
+    kubeadm_image_names: "{{ kubeadm_images_list.stdout_lines | map('regex_replace', ':.+', '') | map('regex_replace', '.*\/', '') | list }}"
+
+- name: Extract names of Kubernetes images pulled by crictl
+  set_fact:
+    crictl_image_names: "{{ crictl_images_list.stdout_lines | select('search', 'registry.k8s.io') | map('regex_replace', '^(?:.*\/)?([^ ]+).*$', '\\1') | list }}"
+
+- name: Find Kubernetes images yet to be pulled
+  set_fact:
+    missing_images: "{{ kubeadm_image_names | difference(crictl_image_names) }}"
+
+- name: Notify if all Kubernetes config images have already been pulled
+  debug:
+    msg: |-
+      All Kubernetes config images have already been pulled.
+  when: missing_images | length == 0
+
+- name: Notify if Kubernetes config images have not been pulled yet
+  debug:
+    msg:
+      - "Kubernetes config images have not been pulled yet."
+      - "Following images are yet to be pulled:"
+      - "{{ missing_images }}"
+  when: missing_images | length > 0
+
+- name: Pulling Kubernetes config images (this might take some time)
+  become: true
+  command: kubeadm config images pull
+  when: missing_images | length > 0
+
+####################################### EOF #########################################

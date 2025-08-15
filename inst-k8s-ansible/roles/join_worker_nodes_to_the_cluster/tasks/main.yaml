@@ -18,7 +18,7 @@
   when: not check_k8s_kubelet_conf_file.stat.exists
 
 - name: Join the available worker nodes with the cluster
-  command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['kubeadm_join_command'] }}"
+  command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['kubeadm_worker_node_join_command'] }}"
   become: true
   register: worker_joined_output
   when: not check_k8s_kubelet_conf_file.stat.exists

@@ -1,6 +1,6 @@
 #!/usr/bin/env ansible-playbook
 - name: Install and configure the kubernetes cluster on linux nodes
-  hosts: k8s_cluster_ctrl_plane_node, k8s_cluster_worker_nodes
+  hosts: [ this field will be updated by setup script based on cluster type ]
   roles:
     - name: Fetch if version cache file exists in control plan node
       role: version_cache_check_in_control_plane
@@ -20,9 +20,13 @@
       role: install_and_configure_the_cluster
       when: ( 'k8s_cluster_ctrl_plane_node' in group_names)
 
-    - name: Join worker nodes with the k8s cluster
+    - name: Join worker nodes with the cluster
       role: join_worker_nodes_to_the_cluster
       when: ( 'k8s_cluster_worker_nodes' in group_names)
+
+    - name: Join remaining control plane nodes in case of HA cluster
+      role: join_ctrl_plane_nodes_to_the_cluster
+      when: ( 'k8s_additional_ctrl_plane_nodes' in group_names)
 
     - name: Check k8s cluster Ready status
       role: check_cluster_ready_status

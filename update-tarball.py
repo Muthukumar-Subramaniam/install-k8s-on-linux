@@ -7,10 +7,13 @@ import tarfile
 files_to_empty = [
     "./inst-k8s-ansible/host-control-plane",
     "./inst-k8s-ansible/host-workers",
+    "./inst-k8s-ansible/control-plane-endpoint",
     "./inst-k8s-ansible/pod-network-cidr",
     "./inst-k8s-ansible/inventory/k8s_cluster_ctrl_plane_node/hosts",
+    "./inst-k8s-ansible/inventory/k8s_additional_ctrl_plane_nodes/hosts",
     "./inst-k8s-ansible/inventory/k8s_cluster_worker_nodes/hosts",
     "./inst-k8s-ansible/logs-inst-k8s-ansible-play-output.txt",
+    "./inst-k8s-ansible/roles/install_and_configure_the_cluster/vars/main.yaml",
 ]
 
 # Empty the specified files

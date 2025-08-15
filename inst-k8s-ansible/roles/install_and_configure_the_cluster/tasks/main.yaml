@@ -47,13 +47,29 @@
     msg: |-
       {{ nodes_status.stdout_lines }}
 
-###Tasks to create kubeadm token required for joining the worker nodes with the cluster
-- name: Create kubeadm token required for joining the worker nodes with the cluster
+###Tasks to create kubeadm token required for joining nodes with the cluster
+- name: Create kubeadm token required for joining nodes with the cluster
   command: kubeadm token create --print-join-command
   register: kubeadm_join_command_register
   changed_when: false
 
 - set_fact:
-    kubeadm_join_command: "{{ kubeadm_join_command_register.stdout }}"
+    kubeadm_worker_node_join_command: "{{ kubeadm_join_command_register.stdout }}"
+
+###Task to generate certificate key for joining additional control planes 
+- name: Generate certificate key to join remaining control planes in case of HA Setup
+  command: kubeadm init phase upload-certs --upload-certs
+  register: cert_key_output
+  changed_when: false
+  become: true
+  when: k8s_control_plane_endpoint is defined
+
+- set_fact:
+    certificate_key: "{{ cert_key_output.stdout_lines[-1] }}"
+  when: k8s_control_plane_endpoint is defined
+
+- set_fact:
+    kubeadm_ctrl_plane_node_join_command: "{{ kubeadm_worker_node_join_command }} --control-plane --certificate-key {{ certificate_key }}"
+  when: k8s_control_plane_endpoint is defined
 
 ########################### EOF ##########################################

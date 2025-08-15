@@ -16,9 +16,19 @@
       kubeadm init has not been performed yet. Proceeding with kubeadm init.
   when: not check_k8s_admin_conf_file.stat.exists
 
-- name: Create k8s cluster using kubeadm init with pod network {{ k8s_pod_network_cidr }}
+- name: kubeadm init for Single Control Plane Setup
   become: true
   command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }}
-  when: not check_k8s_admin_conf_file.stat.exists
+  when:
+    - not check_k8s_admin_conf_file.stat.exists
+    - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
+
+- name: kubeadm init for HA Control Plane Setup
+  become: true
+  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --control-plane-endpoint {{ k8s_control_plane_endpoint }}
+  when:
+    - not check_k8s_admin_conf_file.stat.exists
+    - k8s_control_plane_endpoint is defined
+    - k8s_control_plane_endpoint | length > 0
 
 ############################ EOF ###################################

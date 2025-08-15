@@ -1,0 +1,42 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for join_ctrl_plane_nodes_to_the_cluster
+###Tasks for kubeadm config images pull
+- name: Include tasks for kubeadm config images pull
+  include_tasks: kubeadm_config_images_pull.yaml
+
+- name: Check whether the control plane node has joined the cluster already
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: check_k8s_kubelet_conf_file
+  changed_when: false
+
+- name: Notify about the control plane nodes that has joined the cluster already
+  debug:
+    msg: |-
+      The control plane node {{ ansible_host }} has joined the cluster already
+  when: check_k8s_kubelet_conf_file.stat.exists
+
+- name: Notify about the control plane nodes that has not joined the cluster yet
+  debug:
+    msg: |-
+      The control plane node {{ ansible_host }} has not joined the cluster yet, Proceeding to join
+  when: not check_k8s_kubelet_conf_file.stat.exists
+
+- name: Join the available control plane nodes with the cluster
+  command: "{{ hostvars[groups['k8s_cluster_ctrl_plane_node'][0]]['kubeadm_ctrl_plane_node_join_command'] }}"
+  become: true
+  register: control_plane_joined_output
+  when: not check_k8s_kubelet_conf_file.stat.exists
+
+- name: Notify join command results from control plane nodes that has joined the cluster
+  debug:
+    msg: |
+      {{ control_plane_joined_output.stdout_lines }}
+  when: not check_k8s_kubelet_conf_file.stat.exists
+
+###Tasks to create Kubernetes config for the k8s user
+- name: Include tasks for creating Kubernetes config for user {{ k8s_user }}
+  include_tasks: create_kube_config.yaml
+
+################################# EOF ######################################
