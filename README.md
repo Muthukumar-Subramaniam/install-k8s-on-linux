@@ -49,26 +49,24 @@ While Kubespray provides extensive features and customization options, this play
    ```
 #### Step 2) Update the host-control-plane file with the necessary hostnames.  
 
-   Use a single control plane node for a single control plane setup. For HA cluster setups, ensure a minimum of 3 control plane nodes, and always use an odd number of nodes.
+Use a single control plane node for a single control plane setup. For HA cluster setups, ensure a minimum of 3 control plane nodes, and always use an odd number of nodes.
 
-   Single Control Plane Setup
+##### Single Control Plane Setup
    
    <img width="362" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/ff689ceb-554a-438b-83e4-efd0b19e0170">
-
-   HA Control Plane Setup
+   
+   
+##### HA Control Plane Setup
 
    <img width="550" height="120" alt="Screenshot 2025-08-15 at 10 07 01 PM" src="https://github.com/user-attachments/assets/fd7e1fd4-e240-40e4-8b52-ac8aedf9871a" />
 
-   Additional Step for HA Control Plane Setup
+##### Additional Step for HA Control Plane Setup  
 
-   **Update the file** `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.
+* Update the file** `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.  
 
-   **Port configuration:**  
-       If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
-       Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.
-
-   **Load balancer:**  
-       You can use any load balancer of your choice (NGINX, HAProxy, etc.) for the control plane endpoint.
+* Port configuration:  
+  * If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
+  * Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.  
     
    <img width="572" height="78" alt="Screenshot 2025-08-15 at 10 09 09 PM" src="https://github.com/user-attachments/assets/8e4d4ba2-fe67-40e0-99b3-87e44b1504ea" />
 
