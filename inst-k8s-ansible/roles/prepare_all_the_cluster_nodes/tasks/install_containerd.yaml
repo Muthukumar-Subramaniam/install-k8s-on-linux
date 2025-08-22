@@ -9,24 +9,47 @@
   copy:
     src: "{{ containerd_temp_binary_tarball }}"
     dest: "{{ containerd_temp_binary_tarball }}"
-    mode: 755
+    mode: '0755'
 
-- name: Extract containerd bin under /usr/local
+- name: Create extraction directory /root/containerd-bin-tmp
+  become: true
+  file:
+    path: /root/containerd-bin-tmp
+    state: directory
+    mode: '0755'
+
+- name: Extract containerd binaries under /root/containerd-bin-tmp
   become: true
   unarchive:
     remote_src: true
     src: "{{ containerd_temp_binary_tarball }}"
-    dest: /usr/local 
+    dest: /root/containerd-bin-tmp 
     owner: root
     group: root
-    mode: 755
+    mode: '0755'
+
+- name: Copy containerd binaries to /usr/bin
+  become: true
+  copy:
+    src: "/root/containerd-bin-tmp/bin/"
+    dest: "/usr/bin/"
+    owner: root
+    group: root
+    mode: '0755'
+    remote_src: true
+
+- name: Remove /root/containerd-bin-tmp directory
+  become: true
+  file:
+    path: /root/containerd-bin-tmp
+    state: absent
 
 - name: Create containerd configuration directory /etc/containerd
   become: true
   file:
     path: /etc/containerd
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Create /etc/containerd/config.toml
   become: true
@@ -57,6 +80,13 @@
   get_url:
     url: "https://raw.githubusercontent.com/containerd/containerd/main/containerd.service"
     dest: /etc/systemd/system/containerd.service
+
+- name: Update containerd systemd unit file to use /usr/bin instead of /usr/local/bin
+  become: true
+  replace:
+    path: /etc/systemd/system/containerd.service
+    regexp: '/usr/local'
+    replace: '/usr'
 
 - name: Reload systemd daemon
   become: true

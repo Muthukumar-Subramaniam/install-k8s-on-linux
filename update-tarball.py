@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import tarfile
 
 # List of files to empty
@@ -19,10 +20,24 @@ files_to_empty = [
 # Empty the specified files
 for file_path in files_to_empty:
     if os.path.exists(file_path):
-        open(file_path, 'w').close()  # Clear the contents of the file
+        open(file_path, 'w').close()  # Clear the file_contents of the file
         print(f'Emptied file: {file_path}')
     else:
         print(f'File not found: {file_path}')
+
+
+playbook_file = "./inst-k8s-ansible/inst-k8s-ansible.yaml"
+with open(playbook_file, "r") as f:
+    file_content = f.read()
+# Replace any line starting with "hosts:"
+new_file_content = re.sub(
+    r'^\s*hosts:.*$',
+    '  hosts: [ this field will be updated by setup script based on cluster type ]',
+    file_content,
+    flags=re.MULTILINE
+)
+with open(playbook_file, "w") as f:
+    f.write(new_file_content)
 
 # Create a tar.gz archive
 tar_file_path = './inst-k8s-ansible.tar.gz'

@@ -4,16 +4,16 @@
   get_url:
     url: "https://github.com/opencontainers/runc/releases/download/{{ runc_latest_version }}/runc.amd64"
     dest: "{{ runc_temp_binary }}"
-    mode: 0755
+    mode: '0755'
 
 - name: Copy downloaded runc binary from local-ansible-control-host to /usr/local/bin/runc of cluster node
   become: true
   copy:
     src: "{{ runc_temp_binary }}"
-    dest: /usr/local/bin/runc
+    dest: /usr/bin/runc
     owner: root
     group: root
-    mode: 755
+    mode: '0755'
      
 - name: Clean up {{ runc_temp_binary }} from local-ansible-control-host
   delegate_to: local-ansible-control-host
