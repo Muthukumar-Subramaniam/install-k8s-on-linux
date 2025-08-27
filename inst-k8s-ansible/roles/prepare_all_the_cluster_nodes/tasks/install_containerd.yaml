@@ -122,4 +122,11 @@
     path: "{{ containerd_temp_binary_tarball }}"
     state: absent
 
+- name: Ensure crictl config exists with runtime-endpoint
+  become: true
+  lineinfile:
+    path: /etc/crictl.yaml
+    line: "runtime-endpoint: unix:///run/containerd/containerd.sock"
+    create: yes
+
 ################################# EOF #######################################
