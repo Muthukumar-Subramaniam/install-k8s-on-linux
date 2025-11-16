@@ -18,7 +18,7 @@
 
 - name: kubeadm init for Single Control Plane Setup
   become: true
-  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }}
+  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --apiserver-advertise-address={{ ansible_facts['env'].SSH_CONNECTION.split(' ')[2] }}
   when:
     - not check_k8s_admin_conf_file.stat.exists
     - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
