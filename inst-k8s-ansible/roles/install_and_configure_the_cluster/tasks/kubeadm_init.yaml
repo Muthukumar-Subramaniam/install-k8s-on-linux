@@ -16,9 +16,44 @@
       kubeadm init has not been performed yet. Proceeding with kubeadm init.
   when: not check_k8s_admin_conf_file.stat.exists
 
+- name: Determine apiserver-advertise-address for Single Control Plane Setup
+  block:
+
+    - name: Use apiserver-advertise-address directly if single control plane given is already an IPv4 address
+      set_fact:
+        k8s_apiserver_advertise_address: "{{ ansible_host }}"
+      when: ansible_host is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$')
+
+    - name: Run host command to resolve the DNS record if single control plane given is hostname or FQDN
+      delegate_to: local-ansible-control-host
+      run_once: true
+      ansible.builtin.command: "host {{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+      register: resolved_control_plane_host
+      changed_when: false
+      failed_when: resolved_control_plane_host.rc != 0
+      when: not (groups['k8s_cluster_ctrl_plane_node'][0] is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$'))
+
+    - name: Use resolved IPv4 address for apiserver-advertise-address if single control plane given is hostname or FQDN
+      set_fact:
+        k8s_apiserver_advertise_address: >-
+          {{
+            (resolved_control_plane_host.stdout_lines
+            | regex_findall('(?m)\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b')
+            | first)
+            | default('', true)
+          }}
+      when:
+        - not (ansible_host is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$'))
+        - resolved_control_plane_host.stdout_lines is defined
+        - resolved_control_plane_host.stdout_lines | length > 0
+
+  when:
+    - not check_k8s_admin_conf_file.stat.exists
+    - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
+
 - name: kubeadm init for Single Control Plane Setup
   become: true
-  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }}
+  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --apiserver-advertise-address={{ k8s_apiserver_advertise_address }}
   when:
     - not check_k8s_admin_conf_file.stat.exists
     - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
