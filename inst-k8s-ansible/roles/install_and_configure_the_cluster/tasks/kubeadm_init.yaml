@@ -27,7 +27,7 @@
     - name: Run host command to resolve the DNS record if single control plane given is hostname or FQDN
       delegate_to: local-ansible-control-host
       run_once: true
-      ansible.builtin.command: "host {{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+      ansible.builtin.command: "getent hosts {{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
       register: resolved_control_plane_host
       changed_when: false
       failed_when: resolved_control_plane_host.rc != 0
