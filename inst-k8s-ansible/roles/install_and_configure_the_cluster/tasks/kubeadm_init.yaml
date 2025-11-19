@@ -27,11 +27,11 @@
     - name: Run host command to resolve the DNS record if single control plane given is hostname or FQDN
       delegate_to: local-ansible-control-host
       run_once: true
-      ansible.builtin.command: "getent hosts {{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+      ansible.builtin.command: "getent hosts {{ ansible_host }}"
       register: resolved_control_plane_host
       changed_when: false
       failed_when: resolved_control_plane_host.rc != 0
-      when: not (groups['k8s_cluster_ctrl_plane_node'][0] is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$'))
+      when: not (ansible_host is match('^([0-9]{1,3}\.){3}[0-9]{1,3}$'))
 
     - name: Use resolved IPv4 address for apiserver-advertise-address if single control plane given is hostname or FQDN
       set_fact:
