@@ -13,6 +13,7 @@
     dest: "/tmp/inst-k8s-ansible-vars-{{ inventory_hostname }}"
     flat: yes
   when: version_file_stat.stat.exists
+  changed_when: false
   delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
 
 - name: Load version variables from fetched cache file

@@ -56,7 +56,7 @@
 
 - name: Fetch k8s cluster's Management Network CIDR
   set_fact:
-    k8s_cluster_management_cidr: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.prefix }}"
+    k8s_cluster_management_cidr: "{{ ansible_facts['default_ipv4']['network'] }}/{{ ansible_facts['default_ipv4']['prefix'] }}"
 
 - name: Add k8s cluster's Cluster-IP CIDR 10.96.0.0/12 to trusted zone
   become: true

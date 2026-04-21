@@ -75,15 +75,15 @@
 
 ###Task to install kubelet, kubeadm and kubectl packages 
 - name: Tasks for RedHat based Distributions to install kubelet, kubeadm and kubectl packages
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
   include_tasks: redhat_tasks.yaml
     
 - name: Tasks for Debian based Distributions to install kubelet, kubeadm and kubectl packages
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
   include_tasks: debian_tasks.yaml
 
 - name: Tasks for Suse based Distributions to install kubelet, kubeadm and kubectl packages
-  when: ansible_os_family == "Suse"
+  when: ansible_facts["os_family"] == "Suse"
   include_tasks: suse_tasks.yaml
 
 
