@@ -11,6 +11,7 @@
       - kubelet
       - kubeadm
       - kubectl
+      - cri-tools
     state: present
 
 - name: Install kubelet, kubeadm and kubectl packages ( RedHat based systems )
@@ -21,6 +22,7 @@
       - "kubelet-{{ k8s_latest_version | regex_replace('^v', '') }}"
       - "kubeadm-{{ k8s_latest_version | regex_replace('^v', '') }}"
       - "kubectl-{{ k8s_latest_version | regex_replace('^v', '') }}"
+      - cri-tools
       - bash-completion 
     disable_excludes: k8s-{{ k8s_version_major_minor }}
     state: present

@@ -34,6 +34,7 @@
       - "kubelet={{ k8s_package_version }}"
       - "kubeadm={{ k8s_package_version }}"
       - "kubectl={{ k8s_package_version }}"
+      - cri-tools
       - bash-completion 
     state: present
 
