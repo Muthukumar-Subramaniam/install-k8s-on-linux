@@ -26,6 +26,12 @@
 ###Tasks to apply Calico CNI manifest
 - name: Include tasks to apply Calico CNI manifest
   include_tasks: apply_calico_cni_manifest.yaml
+  when: k8s_cni_plugin == "calico"
+
+###Tasks to apply Cilium CNI
+- name: Include tasks to install Cilium CNI
+  include_tasks: apply_cilium_cni.yaml
+  when: k8s_cni_plugin == "cilium"
 
 ###Tasks to check Ready status of control-plane node
 - name: Wait for control-plane to get Ready

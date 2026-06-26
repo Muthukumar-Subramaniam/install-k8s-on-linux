@@ -1,0 +1,115 @@
+- name: Check if Cilium CLI is already installed
+  command: cilium version --client
+  register: cilium_cli_check
+  failed_when: false
+  changed_when: false
+
+- name: Install Cilium CLI ( {{ cilium_cli_latest_version }} )
+  block:
+    - name: Download Cilium CLI tarball
+      get_url:
+        url: "https://github.com/cilium/cilium-cli/releases/download/{{ cilium_cli_latest_version }}/cilium-linux-amd64.tar.gz"
+        dest: /tmp/cilium-linux-amd64.tar.gz
+        mode: '0644'
+
+    - name: Extract Cilium CLI to /usr/local/bin
+      become: true
+      unarchive:
+        src: /tmp/cilium-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+
+    - name: Clean up Cilium CLI tarball
+      file:
+        path: /tmp/cilium-linux-amd64.tar.gz
+        state: absent
+
+    - name: Verify Cilium CLI installation
+      command: cilium version --client
+      register: cilium_cli_version_output
+      changed_when: false
+
+    - name: Notify Cilium CLI version installed
+      debug:
+        msg: |-
+          {{ cilium_cli_version_output.stdout }}
+  when: cilium_cli_check.rc != 0
+
+- name: Gather the list of pods from all namespaces
+  command: kubectl get pods -A --no-headers
+  register: list_of_all_pods
+  failed_when: false
+  changed_when: false
+  ignore_errors: true
+
+- name: Check if Cilium CNI has been installed already
+  set_fact:
+    cilium_cni_status: "{{ 'installed_already' if (list_of_all_pods.stdout_lines | select('search', 'cilium') | list | length > 0) else 'not_yet_installed' }}"
+
+- name: Notify if Cilium CNI has been installed already
+  debug:
+    msg: |-
+      Cilium CNI has been installed already.
+  when: cilium_cni_status == 'installed_already'
+
+- name: Notify if Cilium CNI has not been installed yet
+  debug:
+    msg: |-
+      Cilium CNI has not been installed yet. Proceeding to install.
+  when: cilium_cni_status == 'not_yet_installed'
+
+- name: Determine Kubernetes API server address for kube-proxy replacement
+  block:
+    - name: Get API server endpoint IP from endpointslice
+      command: >
+        kubectl get endpointslice -n default
+        -l kubernetes.io/service-name=kubernetes
+        -o jsonpath='{.items[0].endpoints[0].addresses[0]}'
+      register: k8s_api_server_ip_result
+      changed_when: false
+
+    - name: Get API server endpoint port from endpointslice
+      command: >
+        kubectl get endpointslice -n default
+        -l kubernetes.io/service-name=kubernetes
+        -o jsonpath='{.items[0].ports[0].port}'
+      register: k8s_api_server_port_result
+      changed_when: false
+
+    - name: Set API server facts for Single Control Plane Setup
+      set_fact:
+        cilium_k8s_service_host: "{{ k8s_api_server_ip_result.stdout }}"
+        cilium_k8s_service_port: "{{ k8s_api_server_port_result.stdout }}"
+      when: k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
+
+    - name: Set API server facts for HA Control Plane Setup
+      set_fact:
+        cilium_k8s_service_host: "{{ k8s_control_plane_endpoint.split(':')[0] }}"
+        cilium_k8s_service_port: "{{ k8s_control_plane_endpoint.split(':')[1] | default('6443') }}"
+      when:
+        - k8s_control_plane_endpoint is defined
+        - k8s_control_plane_endpoint | length > 0
+  when: cilium_cni_status == 'not_yet_installed'
+
+- name: Install Cilium with kube-proxy replacement enabled
+  command: >
+    cilium install
+    --set kubeProxyReplacement=true
+    --set k8sServiceHost={{ cilium_k8s_service_host }}
+    --set k8sServicePort={{ cilium_k8s_service_port }}
+    --set ipam.operator.clusterPoolIPv4PodCIDRList={{ k8s_pod_network_cidr }}
+  when: cilium_cni_status == 'not_yet_installed'
+
+- name: Wait for Cilium to be ready
+  command: cilium status --wait
+  register: cilium_status_output
+  changed_when: false
+  when: cilium_cni_status == 'not_yet_installed'
+
+- name: Notify Cilium status
+  debug:
+    msg: |-
+      {{ cilium_status_output.stdout_lines }}
+  when: cilium_cni_status == 'not_yet_installed'
+
+############################### EOF ###################################

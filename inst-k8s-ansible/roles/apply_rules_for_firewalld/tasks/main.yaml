@@ -17,7 +17,7 @@
       Firewalld is running. Proceeding with the necessary configuration.
   when: firewalld_status.stdout == "active"
 
-- name: Include tasks to apply firewalld rules for Kubernetes and Calico CNI
+- name: Include tasks to apply firewalld rules for Kubernetes and {{ k8s_cni_plugin }} CNI
   include_tasks: apply_rules.yaml
   when: firewalld_status.stdout == "active"
 

@@ -44,6 +44,7 @@
     - 5473/tcp     # Calico port for tigera operator agent
     - 51820/udp    # WireGuard port for Calico
     - 51821/udp    # Another WireGuard port for Calico
+  when: k8s_cni_plugin == "calico"
 
 - name: Allow IP-in-IP encapsulation for Calico (Protocol 4) in all nodes
   become: true
@@ -53,6 +54,22 @@
     permanent: true
     immediate: true
     state: enabled
+  when: k8s_cni_plugin == "calico"
+
+- name: Allow cilium related ports in all nodes
+  become: true
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    zone: public
+    permanent: true
+    immediate: true
+    state: enabled
+  loop:
+    - 4240/tcp     # Cilium health checks
+    - 4244/tcp     # Hubble Relay
+    - 4245/tcp     # Hubble UI
+    - 8472/udp     # VXLAN overlay
+  when: k8s_cni_plugin == "cilium"
 
 - name: Fetch k8s cluster's Management Network CIDR
   set_fact:

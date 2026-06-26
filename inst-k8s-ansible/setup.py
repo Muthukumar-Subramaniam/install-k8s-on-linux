@@ -145,6 +145,23 @@ except ValueError as e:
 
 fn_print_success("[done]\n")
 
+# CNI Plugin Selection
+fn_print_note("\n[CNI Plugin Selection]\n")
+fn_print_msg("Select the CNI plugin to install:\n")
+fn_print_msg("  1) Calico\n")
+fn_print_msg("  2) Cilium\n")
+while True:
+    cni_choice = input("Enter your choice (1 or 2): ").strip()
+    if cni_choice == '1':
+        k8s_cni_plugin = 'calico'
+        break
+    elif cni_choice == '2':
+        k8s_cni_plugin = 'cilium'
+        break
+    else:
+        fn_print_fail("Invalid choice. Please enter 1 or 2.\n")
+
+fn_print_success(f"CNI plugin selected: {k8s_cni_plugin}\n")
 
 vars_file = './roles/install_and_configure_the_cluster/vars/main.yaml'
 if len(cp_hosts) > 1:
@@ -191,6 +208,16 @@ with open(vars_file, 'r+') as f:
     f.seek(0)
     f.writelines(line for line in lines if 'k8s_pod_network_cidr' not in line)
     f.write(f'k8s_pod_network_cidr: "{pod_network_cidr}"\n')
+    f.truncate()
+fn_print_success("[done]\n")
+
+# Update vars/main.yaml with CNI plugin selection
+fn_print_msg(f"Updating CNI plugin selection as {k8s_cni_plugin} . . . ")
+with open(vars_file, 'r+') as f:
+    lines = f.readlines()
+    f.seek(0)
+    f.writelines(line for line in lines if 'k8s_cni_plugin' not in line)
+    f.write(f'k8s_cni_plugin: "{k8s_cni_plugin}"\n')
     f.truncate()
 fn_print_success("[done]\n")
 

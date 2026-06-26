@@ -57,6 +57,15 @@
   when:
     - not check_k8s_admin_conf_file.stat.exists
     - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
+    - k8s_cni_plugin == "calico"
+
+- name: kubeadm init for Single Control Plane Setup ( with kube-proxy disabled for Cilium )
+  become: true
+  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --apiserver-advertise-address={{ k8s_apiserver_advertise_address }} --skip-phases=addon/kube-proxy
+  when:
+    - not check_k8s_admin_conf_file.stat.exists
+    - k8s_control_plane_endpoint is not defined or k8s_control_plane_endpoint | length == 0
+    - k8s_cni_plugin == "cilium"
 
 - name: kubeadm init for HA Control Plane Setup
   become: true
@@ -65,5 +74,15 @@
     - not check_k8s_admin_conf_file.stat.exists
     - k8s_control_plane_endpoint is defined
     - k8s_control_plane_endpoint | length > 0
+    - k8s_cni_plugin == "calico"
+
+- name: kubeadm init for HA Control Plane Setup ( with kube-proxy disabled for Cilium )
+  become: true
+  command: kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --control-plane-endpoint {{ k8s_control_plane_endpoint }} --skip-phases=addon/kube-proxy
+  when:
+    - not check_k8s_admin_conf_file.stat.exists
+    - k8s_control_plane_endpoint is defined
+    - k8s_control_plane_endpoint | length > 0
+    - k8s_cni_plugin == "cilium"
 
 ############################ EOF ###################################

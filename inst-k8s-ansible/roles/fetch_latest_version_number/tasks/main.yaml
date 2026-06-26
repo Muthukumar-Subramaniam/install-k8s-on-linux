@@ -66,6 +66,7 @@
     return_content: true
   register: calico_release
   changed_when: false
+  when: k8s_cni_plugin == "calico"
 
 - name: Notify the calico CNI version to be installed
   debug:
@@ -73,6 +74,28 @@
       Latest stable version to be installed of calico CNI is {{ calico_release.json.tag_name }}
   delegate_to: local-ansible-control-host
   run_once: true
+  when: k8s_cni_plugin == "calico"
+
+
+- name: Get latest version information of cilium CLI
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt
+    method: GET
+    status_code: 200
+    return_content: true
+  register: cilium_cli_release
+  changed_when: false
+  when: k8s_cni_plugin == "cilium"
+
+- name: Notify the cilium CLI version to be installed
+  debug:
+    msg: |-
+      Latest stable version to be installed of cilium CLI is {{ cilium_cli_release.content | trim }}
+  delegate_to: local-ansible-control-host
+  run_once: true
+  when: k8s_cni_plugin == "cilium"
 
 
 - name: Set captured version information as global variables for all nodes
@@ -81,7 +104,8 @@
     containerd_latest_version: "{{ containerd_release.json.tag_name }}"
     k8s_latest_version: "{{ k8s_release.json.tag_name }}"
     k8s_version_major_minor: "{{ k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
-    calico_latest_version: "{{ calico_release.json.tag_name }}"
+    calico_latest_version: "{{ calico_release.json.tag_name | default('') }}"
+    cilium_cli_latest_version: "{{ (cilium_cli_release.content | default('')) | trim }}"
 
 - name: Write captured version info to /etc/inst-k8s-ansible-vars on control plane node
   copy:
@@ -92,6 +116,7 @@
       k8s_latest_version: "{{ k8s_latest_version }}"
       k8s_version_major_minor: "{{ k8s_version_major_minor }}"
       calico_latest_version: "{{ calico_latest_version }}"
+      cilium_cli_latest_version: "{{ cilium_cli_latest_version }}"
     owner: root
     group: root
     mode: '0644'
