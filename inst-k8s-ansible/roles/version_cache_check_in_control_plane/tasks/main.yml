@@ -40,7 +40,7 @@
     k8s_version_major_minor: "{{ k8s_version_major_minor }}"
     calico_version: "{{ calico_latest_version | default('') }}"
     cilium_cli_version: "{{ cilium_cli_latest_version | default('') }}"
-    k8s_cni_plugin: "{{ k8s_cni_plugin | default('calico') }}"
+    k8s_cni_plugin: "{{ 'calico' if (calico_latest_version is defined and calico_latest_version | length > 0) else 'cilium' }}"
   when:
     - version_file_stat.stat.exists
     - runc_latest_version is defined
