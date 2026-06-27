@@ -35,16 +35,15 @@
           {{ cilium_cli_version_output.stdout }}
   when: cilium_cli_check.rc != 0
 
-- name: Gather the list of pods from all namespaces
-  command: kubectl get pods -A --no-headers
-  register: list_of_all_pods
+- name: Check if Cilium daemonset exists in kube-system
+  command: kubectl get daemonset cilium -n kube-system --no-headers
+  register: cilium_daemonset_check
   failed_when: false
   changed_when: false
-  ignore_errors: true
 
 - name: Check if Cilium CNI has been installed already
   set_fact:
-    cilium_cni_status: "{{ 'installed_already' if (list_of_all_pods.stdout_lines | select('search', 'cilium') | list | length > 0) else 'not_yet_installed' }}"
+    cilium_cni_status: "{{ 'installed_already' if (cilium_daemonset_check.rc == 0) else 'not_yet_installed' }}"
 
 - name: Notify if Cilium CNI has been installed already
   debug:
