@@ -111,4 +111,9 @@
       {{ cilium_status_output.stdout_lines }}
   when: cilium_cni_status == 'not_yet_installed'
 
+- name: Ensure all Cilium pods are ready before proceeding
+  command: cilium status --wait
+  changed_when: false
+  when: cilium_cni_status == 'installed_already'
+
 ############################### EOF ###################################
