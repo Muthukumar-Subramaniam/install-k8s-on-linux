@@ -1,8 +1,8 @@
-- name: Download official binary tarball of latest containerd ( {{ containerd_latest_version  }} ) to local-ansible-control-host
+- name: Download official binary tarball of latest containerd ( {{ containerd_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   get_url:
-    url: https://github.com/containerd/containerd/releases/download/{{ containerd_latest_version }}/containerd-{{ containerd_latest_version | regex_replace('v', '') }}-linux-amd64.tar.gz
+    url: https://github.com/containerd/containerd/releases/download/{{ containerd_version }}/containerd-{{ containerd_version | regex_replace('v', '') }}-linux-amd64.tar.gz
     dest: "{{ containerd_temp_binary_tarball }}"
 
 - name: Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes

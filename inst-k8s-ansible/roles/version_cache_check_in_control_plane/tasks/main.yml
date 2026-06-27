@@ -32,25 +32,37 @@
   with_items: "{{ groups['all'] }}"
   run_once: true
 
-- name: versions details of software components to be installed
+- name: Backward compatibility - map old variable names to new if detected
+  set_fact:
+    runc_version: "{{ runc_latest_version }}"
+    containerd_version: "{{ containerd_latest_version }}"
+    k8s_version: "{{ k8s_latest_version }}"
+    calico_version: "{{ calico_latest_version | default('') }}"
+    cilium_cli_version: "{{ cilium_cli_latest_version | default('') }}"
+  when:
+    - version_file_stat.stat.exists
+    - runc_latest_version is defined
+    - runc_version is not defined
+
+- name: Version details of software components installed in this cluster
   debug:
     msg:
-      - "stable version to be installed of kubernetes  : {{ k8s_latest_version | default('not loaded') }}"
-      - "stable version to be installed of containerd  : {{ containerd_latest_version | default('not loaded') }}"
-      - "stable version to be installed of runc        : {{ runc_latest_version | default('not loaded') }}"
-      - "stable version to be installed of calico      : {{ calico_latest_version | default('not loaded') }}"
+      - "installed version of kubernetes  : {{ k8s_version | default('not loaded') }}"
+      - "installed version of containerd  : {{ containerd_version | default('not loaded') }}"
+      - "installed version of runc        : {{ runc_version | default('not loaded') }}"
+      - "installed version of calico      : {{ calico_version | default('not loaded') }}"
       - "CNI plugin configured for this cluster        : {{ k8s_cni_plugin | default('not loaded') }}"
   when:
     - version_file_stat.stat.exists
     - k8s_cni_plugin | default('') == "calico"
 
-- name: versions details of software components to be installed
+- name: Version details of software components installed in this cluster
   debug:
     msg:
-      - "stable version to be installed of kubernetes  : {{ k8s_latest_version | default('not loaded') }}"
-      - "stable version to be installed of containerd  : {{ containerd_latest_version | default('not loaded') }}"
-      - "stable version to be installed of runc        : {{ runc_latest_version | default('not loaded') }}"
-      - "stable version to be installed of cilium CLI  : {{ cilium_cli_latest_version | default('not loaded') }}"
+      - "installed version of kubernetes  : {{ k8s_version | default('not loaded') }}"
+      - "installed version of containerd  : {{ containerd_version | default('not loaded') }}"
+      - "installed version of runc        : {{ runc_version | default('not loaded') }}"
+      - "installed version of cilium CLI  : {{ cilium_cli_version | default('not loaded') }}"
       - "CNI plugin configured for this cluster        : {{ k8s_cni_plugin | default('not loaded') }}"
   when:
     - version_file_stat.stat.exists

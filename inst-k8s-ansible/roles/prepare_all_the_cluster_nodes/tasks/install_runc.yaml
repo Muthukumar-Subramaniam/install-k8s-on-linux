@@ -1,8 +1,8 @@
-- name: Download latest official runc ( {{ runc_latest_version }}  ) binary to local-ansible-control-host
+- name: Download latest official runc ( {{ runc_version }}  ) binary to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   get_url:
-    url: "https://github.com/opencontainers/runc/releases/download/{{ runc_latest_version }}/runc.amd64"
+    url: "https://github.com/opencontainers/runc/releases/download/{{ runc_version }}/runc.amd64"
     dest: "{{ runc_temp_binary }}"
     mode: '0755'
 

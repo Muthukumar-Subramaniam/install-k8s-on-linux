@@ -4,11 +4,11 @@
   failed_when: false
   changed_when: false
 
-- name: Install Cilium CLI ( {{ cilium_cli_latest_version }} )
+- name: Install Cilium CLI ( {{ cilium_cli_version }} )
   block:
     - name: Download Cilium CLI tarball
       get_url:
-        url: "https://github.com/cilium/cilium-cli/releases/download/{{ cilium_cli_latest_version }}/cilium-linux-amd64.tar.gz"
+        url: "https://github.com/cilium/cilium-cli/releases/download/{{ cilium_cli_version }}/cilium-linux-amd64.tar.gz"
         dest: /tmp/cilium-linux-amd64.tar.gz
         mode: '0644'
 

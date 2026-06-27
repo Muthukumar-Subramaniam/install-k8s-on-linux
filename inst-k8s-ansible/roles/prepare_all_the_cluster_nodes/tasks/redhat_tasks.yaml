@@ -19,9 +19,9 @@
   dnf:
     update_cache: true
     name:
-      - "kubelet-{{ k8s_latest_version | regex_replace('^v', '') }}"
-      - "kubeadm-{{ k8s_latest_version | regex_replace('^v', '') }}"
-      - "kubectl-{{ k8s_latest_version | regex_replace('^v', '') }}"
+      - "kubelet-{{ k8s_version | regex_replace('^v', '') }}"
+      - "kubeadm-{{ k8s_version | regex_replace('^v', '') }}"
+      - "kubectl-{{ k8s_version | regex_replace('^v', '') }}"
       - cri-tools
       - bash-completion 
     disable_excludes: k8s-{{ k8s_version_major_minor }}

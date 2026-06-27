@@ -23,7 +23,7 @@
   set_fact:
     k8s_package_version: "{{ item.split('|')[1] | trim }}"
   loop: "{{ kubectl_versions.stdout_lines }}"
-  when: item.split('|')[1] | trim is match('^' + (k8s_latest_version | regex_replace('^v', '')) + '-')
+  when: item.split('|')[1] | trim is match('^' + (k8s_version | regex_replace('^v', '')) + '-')
   loop_control:
     label: "{{ item }}"
 

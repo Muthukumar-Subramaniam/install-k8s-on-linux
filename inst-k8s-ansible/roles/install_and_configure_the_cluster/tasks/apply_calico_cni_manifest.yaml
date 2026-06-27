@@ -21,8 +21,8 @@
       Calico CNI manifest has not been applied yet. Proceeding to apply.
   when: calico_cni_manifest == 'not_yet_applied'
 
-- name: Applying latest calico CNI  ( {{ calico_latest_version }} ) manifest from GitHub 
-  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ calico_latest_version }}/manifests/calico.yaml
+- name: Applying latest calico CNI  ( {{ calico_version }} ) manifest from GitHub 
+  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/{{ calico_version }}/manifests/calico.yaml
   when: calico_cni_manifest == 'not_yet_applied'
 
 ############################### EOF ###################################
