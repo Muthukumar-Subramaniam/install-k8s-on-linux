@@ -1,0 +1,121 @@
+###Tasks to install and configure Cilium Hubble observability for k8s cluster
+
+- name: Check if Cilium is installed
+  command: kubectl get daemonset cilium -n kube-system --no-headers
+  register: cilium_daemonset_check
+  failed_when: false
+  changed_when: false
+
+- name: Fail if Cilium is not installed
+  fail:
+    msg: |-
+      Cilium CNI is not installed. Hubble requires Cilium to be installed first.
+  when: cilium_daemonset_check.rc != 0
+
+- name: Check if Hubble is already enabled
+  command: kubectl get deployment hubble-relay -n kube-system --no-headers
+  register: hubble_relay_check
+  failed_when: false
+  changed_when: false
+
+- set_fact:
+    hubble_install_status: "{{ 'already_installed' if (hubble_relay_check.rc == 0) else 'not_yet_installed' }}"
+
+- name: Notify if Hubble is already enabled
+  debug:
+    msg: |-
+      Cilium Hubble is already enabled.
+  when: hubble_install_status == 'already_installed'
+
+- name: Get latest version information of Hubble CLI
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: https://raw.githubusercontent.com/cilium/hubble/main/stable.txt
+    method: GET
+    status_code: 200
+    return_content: true
+  register: hubble_cli_release
+  changed_when: false
+  when: hubble_install_status == 'not_yet_installed'
+
+- set_fact:
+    hubble_cli_latest_version: "{{ hubble_cli_release.content | trim }}"
+  when: hubble_install_status == 'not_yet_installed'
+
+- name: Notify the Hubble CLI version to be installed
+  debug:
+    msg: |-
+      Latest stable version to be installed of Hubble CLI is {{ hubble_cli_latest_version }}
+  when: hubble_install_status == 'not_yet_installed'
+
+- name: Check if Hubble CLI is already installed
+  command: hubble version
+  register: hubble_cli_check
+  failed_when: false
+  changed_when: false
+
+- name: Install Hubble CLI ( {{ hubble_cli_latest_version }} )
+  block:
+    - name: Download Hubble CLI tarball
+      get_url:
+        url: "https://github.com/cilium/hubble/releases/download/{{ hubble_cli_latest_version }}/hubble-linux-amd64.tar.gz"
+        dest: /tmp/hubble-linux-amd64.tar.gz
+        mode: '0644'
+
+    - name: Extract Hubble CLI to /usr/local/bin
+      become: true
+      unarchive:
+        src: /tmp/hubble-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+
+    - name: Clean up Hubble CLI tarball
+      file:
+        path: /tmp/hubble-linux-amd64.tar.gz
+        state: absent
+
+    - name: Verify Hubble CLI installation
+      command: hubble version
+      register: hubble_cli_version_output
+      changed_when: false
+
+    - name: Notify Hubble CLI version installed
+      debug:
+        msg: |-
+          {{ hubble_cli_version_output.stdout }}
+  when:
+    - hubble_install_status == 'not_yet_installed'
+    - hubble_cli_check.rc != 0
+
+- name: Enable Hubble in Cilium with UI
+  command: cilium hubble enable --ui
+  when: hubble_install_status == 'not_yet_installed'
+
+- name: Wait for Hubble Relay to be ready
+  command: kubectl get pods -n kube-system -l k8s-app=hubble-relay --no-headers
+  register: hubble_relay_pods
+  until: hubble_relay_pods.stdout_lines | select('search', 'Running') | list | length > 0
+  retries: 500
+  delay: 5
+  changed_when: false
+  failed_when: false
+  when: hubble_install_status == 'not_yet_installed'
+
+- name: Get Hubble pods status
+  command: kubectl get pods -n kube-system -l app.kubernetes.io/part-of=cilium
+  register: hubble_pods_status
+  changed_when: false
+
+- name: Notify Hubble pods status
+  debug:
+    msg: |-
+      {{ hubble_pods_status.stdout_lines }}
+
+- name: Successfully enabled Cilium Hubble observability for the k8s cluster
+  debug:
+    msg: |-
+      Cilium Hubble observability has been enabled with UI.
+  when: hubble_install_status == 'not_yet_installed'
+
+############################## EOF ################################

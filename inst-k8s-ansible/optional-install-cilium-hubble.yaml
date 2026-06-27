@@ -1,0 +1,11 @@
+#!/usr/bin/env ansible-playbook
+### Optional Cilium Hubble observability installation for k8s cluster
+### Run it if required only after the k8s cluster is Ready with Cilium CNI
+
+- name: Install and configure Cilium Hubble observability for k8s cluster
+  hosts: k8s_cluster_ctrl_plane_node
+  gather_facts: false
+  roles:
+    - role: install_and_configure_cilium_hubble
+
+######################### EOF #############################
