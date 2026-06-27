@@ -101,14 +101,19 @@
 
 - name: Wait for Cilium to be ready
   command: cilium status --wait
-  register: cilium_status_output
   changed_when: false
   when: cilium_cni_status == 'not_yet_installed'
 
-- name: Notify Cilium status
+- name: Get Cilium pods status
+  command: kubectl get pods -n kube-system -l app.kubernetes.io/part-of=cilium
+  register: cilium_pods_status
+  changed_when: false
+  when: cilium_cni_status == 'not_yet_installed'
+
+- name: Notify Cilium pods status
   debug:
     msg: |-
-      {{ cilium_status_output.stdout_lines }}
+      {{ cilium_pods_status.stdout_lines }}
   when: cilium_cni_status == 'not_yet_installed'
 
 - name: Ensure all Cilium pods are ready before proceeding
