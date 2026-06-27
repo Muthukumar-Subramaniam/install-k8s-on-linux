@@ -37,12 +37,56 @@
     runc_version: "{{ runc_latest_version }}"
     containerd_version: "{{ containerd_latest_version }}"
     k8s_version: "{{ k8s_latest_version }}"
+    k8s_version_major_minor: "{{ k8s_version_major_minor }}"
     calico_version: "{{ calico_latest_version | default('') }}"
     cilium_cli_version: "{{ cilium_cli_latest_version | default('') }}"
+    k8s_cni_plugin: "{{ k8s_cni_plugin | default('calico') }}"
   when:
     - version_file_stat.stat.exists
     - runc_latest_version is defined
     - runc_version is not defined
+
+- name: Upgrade old cache file to new variable names (Calico)
+  become: true
+  copy:
+    dest: /etc/inst-k8s-ansible-vars
+    content: |
+      runc_version: "{{ runc_version }}"
+      containerd_version: "{{ containerd_version }}"
+      k8s_version: "{{ k8s_version }}"
+      k8s_version_major_minor: "{{ k8s_version_major_minor }}"
+      calico_version: "{{ calico_version }}"
+      k8s_cni_plugin: "{{ k8s_cni_plugin }}"
+    owner: root
+    group: root
+    mode: '0644'
+  delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+  run_once: true
+  when:
+    - version_file_stat.stat.exists
+    - runc_latest_version is defined
+    - k8s_cni_plugin == "calico"
+
+- name: Upgrade old cache file to new variable names (Cilium)
+  become: true
+  copy:
+    dest: /etc/inst-k8s-ansible-vars
+    content: |
+      runc_version: "{{ runc_version }}"
+      containerd_version: "{{ containerd_version }}"
+      k8s_version: "{{ k8s_version }}"
+      k8s_version_major_minor: "{{ k8s_version_major_minor }}"
+      cilium_cli_version: "{{ cilium_cli_version }}"
+      k8s_cni_plugin: "{{ k8s_cni_plugin }}"
+    owner: root
+    group: root
+    mode: '0644'
+  delegate_to: "{{ groups['k8s_cluster_ctrl_plane_node'][0] }}"
+  run_once: true
+  when:
+    - version_file_stat.stat.exists
+    - runc_latest_version is defined
+    - k8s_cni_plugin == "cilium"
 
 - name: Version details of software components installed in this cluster
   debug:
