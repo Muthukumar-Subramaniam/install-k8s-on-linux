@@ -90,20 +90,6 @@
         - k8s_control_plane_endpoint | length > 0
   when: cilium_cni_status == 'not_yet_installed'
 
-- name: Check for partial Cilium install (Helm release without daemonset)
-  command: cilium status
-  register: cilium_partial_check
-  failed_when: false
-  changed_when: false
-  when: cilium_cni_status == 'not_yet_installed'
-
-- name: Clean up partial Cilium install if detected
-  command: cilium uninstall
-  when:
-    - cilium_cni_status == 'not_yet_installed'
-    - cilium_partial_check.rc == 0 or (cilium_partial_check.stderr is defined and 'not found' in cilium_partial_check.stderr)
-    - cilium_partial_check.stdout is defined and 'Helm chart version' in cilium_partial_check.stdout
-
 - name: Install Cilium with kube-proxy replacement enabled
   command: >
     cilium install
