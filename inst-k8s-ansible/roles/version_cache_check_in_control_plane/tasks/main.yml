@@ -39,6 +39,19 @@
       - "stable version to be installed of containerd  : {{ containerd_latest_version | default('not loaded') }}"
       - "stable version to be installed of runc        : {{ runc_latest_version | default('not loaded') }}"
       - "stable version to be installed of calico      : {{ calico_latest_version | default('not loaded') }}"
+      - "CNI plugin configured for this cluster        : {{ k8s_cni_plugin | default('not loaded') }}"
+  when:
+    - version_file_stat.stat.exists
+    - k8s_cni_plugin | default('') == "calico"
+
+- name: versions details of software components to be installed
+  debug:
+    msg:
+      - "stable version to be installed of kubernetes  : {{ k8s_latest_version | default('not loaded') }}"
+      - "stable version to be installed of containerd  : {{ containerd_latest_version | default('not loaded') }}"
+      - "stable version to be installed of runc        : {{ runc_latest_version | default('not loaded') }}"
       - "stable version to be installed of cilium CLI  : {{ cilium_cli_latest_version | default('not loaded') }}"
       - "CNI plugin configured for this cluster        : {{ k8s_cni_plugin | default('not loaded') }}"
-  when: version_file_stat.stat.exists
+  when:
+    - version_file_stat.stat.exists
+    - k8s_cni_plugin | default('') == "cilium"

@@ -1,2 +1,2 @@
 k8s_pod_network_cidr: "10.8.0.0/16"
-k8s_cni_plugin: "cilium"
+k8s_cni_plugin: "calico"

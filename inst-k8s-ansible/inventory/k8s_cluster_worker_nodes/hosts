@@ -1,2 +1,3 @@
 [k8s_cluster_worker_nodes]
 k8s-cilium-w1.musubram.internal
+k8s-cilium-w2.musubram.internal
