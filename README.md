@@ -31,12 +31,15 @@ While Kubespray provides extensive features and customization options, this play
 * Container orchestrator: [kubernetes](https://github.com/kubernetes/kubernetes)
 * Container runtime: [containerd](https://github.com/containerd/containerd)  
 * Low-level container runtime: [runc](https://github.com/opencontainers/runc) ( dependency for containerd )  
-* CNI plugin: [calico](https://github.com/projectcalico/calico)
+* CNI plugin ( user selectable during setup ):
+  * [Calico](https://github.com/projectcalico/calico) — stable, widely adopted CNI with BGP/VXLAN/WireGuard support
+  * [Cilium](https://github.com/cilium/cilium) — eBPF-based CNI with kube-proxy replacement and advanced observability
 
 #### Optional playbooks are available to install the following components once the cluster is ready.  
 * [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs)
 * [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb)
 * [MetalLB](https://github.com/metallb/metallb) LoadBalancer
+* [Cilium Hubble](https://github.com/cilium/hubble) Observability ( available when Cilium CNI is selected )
 
 ----
 
@@ -89,6 +92,7 @@ Use a single control plane node for a single control plane setup. For HA cluster
    * Choose a CIDR prefix that provides sufficient address space for your cluster.  
 
 #### Step 5) Run the setup.py script to prepare the environment for the Ansible playbook.  
+   The setup script validates all configuration files, prompts you to select a CNI plugin (Calico or Cilium), and prepares the inventory.
    ```
    ./setup.py
    ```
@@ -131,6 +135,11 @@ Use a single control plane node for a single control plane setup. For HA cluster
    Expected Outcome:  
 
    <img width="699" alt="Screenshot-metallb" src="https://github.com/user-attachments/assets/ca42347a-9b44-43af-9aa2-229713a11192">
+
+#### Optional Step 4) To enable Cilium Hubble observability for the kubernetes cluster if required ( only applicable when Cilium CNI is selected ).
+   ```
+   ./optional-install-cilium-hubble.yaml
+   ```
 
 ### That's all for now! Your trust and engagement means a lot, and we hope you find the playbook useful.
 
