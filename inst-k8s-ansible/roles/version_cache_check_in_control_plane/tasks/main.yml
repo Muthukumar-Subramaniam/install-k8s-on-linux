@@ -45,6 +45,9 @@
     - version_file_stat.stat.exists
     - runc_latest_version is defined
     - runc_version is not defined
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['all'] }}"
+  run_once: true
 
 - name: Upgrade old cache file to new variable names (Calico)
   become: true
