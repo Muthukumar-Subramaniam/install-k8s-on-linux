@@ -117,6 +117,7 @@
       k8s_version_major_minor: "{{ k8s_version_major_minor }}"
       calico_latest_version: "{{ calico_latest_version }}"
       cilium_cli_latest_version: "{{ cilium_cli_latest_version }}"
+      k8s_cni_plugin: "{{ k8s_cni_plugin }}"
     owner: root
     group: root
     mode: '0644'
