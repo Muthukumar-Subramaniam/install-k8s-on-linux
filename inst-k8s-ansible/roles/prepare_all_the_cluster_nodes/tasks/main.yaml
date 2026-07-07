@@ -1,3 +1,9 @@
+###Tasks to install python3-libdnf5 on Azure Linux (required for Ansible dnf module)
+- name: Install python3-libdnf5 on Azure Linux
+  become: true
+  when: ansible_facts["os_family"] == "Azure Linux"
+  raw: dnf install -y python3-libdnf5
+
 ###Tasks to upgrade the system packages
 - name: Include tasks to upgrade the system packages
   include_tasks: upgrade_os.yaml 
@@ -75,7 +81,7 @@
 
 ###Task to install kubelet, kubeadm and kubectl packages 
 - name: Tasks for RedHat based Distributions to install kubelet, kubeadm and kubectl packages
-  when: ansible_facts["os_family"] == "RedHat"
+  when: ansible_facts["os_family"] in ["RedHat", "Azure Linux"]
   include_tasks: redhat_tasks.yaml
     
 - name: Tasks for Debian based Distributions to install kubelet, kubeadm and kubectl packages

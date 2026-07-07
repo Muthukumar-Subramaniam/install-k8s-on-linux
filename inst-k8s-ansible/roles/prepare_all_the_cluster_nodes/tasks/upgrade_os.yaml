@@ -1,6 +1,6 @@
 - name: Upgrade the system packages (RedHat based systems)
   become: true
-  when: ansible_facts["os_family"] == "RedHat"
+  when: ansible_facts["os_family"] in ["RedHat", "Azure Linux"]
   dnf:
     update_cache: true
     name: "*"
@@ -27,7 +27,7 @@
 - name: Set the upgrade status for RedHat systems
   set_fact:
     upgrade_status: "{{ upgrade_status | default({}) | combine({inventory_hostname: upgrade_result_redhat.changed | default(false)}) }}"
-  when: ansible_facts["os_family"] == "RedHat"
+  when: ansible_facts["os_family"] in ["RedHat", "Azure Linux"]
 
 - name: Set the upgrade status for Debian systems
   set_fact:
