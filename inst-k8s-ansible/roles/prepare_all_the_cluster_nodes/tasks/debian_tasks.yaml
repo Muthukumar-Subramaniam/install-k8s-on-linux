@@ -1,9 +1,33 @@
-- name: Add k8s gpg apt-key ( Debian based systems )
+- name: Ensure gnupg is installed ( Debian based systems )
   become: true
-  apt_key:
-    keyring: /etc/apt/keyrings/k8s-apt-keyring-{{ k8s_version_major_minor }}.gpg
-    url: https://pkgs.k8s.io/core:/stable:/{{ k8s_version_major_minor }}/deb/Release.key
+  ansible.builtin.apt:
+    name: gnupg
     state: present
+    update_cache: true
+
+- name: Ensure /etc/apt/keyrings directory exists ( Debian based systems )
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Download k8s apt repository gpg key ( Debian based systems )
+  become: true
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/{{ k8s_version_major_minor }}/deb/Release.key
+    dest: /tmp/k8s-apt-key-{{ k8s_version_major_minor }}.asc
+    mode: '0644'
+
+- name: Dearmor and install k8s gpg key to apt keyrings ( Debian based systems )
+  become: true
+  ansible.builtin.command:
+    cmd: >-
+      gpg --batch --yes --dearmor
+      -o /etc/apt/keyrings/k8s-apt-keyring-{{ k8s_version_major_minor }}.gpg
+      /tmp/k8s-apt-key-{{ k8s_version_major_minor }}.asc
+  args:
+    creates: /etc/apt/keyrings/k8s-apt-keyring-{{ k8s_version_major_minor }}.gpg
 
 - name: Add k8s deb repository ( Debian based systems )
   become: true
