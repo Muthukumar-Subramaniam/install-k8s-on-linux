@@ -1,0 +1,99 @@
+[JARVIS](⊛)[inst-k8s-ansible]▶ ./optional-k8s-csi-smb-driver.yaml
+
+PLAY [Install CSI SMB Driver for k8s cluster] ************************************************************************************************************************************************************************
+
+TASK [install_k8s_csi_smb_driver : Check if csi-smb-driver pods already exist] ***************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : set_fact] *************************************************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Notify if csi-smb-driver is already installed] ************************************************************************************************************************************
+skipping: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Get latest version information of csi-smb-driver from GitHub API] *****************************************************************************************************************
+[WARNING]: Platform linux on host test-k8s-cp1.musubram.internal is using the discovered Python interpreter at /bin/python3.9, but future installation of another Python interpreter could change the meaning of that
+path. See https://docs.ansible.com/ansible-core/2.15/reference_appendices/interpreter_discovery.html for more information.
+ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+
+TASK [install_k8s_csi_smb_driver : set_fact] *************************************************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Notify the version to be installed of k8s csi-driver-smb] *************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of k8s csi-driver-smb is v1.20.3"
+}
+
+TASK [install_k8s_csi_smb_driver : Download the install-driver.sh script for csi-driver-smb from GitHub] *************************************************************************************************************
+changed: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Install csi-smb-driver] ***********************************************************************************************************************************************************
+changed: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Notify the results from csi-smb-driver installation] ******************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "Installing SMB CSI driver, version: v1.20.3 ...",
+        "serviceaccount/csi-smb-controller-sa created",
+        "serviceaccount/csi-smb-node-sa created",
+        "clusterrole.rbac.authorization.k8s.io/smb-external-provisioner-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/smb-csi-provisioner-binding created",
+        "clusterrole.rbac.authorization.k8s.io/smb-external-resizer-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/smb-csi-resizer-role created",
+        "clusterrole.rbac.authorization.k8s.io/csi-smb-node-secret-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/csi-smb-node-secret-binding created",
+        "csidriver.storage.k8s.io/smb.csi.k8s.io created",
+        "deployment.apps/csi-smb-controller created",
+        "daemonset.apps/csi-smb-node created",
+        "deploy windows driver with csi-proxy mode ...",
+        "daemonset.apps/csi-smb-node-win created",
+        "SMB CSI driver installed successfully."
+    ]
+}
+
+TASK [install_k8s_csi_smb_driver : Gather current status of pods from all namespaces] ********************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Get the status csi-smb-driver pods being deployed] ********************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Notify creation of csi-smb-driver pods] *******************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "kube-system   csi-smb-controller-79bf65f474-lzfwf                      0/4   ContainerCreating   0              2s",
+        "kube-system   csi-smb-node-dtqrb                                       0/3   ContainerCreating   0              2s",
+        "kube-system   csi-smb-node-gzl44                                       0/3   ContainerCreating   0              2s",
+        "kube-system   csi-smb-node-l6br6                                       0/3   ContainerCreating   0              2s",
+        "kube-system   csi-smb-node-ncgz5                                       0/3   ContainerCreating   0              2s",
+        "kube-system   csi-smb-node-r2z9d                                       0/3   ContainerCreating   0              2s"
+    ]
+}
+
+TASK [install_k8s_csi_smb_driver : Waiting for all the csi-smb-driver pods to be Ready] ******************************************************************************************************************************
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-smb-driver pods to be Ready (500 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-smb-driver pods to be Ready (499 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-smb-driver pods to be Ready (498 retries left).
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Get the current status of csi-smb-driver pods] ************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Status of csi-smb-driver pods if already installed] *******************************************************************************************************************************
+skipping: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_smb_driver : Successfully deployed csi-smb-driver pods for k8s cluster] ************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "csi-smb-controller-79bf65f474-lzfwf   4/4   Running   0     24s",
+        "csi-smb-node-dtqrb                    3/3   Running   0     24s",
+        "csi-smb-node-gzl44                    3/3   Running   0     24s",
+        "csi-smb-node-l6br6                    3/3   Running   0     24s",
+        "csi-smb-node-ncgz5                    3/3   Running   0     24s",
+        "csi-smb-node-r2z9d                    3/3   Running   0     24s"
+    ]
+}
+
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
+test-k8s-cp1.musubram.internal : ok=14   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+[JARVIS](⊛)[inst-k8s-ansible]▶

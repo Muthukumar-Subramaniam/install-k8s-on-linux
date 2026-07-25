@@ -1,0 +1,1060 @@
+2026-07-25 21:39:00,009 p=672427 u=musubram n=ansible | test-k8s-cp1.musubram.internal | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2026-07-25 21:39:02,347 p=672492 u=musubram n=ansible | test-k8s-w1.musubram.internal | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2026-07-25 21:39:02,440 p=672492 u=musubram n=ansible | test-k8s-w2.musubram.internal | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2026-07-25 21:39:02,486 p=672492 u=musubram n=ansible | test-k8s-w3.musubram.internal | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2026-07-25 21:39:02,527 p=672492 u=musubram n=ansible | test-k8s-w4.musubram.internal | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2026-07-25 21:40:15,729 p=673064 u=musubram n=ansible | PLAY [Install and configure the kubernetes cluster on linux nodes] ***************************************************************************************************************************************************
+2026-07-25 21:40:15,750 p=673064 u=musubram n=ansible | TASK [Gathering Facts] ***********************************************************************************************************************************************************************************************
+2026-07-25 21:40:18,434 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:18,474 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:18,509 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:18,546 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:18,586 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:18,636 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Check if version cache file exists in control plane node] ***************************************************************************************************************
+2026-07-25 21:40:18,670 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:18,681 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:18,684 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:18,697 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:19,342 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,348 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Fetch version cache file from control plane node if it exists] **********************************************************************************************************
+2026-07-25 21:40:19,370 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,380 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:19,390 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:19,392 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:19,403 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:19,408 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Load version variables from fetched cache file] *************************************************************************************************************************
+2026-07-25 21:40:19,428 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=local-ansible-control-host) 
+2026-07-25 21:40:19,436 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-cp1.musubram.internal) 
+2026-07-25 21:40:19,445 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w1.musubram.internal) 
+2026-07-25 21:40:19,453 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w2.musubram.internal) 
+2026-07-25 21:40:19,462 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w3.musubram.internal) 
+2026-07-25 21:40:19,470 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w4.musubram.internal) 
+2026-07-25 21:40:19,470 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,476 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Set fact if version cache loaded] ***************************************************************************************************************************************
+2026-07-25 21:40:19,496 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=local-ansible-control-host) 
+2026-07-25 21:40:19,503 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-cp1.musubram.internal) 
+2026-07-25 21:40:19,512 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w1.musubram.internal) 
+2026-07-25 21:40:19,520 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w2.musubram.internal) 
+2026-07-25 21:40:19,528 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w3.musubram.internal) 
+2026-07-25 21:40:19,536 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w4.musubram.internal) 
+2026-07-25 21:40:19,537 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,542 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Backward compatibility - map old variable names to new if detected] *****************************************************************************************************
+2026-07-25 21:40:19,561 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=local-ansible-control-host) 
+2026-07-25 21:40:19,569 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-cp1.musubram.internal) 
+2026-07-25 21:40:19,577 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w1.musubram.internal) 
+2026-07-25 21:40:19,586 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w2.musubram.internal) 
+2026-07-25 21:40:19,594 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w3.musubram.internal) 
+2026-07-25 21:40:19,602 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w4.musubram.internal) 
+2026-07-25 21:40:19,602 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,608 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Upgrade old cache file to new variable names (Calico)] ******************************************************************************************************************
+2026-07-25 21:40:19,626 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,632 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Upgrade old cache file to new variable names (Cilium)] ******************************************************************************************************************
+2026-07-25 21:40:19,649 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,655 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Version details of software components installed in this cluster] *******************************************************************************************************
+2026-07-25 21:40:19,667 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,677 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:19,687 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:19,698 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:19,705 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:19,710 p=673064 u=musubram n=ansible | TASK [version_cache_check_in_control_plane : Version details of software components installed in this cluster] *******************************************************************************************************
+2026-07-25 21:40:19,732 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:19,742 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:19,752 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:19,752 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:19,758 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:19,786 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Get latest version information of runc] ******************************************************************************************************************************************
+2026-07-25 21:40:21,384 p=673064 u=musubram n=ansible | [WARNING]: Platform linux on host test-k8s-cp1.musubram.internal is using the discovered Python interpreter at /bin/python3.9, but future installation of another Python interpreter could change the meaning of that
+path. See https://docs.ansible.com/ansible-core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2026-07-25 21:40:21,384 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:40:21,390 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Notify the runc version to be installed] *****************************************************************************************************************************************
+2026-07-25 21:40:21,423 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of runc is v1.5.1"
+}
+2026-07-25 21:40:21,428 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Get latest version information of containerd] ************************************************************************************************************************************
+2026-07-25 21:40:23,068 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:40:23,074 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Notify the containerd version to be installed] ***********************************************************************************************************************************
+2026-07-25 21:40:23,107 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of containerd is v2.3.3"
+}
+2026-07-25 21:40:23,113 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Get latest version information of kubernetes] ************************************************************************************************************************************
+2026-07-25 21:40:24,329 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:40:24,334 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Notify the kubernetes version to be installed] ***********************************************************************************************************************************
+2026-07-25 21:40:24,368 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of kubernetes is v1.36.3"
+}
+2026-07-25 21:40:24,373 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Get latest version information of calico CNI] ************************************************************************************************************************************
+2026-07-25 21:40:25,828 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:40:25,834 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Notify the calico CNI version to be installed] ***********************************************************************************************************************************
+2026-07-25 21:40:25,869 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of calico CNI is v3.32.1"
+}
+2026-07-25 21:40:25,874 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Get latest version information of cilium CLI] ************************************************************************************************************************************
+2026-07-25 21:40:25,905 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:25,910 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Notify the cilium CLI version to be installed] ***********************************************************************************************************************************
+2026-07-25 21:40:25,936 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:25,942 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Validate user-specified runc version exists on GitHub] ***************************************************************************************************************************
+2026-07-25 21:40:25,973 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:25,978 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Validate user-specified containerd version exists on GitHub] *********************************************************************************************************************
+2026-07-25 21:40:26,009 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,015 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Validate user-specified kubernetes version exists on GitHub] *********************************************************************************************************************
+2026-07-25 21:40:26,046 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,051 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Validate user-specified calico version exists on GitHub] *************************************************************************************************************************
+2026-07-25 21:40:26,082 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,087 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Validate user-specified cilium CLI version exists] *******************************************************************************************************************************
+2026-07-25 21:40:26,118 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,123 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] **************************************************************************************************************
+2026-07-25 21:40:26,169 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,170 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:26,174 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:26,188 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:26,197 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:26,203 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Set captured version information as global variables for all nodes] **************************************************************************************************************
+2026-07-25 21:40:26,234 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:26,245 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:26,247 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:26,254 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:26,265 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:26,270 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Write captured version info to /etc/inst-k8s-ansible-vars on control plane node (Calico)] ****************************************************************************************
+2026-07-25 21:40:27,584 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:27,590 p=673064 u=musubram n=ansible | TASK [fetch_latest_version_number : Write captured version info to /etc/inst-k8s-ansible-vars on control plane node (Cilium)] ****************************************************************************************
+2026-07-25 21:40:27,621 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:27,649 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Install python3-libdnf5 on Azure Linux] ****************************************************************************************************************************************
+2026-07-25 21:40:27,672 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:27,682 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:27,692 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:27,692 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:27,700 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:27,706 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to upgrade the system packages] **********************************************************************************************************************************
+2026-07-25 21:40:27,739 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:27,750 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:27,750 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:27,757 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:27,769 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:27,775 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to disable swap] *************************************************************************************************************************************************
+2026-07-25 21:40:27,848 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/disable_swap.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:40:27,865 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check if swap is enabled] ******************************************************************************************************************************************************
+2026-07-25 21:40:29,015 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:29,073 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:29,115 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:29,176 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:29,215 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:29,221 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Disable swap if it is enabled] *************************************************************************************************************************************************
+2026-07-25 21:40:29,255 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:29,266 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:29,266 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:29,272 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:29,284 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:29,291 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Remove swap entry from /etc/fstab] *********************************************************************************************************************************************
+2026-07-25 21:40:30,450 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:30,487 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:30,538 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:30,603 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:30,643 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:30,649 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify that swap has been disabled and removed from fstab] *********************************************************************************************************************
+2026-07-25 21:40:30,682 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:30,696 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:30,697 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:30,702 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:30,717 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:30,723 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify if swap is already disabled] ********************************************************************************************************************************************
+2026-07-25 21:40:30,755 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "Swap is already disabled."
+}
+2026-07-25 21:40:30,766 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "Swap is already disabled."
+}
+2026-07-25 21:40:30,768 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "Swap is already disabled."
+}
+2026-07-25 21:40:30,777 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "Swap is already disabled."
+}
+2026-07-25 21:40:30,789 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "Swap is already disabled."
+}
+2026-07-25 21:40:30,795 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to load required kernel modules] *********************************************************************************************************************************
+2026-07-25 21:40:30,918 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/load_kernel_modules.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:40:30,941 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Install kernel-modules-extra for br_netfilter (RedHat based systems)] **********************************************************************************************************
+2026-07-25 21:40:50,483 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:50,609 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:51,134 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:51,447 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:51,765 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:51,770 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Load the required kernel modules] **********************************************************************************************************************************************
+2026-07-25 21:40:52,962 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal] => (item=overlay)
+2026-07-25 21:40:53,047 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal] => (item=overlay)
+2026-07-25 21:40:53,118 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=overlay)
+2026-07-25 21:40:53,157 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal] => (item=overlay)
+2026-07-25 21:40:53,198 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal] => (item=overlay)
+2026-07-25 21:40:54,210 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal] => (item=br_netfilter)
+2026-07-25 21:40:54,346 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal] => (item=br_netfilter)
+2026-07-25 21:40:54,384 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=br_netfilter)
+2026-07-25 21:40:54,438 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal] => (item=br_netfilter)
+2026-07-25 21:40:54,478 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal] => (item=br_netfilter)
+2026-07-25 21:40:54,485 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/modules-load.d/k8s.conf for the above loaded modules to be persistent] *********************************************************************************************
+2026-07-25 21:40:55,627 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:40:55,676 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:40:55,724 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:40:55,762 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:40:55,802 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:40:55,809 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to load required kernel parameters] ******************************************************************************************************************************
+2026-07-25 21:40:55,883 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/load_kernel_parameters.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:40:55,910 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Load the required kernel parameters] *******************************************************************************************************************************************
+2026-07-25 21:40:57,186 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal] => (item={'key': 'net.ipv4.ip_forward', 'value': '1'})
+2026-07-25 21:40:57,220 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal] => (item={'key': 'net.ipv4.ip_forward', 'value': '1'})
+2026-07-25 21:40:57,264 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal] => (item={'key': 'net.ipv4.ip_forward', 'value': '1'})
+2026-07-25 21:40:57,348 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal] => (item={'key': 'net.ipv4.ip_forward', 'value': '1'})
+2026-07-25 21:40:58,204 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item={'key': 'net.ipv4.ip_forward', 'value': '1'})
+2026-07-25 21:40:58,291 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-iptables', 'value': '1'})
+2026-07-25 21:40:58,371 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-iptables', 'value': '1'})
+2026-07-25 21:40:58,570 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-iptables', 'value': '1'})
+2026-07-25 21:40:59,191 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-iptables', 'value': '1'})
+2026-07-25 21:40:59,270 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-ip6tables', 'value': '1'})
+2026-07-25 21:40:59,349 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-ip6tables', 'value': '1'})
+2026-07-25 21:40:59,432 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-iptables', 'value': '1'})
+2026-07-25 21:40:59,468 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-ip6tables', 'value': '1'})
+2026-07-25 21:40:59,934 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-ip6tables', 'value': '1'})
+2026-07-25 21:41:00,142 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal] => (item={'key': 'net.bridge.bridge-nf-call-ip6tables', 'value': '1'})
+2026-07-25 21:41:00,150 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/sysctl.d/k8s.conf for above loaded kernel parameters to be persistent] *********************************************************************************************
+2026-07-25 21:41:01,293 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:01,349 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:01,394 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:01,448 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:01,486 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:01,492 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check if runc is already installed] ********************************************************************************************************************************************
+2026-07-25 21:41:02,650 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:02,689 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:02,729 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:02,769 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:02,811 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:02,816 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify about runc installation status] *****************************************************************************************************************************************
+2026-07-25 21:41:02,840 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "runc is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:02,852 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "runc is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:02,863 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "runc is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:02,864 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "runc is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:02,871 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "runc is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:02,877 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to download and install runc] ************************************************************************************************************************************
+2026-07-25 21:41:02,954 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/install_runc.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:41:02,987 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Download latest official runc ( v1.5.1  ) binary to local-ansible-control-host] ************************************************************************************************
+2026-07-25 21:41:04,963 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:41:04,968 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded runc binary from local-ansible-control-host to /usr/local/bin/runc of cluster node] ****************************************************************************
+2026-07-25 21:41:07,751 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:07,898 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:07,946 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:07,989 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:08,064 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:08,071 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-runc from local-ansible-control-host] ***********************************************************************************************************************
+2026-07-25 21:41:08,499 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:41:08,505 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check runc version] ************************************************************************************************************************************************************
+2026-07-25 21:41:09,708 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:09,733 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:09,809 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:09,847 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:09,888 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:09,894 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify runc version] ***********************************************************************************************************************************************************
+2026-07-25 21:41:09,920 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "runc version 1.5.1",
+        "commit: v1.5.1-0-g8f2685a47",
+        "spec: 1.3.0",
+        "go: go1.25.12",
+        "libseccomp: 2.6.0",
+        "libpathrs: 0.2.5"
+    ]
+}
+2026-07-25 21:41:09,932 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": [
+        "runc version 1.5.1",
+        "commit: v1.5.1-0-g8f2685a47",
+        "spec: 1.3.0",
+        "go: go1.25.12",
+        "libseccomp: 2.6.0",
+        "libpathrs: 0.2.5"
+    ]
+}
+2026-07-25 21:41:09,942 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": [
+        "runc version 1.5.1",
+        "commit: v1.5.1-0-g8f2685a47",
+        "spec: 1.3.0",
+        "go: go1.25.12",
+        "libseccomp: 2.6.0",
+        "libpathrs: 0.2.5"
+    ]
+}
+2026-07-25 21:41:09,943 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": [
+        "runc version 1.5.1",
+        "commit: v1.5.1-0-g8f2685a47",
+        "spec: 1.3.0",
+        "go: go1.25.12",
+        "libseccomp: 2.6.0",
+        "libpathrs: 0.2.5"
+    ]
+}
+2026-07-25 21:41:09,951 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": [
+        "runc version 1.5.1",
+        "commit: v1.5.1-0-g8f2685a47",
+        "spec: 1.3.0",
+        "go: go1.25.12",
+        "libseccomp: 2.6.0",
+        "libpathrs: 0.2.5"
+    ]
+}
+2026-07-25 21:41:09,956 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check if containerd is already installed] **************************************************************************************************************************************
+2026-07-25 21:41:11,098 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:11,136 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:11,177 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:11,220 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:11,259 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:11,266 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify about containerd installation status] ***********************************************************************************************************************************
+2026-07-25 21:41:11,291 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "Containerd is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:11,303 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "Containerd is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:11,314 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "Containerd is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:11,315 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "Containerd is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:11,322 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "Containerd is not installed. Proceeding with installation."
+}
+2026-07-25 21:41:11,328 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Include tasks to download and install containerd] ******************************************************************************************************************************
+2026-07-25 21:41:11,414 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/install_containerd.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:41:11,448 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Detect glibc version on cluster node] ******************************************************************************************************************************************
+2026-07-25 21:41:12,066 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:12,072 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Set glibc version fact] ********************************************************************************************************************************************************
+2026-07-25 21:41:12,095 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:12,101 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Set containerd tarball type based on glibc version] ****************************************************************************************************************************
+2026-07-25 21:41:12,127 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:12,133 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify containerd tarball type] ************************************************************************************************************************************************
+2026-07-25 21:41:12,145 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "Using containerd-static tarball (glibc 2.34 detected)"
+}
+2026-07-25 21:41:12,151 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Set containerd tarball filename] ***********************************************************************************************************************************************
+2026-07-25 21:41:12,163 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:12,170 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Download official binary tarball of latest containerd ( v2.3.3 ) to local-ansible-control-host] ********************************************************************************
+2026-07-25 21:41:14,138 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:41:14,144 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes] ************************************************************************************
+2026-07-25 21:41:17,592 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:17,649 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:17,806 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:17,847 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:17,887 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:17,894 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Create extraction directory /root/containerd-bin-tmp] **************************************************************************************************************************
+2026-07-25 21:41:19,086 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:19,124 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:19,159 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:19,202 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:19,242 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:19,249 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Extract containerd binaries under /root/containerd-bin-tmp] ********************************************************************************************************************
+2026-07-25 21:41:23,680 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:23,720 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:23,859 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:23,941 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:23,952 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:23,958 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Copy containerd binaries to /usr/bin] ******************************************************************************************************************************************
+2026-07-25 21:41:25,605 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:25,760 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:25,797 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:25,838 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:25,878 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:25,884 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Remove /root/containerd-bin-tmp directory] *************************************************************************************************************************************
+2026-07-25 21:41:27,104 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:28,341 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:28,816 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:28,855 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:28,899 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:28,906 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Create containerd configuration directory /etc/containerd] *********************************************************************************************************************
+2026-07-25 21:41:30,121 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:30,165 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:30,201 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:30,238 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:30,272 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:30,278 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Create /etc/containerd/config.toml] ********************************************************************************************************************************************
+2026-07-25 21:41:31,448 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:31,491 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:31,551 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:31,592 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:31,630 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:31,636 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Generate containerd config] ****************************************************************************************************************************************************
+2026-07-25 21:41:32,777 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:32,931 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:33,669 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:33,723 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:33,763 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:33,769 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Write containerd config to /etc/containerd/config.toml] ************************************************************************************************************************
+2026-07-25 21:41:35,988 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:36,017 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:36,070 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:36,146 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:36,185 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:36,191 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Ensure SystemdCgroup is set to true in /etc/containerd/config.toml for runc] ***************************************************************************************************
+2026-07-25 21:41:37,338 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:37,386 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:37,427 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:37,472 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:37,518 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:37,524 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Download containerd.service file from GitHub] **********************************************************************************************************************************
+2026-07-25 21:41:39,031 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:39,070 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:39,112 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:39,152 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:39,191 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:39,197 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Update containerd systemd unit file to use /usr/bin instead of /usr/local/bin] *************************************************************************************************
+2026-07-25 21:41:40,363 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:40,409 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:40,455 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:40,509 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:40,555 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:40,561 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Reload systemd daemon] *********************************************************************************************************************************************************
+2026-07-25 21:41:41,986 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:42,021 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:42,061 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:42,147 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:42,199 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:42,205 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start containerd.service] *******************************************************************************************************************************************
+2026-07-25 21:41:43,935 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:43,986 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:44,022 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:44,090 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:44,130 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:44,136 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Verify status of containerd service] *******************************************************************************************************************************************
+2026-07-25 21:41:45,281 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:45,334 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:45,375 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:45,414 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:45,452 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:45,458 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify status of containerd service] *******************************************************************************************************************************************
+2026-07-25 21:41:45,484 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "status of containerd service is ['active']"
+}
+2026-07-25 21:41:45,495 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "status of containerd service is ['active']"
+}
+2026-07-25 21:41:45,507 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "status of containerd service is ['active']"
+}
+2026-07-25 21:41:45,508 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "status of containerd service is ['active']"
+}
+2026-07-25 21:41:45,515 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "status of containerd service is ['active']"
+}
+2026-07-25 21:41:45,522 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from local-ansible-control-host] **********************************************************************************************************
+2026-07-25 21:41:45,830 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:41:45,838 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Clean up /tmp/temp-containerd.tar.gz from all nodes] ***************************************************************************************************************************
+2026-07-25 21:41:46,997 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:47,047 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:47,083 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:47,135 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:47,173 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:47,179 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Ensure crictl config exists with runtime-endpoint] *****************************************************************************************************************************
+2026-07-25 21:41:48,359 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:48,401 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:48,449 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:48,500 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:48,541 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:48,547 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check containerd version] ******************************************************************************************************************************************************
+2026-07-25 21:41:49,702 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:49,766 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:49,798 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:49,837 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:49,887 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:49,893 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify containerd version] *****************************************************************************************************************************************************
+2026-07-25 21:41:49,919 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "containerd version is ['containerd github.com/containerd/containerd/v2 v2.3.3 aad11006b869517fcd3009450b6f82da282e1a9b']"
+}
+2026-07-25 21:41:49,930 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "containerd version is ['containerd github.com/containerd/containerd/v2 v2.3.3 aad11006b869517fcd3009450b6f82da282e1a9b']"
+}
+2026-07-25 21:41:49,942 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "containerd version is ['containerd github.com/containerd/containerd/v2 v2.3.3 aad11006b869517fcd3009450b6f82da282e1a9b']"
+}
+2026-07-25 21:41:49,942 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "containerd version is ['containerd github.com/containerd/containerd/v2 v2.3.3 aad11006b869517fcd3009450b6f82da282e1a9b']"
+}
+2026-07-25 21:41:49,951 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "containerd version is ['containerd github.com/containerd/containerd/v2 v2.3.3 aad11006b869517fcd3009450b6f82da282e1a9b']"
+}
+2026-07-25 21:41:49,957 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Tasks for RedHat based Distributions to install kubelet, kubeadm and kubectl packages] *****************************************************************************************
+2026-07-25 21:41:50,035 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/tasks/redhat_tasks.yaml for test-k8s-cp1.musubram.internal, test-k8s-w1.musubram.internal, test-k8s-w2.musubram.internal, test-k8s-w3.musubram.internal, test-k8s-w4.musubram.internal
+2026-07-25 21:41:50,097 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Add k8s rpm repository ( RedHat based systems )] *******************************************************************************************************************************
+2026-07-25 21:41:51,288 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:41:51,331 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:41:51,369 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:41:51,405 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:41:51,451 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:41:51,456 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Install kubelet, kubeadm and kubectl packages ( RedHat based systems )] ********************************************************************************************************
+2026-07-25 21:42:16,522 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:16,561 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:16,601 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:16,642 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:16,683 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:16,689 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Tasks for Debian based Distributions to install kubelet, kubeadm and kubectl packages] *****************************************************************************************
+2026-07-25 21:42:16,703 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:16,715 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:16,726 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:16,737 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:16,745 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:16,751 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Tasks for Suse based Distributions to install kubelet, kubeadm and kubectl packages] *******************************************************************************************
+2026-07-25 21:42:16,765 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:16,777 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:16,788 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:16,800 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:16,807 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:16,813 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Enable and start kubelet.service] **********************************************************************************************************************************************
+2026-07-25 21:42:18,440 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:18,517 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:18,561 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:18,617 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:18,655 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:18,661 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Check kubelet service status] **************************************************************************************************************************************************
+2026-07-25 21:42:19,796 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:19,842 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:19,913 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:19,953 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:19,995 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:20,002 p=673064 u=musubram n=ansible | TASK [prepare_all_the_cluster_nodes : Notify if the kubelet service is enabled] **************************************************************************************************************************************
+2026-07-25 21:42:20,028 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "kubelet service is enabled."
+}
+2026-07-25 21:42:20,039 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "kubelet service is enabled."
+}
+2026-07-25 21:42:20,050 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "kubelet service is enabled."
+}
+2026-07-25 21:42:20,051 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "kubelet service is enabled."
+}
+2026-07-25 21:42:20,060 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "kubelet service is enabled."
+}
+2026-07-25 21:42:20,089 p=673064 u=musubram n=ansible | TASK [apply_rules_for_firewalld : Check if firewalld is active] ******************************************************************************************************************************************************
+2026-07-25 21:42:21,258 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:21,301 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:21,347 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:21,398 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:21,438 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:21,444 p=673064 u=musubram n=ansible | TASK [apply_rules_for_firewalld : Notify if firewalld is not running] ************************************************************************************************************************************************
+2026-07-25 21:42:21,469 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "Firewalld is not running. Skipping firewall configuration."
+}
+2026-07-25 21:42:21,481 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "Firewalld is not running. Skipping firewall configuration."
+}
+2026-07-25 21:42:21,493 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "Firewalld is not running. Skipping firewall configuration."
+}
+2026-07-25 21:42:21,493 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "Firewalld is not running. Skipping firewall configuration."
+}
+2026-07-25 21:42:21,501 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "Firewalld is not running. Skipping firewall configuration."
+}
+2026-07-25 21:42:21,506 p=673064 u=musubram n=ansible | TASK [apply_rules_for_firewalld : Notify if firewalld is running] ****************************************************************************************************************************************************
+2026-07-25 21:42:21,521 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:21,531 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:21,542 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:21,552 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:21,559 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:21,565 p=673064 u=musubram n=ansible | TASK [apply_rules_for_firewalld : Include tasks to apply firewalld rules for Kubernetes and calico CNI] **************************************************************************************************************
+2026-07-25 21:42:21,579 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:21,589 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:21,600 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:21,611 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:21,618 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:21,646 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : set_fact] ******************************************************************************************************************************************************************
+2026-07-25 21:42:21,670 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:21,681 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:21,692 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:21,692 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:21,698 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:21,704 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Include tasks for kubeadm config images pull] ******************************************************************************************************************************
+2026-07-25 21:42:21,729 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:21,740 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:21,751 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:21,757 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:21,766 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/install_and_configure_the_cluster/tasks/kubeadm_config_images_pull.yaml for test-k8s-cp1.musubram.internal
+2026-07-25 21:42:21,773 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Get the list of Kubernetes config images] **********************************************************************************************************************************
+2026-07-25 21:42:22,481 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:22,487 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Get the list of pulled images by crictl] ***********************************************************************************************************************************
+2026-07-25 21:42:23,154 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:23,159 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Extract Kubernetes config image names] *************************************************************************************************************************************
+2026-07-25 21:42:23,186 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:23,191 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Extract names of Kubernetes images pulled by crictl] ***********************************************************************************************************************
+2026-07-25 21:42:23,222 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:23,228 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Find Kubernetes images yet to be pulled] ***********************************************************************************************************************************
+2026-07-25 21:42:23,253 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:23,258 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if all Kubernetes config images have already been pulled] ***********************************************************************************************************
+2026-07-25 21:42:23,282 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:23,287 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if Kubernetes config images have not been pulled yet] ***************************************************************************************************************
+2026-07-25 21:42:23,314 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "Kubernetes config images have not been pulled yet.",
+        "Following images are yet to be pulled:",
+        [
+            "kube-apiserver",
+            "kube-controller-manager",
+            "kube-scheduler",
+            "kube-proxy",
+            "coredns",
+            "pause",
+            "etcd"
+        ]
+    ]
+}
+2026-07-25 21:42:23,319 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Pulling Kubernetes config images (this might take some time)] **************************************************************************************************************
+2026-07-25 21:42:56,896 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:56,902 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Include tasks for kubeadm init] ********************************************************************************************************************************************
+2026-07-25 21:42:56,926 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:42:56,937 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:42:56,948 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:42:56,954 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:42:56,965 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/install_and_configure_the_cluster/tasks/kubeadm_init.yaml for test-k8s-cp1.musubram.internal
+2026-07-25 21:42:56,974 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Check if kubeadm init has been performed] **********************************************************************************************************************************
+2026-07-25 21:42:57,617 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:57,622 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if kubeadm init has been performed already] *************************************************************************************************************************
+2026-07-25 21:42:57,636 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:57,650 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if kubeadm init has not been performed yet.] ************************************************************************************************************************
+2026-07-25 21:42:57,665 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "kubeadm init has not been performed yet. Proceeding with kubeadm init."
+}
+2026-07-25 21:42:57,679 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Use apiserver-advertise-address directly if single control plane given is already an IPv4 address] *************************************************************************
+2026-07-25 21:42:57,708 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:57,713 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Run host command to resolve the DNS record if single control plane given is hostname or FQDN] ******************************************************************************
+2026-07-25 21:42:58,527 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+2026-07-25 21:42:58,533 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Use resolved IPv4 address for apiserver-advertise-address if single control plane given is hostname or FQDN] ***************************************************************
+2026-07-25 21:42:58,572 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:42:58,577 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : kubeadm init for Single Control Plane Setup] *******************************************************************************************************************************
+2026-07-25 21:43:07,868 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:07,874 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : kubeadm init for Single Control Plane Setup ( with kube-proxy disabled for Cilium )] ***************************************************************************************
+2026-07-25 21:43:07,904 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:07,909 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : kubeadm init for HA Control Plane Setup] ***********************************************************************************************************************************
+2026-07-25 21:43:07,928 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:07,937 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : kubeadm init for HA Control Plane Setup ( with kube-proxy disabled for Cilium )] *******************************************************************************************
+2026-07-25 21:43:07,956 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:07,968 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Include tasks for creating Kubernetes config for user musubram] ************************************************************************************************************
+2026-07-25 21:43:07,991 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:08,002 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:08,013 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:08,020 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:08,029 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/install_and_configure_the_cluster/tasks/create_kube_config.yaml for test-k8s-cp1.musubram.internal
+2026-07-25 21:43:08,044 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Create directory /home/musubram/.kube] *************************************************************************************************************************************
+2026-07-25 21:43:08,770 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:08,776 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Get primary group of the k8s admin user musubram] **************************************************************************************************************************
+2026-07-25 21:43:09,667 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:09,676 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Copy /etc/kubernetes/admin.conf to /home/musubram/.kube/config] ************************************************************************************************************
+2026-07-25 21:43:10,365 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:10,372 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Add kubectl completion to .bashrc of user musubram] ************************************************************************************************************************
+2026-07-25 21:43:11,083 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:11,088 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Checking Kube API server's health (this might take some time).] ************************************************************************************************************
+2026-07-25 21:43:11,110 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:11,122 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:11,133 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:11,139 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:12,044 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:12,050 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Include tasks to apply Calico CNI manifest] ********************************************************************************************************************************
+2026-07-25 21:43:12,080 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:12,092 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:12,103 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:12,110 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:12,118 p=673064 u=musubram n=ansible | included: /home/musubram/install-k8s-on-linux/inst-k8s-ansible/roles/install_and_configure_the_cluster/tasks/apply_calico_cni_manifest.yaml for test-k8s-cp1.musubram.internal
+2026-07-25 21:43:12,131 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Gather the list of pods from all namespaces] *******************************************************************************************************************************
+2026-07-25 21:43:13,185 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:13,191 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Check if Calico CNI manifest has been applied already] *********************************************************************************************************************
+2026-07-25 21:43:13,222 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:13,228 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if Calico CNI manifest has been applied already] ********************************************************************************************************************
+2026-07-25 21:43:13,242 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:13,257 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify if Calico CNI manifest has not been applied yet] ********************************************************************************************************************
+2026-07-25 21:43:13,274 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": "Calico CNI manifest has not been applied yet. Proceeding to apply."
+}
+2026-07-25 21:43:13,298 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Applying latest calico CNI  ( v3.32.1 ) manifest from GitHub] **************************************************************************************************************
+2026-07-25 21:43:16,270 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:16,275 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Include tasks to install Cilium CNI] ***************************************************************************************************************************************
+2026-07-25 21:43:16,302 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:16,315 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:16,325 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:16,325 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:16,332 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:16,338 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Wait for control-plane to get Ready] ***************************************************************************************************************************************
+2026-07-25 21:43:16,363 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:16,376 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:16,387 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:16,394 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:29,928 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:29,935 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Get the status of control-plane node] **************************************************************************************************************************************
+2026-07-25 21:43:29,960 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:29,972 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:29,982 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:29,990 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:31,718 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:31,725 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Notify the status of control-plane node] ***********************************************************************************************************************************
+2026-07-25 21:43:31,753 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "test-k8s-cp1.musubram.internal   Ready   control-plane   27s   v1.36.3"
+    ]
+}
+2026-07-25 21:43:31,764 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:31,777 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:31,777 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:31,784 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:31,790 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Create kubeadm token required for joining nodes with the cluster] **********************************************************************************************************
+2026-07-25 21:43:31,818 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:31,830 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:31,840 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:31,848 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:33,292 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:33,297 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : set_fact] ******************************************************************************************************************************************************************
+2026-07-25 21:43:33,326 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:33,336 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:33,346 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:33,348 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:33,353 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:33,363 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : Generate certificate key to join remaining control planes in case of HA Setup] *********************************************************************************************
+2026-07-25 21:43:33,395 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:33,405 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:33,416 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:33,416 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:33,422 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:33,432 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : set_fact] ******************************************************************************************************************************************************************
+2026-07-25 21:43:33,466 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:33,481 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:33,497 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:33,498 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:33,505 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:33,511 p=673064 u=musubram n=ansible | TASK [install_and_configure_the_cluster : set_fact] ******************************************************************************************************************************************************************
+2026-07-25 21:43:33,541 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:33,552 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:33,562 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:33,563 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:33,569 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:33,598 p=673064 u=musubram n=ansible | TASK [join_worker_nodes_to_the_cluster : Check whether the worker node has joined the cluster already] ***************************************************************************************************************
+2026-07-25 21:43:33,612 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:35,094 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:35,164 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:35,219 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:35,262 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:35,268 p=673064 u=musubram n=ansible | TASK [join_worker_nodes_to_the_cluster : Notify about the worker nodes that has joined the cluster already] **********************************************************************************************************
+2026-07-25 21:43:35,282 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:35,293 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:35,304 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:35,316 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:35,322 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:35,328 p=673064 u=musubram n=ansible | TASK [join_worker_nodes_to_the_cluster : Notify about the worker nodes that has not joined the cluster yet] **********************************************************************************************************
+2026-07-25 21:43:35,342 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:35,369 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": "The worker node test-k8s-w1.musubram.internal has not joined the cluster yet, Proceeding to join"
+}
+2026-07-25 21:43:35,381 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": "The worker node test-k8s-w2.musubram.internal has not joined the cluster yet, Proceeding to join"
+}
+2026-07-25 21:43:35,382 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": "The worker node test-k8s-w3.musubram.internal has not joined the cluster yet, Proceeding to join"
+}
+2026-07-25 21:43:35,391 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": "The worker node test-k8s-w4.musubram.internal has not joined the cluster yet, Proceeding to join"
+}
+2026-07-25 21:43:35,398 p=673064 u=musubram n=ansible | TASK [join_worker_nodes_to_the_cluster : Join the available worker nodes with the cluster] ***************************************************************************************************************************
+2026-07-25 21:43:35,411 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:37,662 p=673064 u=musubram n=ansible | changed: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:38,650 p=673064 u=musubram n=ansible | changed: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:38,691 p=673064 u=musubram n=ansible | changed: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:38,735 p=673064 u=musubram n=ansible | changed: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:38,741 p=673064 u=musubram n=ansible | TASK [join_worker_nodes_to_the_cluster : Notify join command results from worker nodes that has joined the cluster] **************************************************************************************************
+2026-07-25 21:43:38,755 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:38,778 p=673064 u=musubram n=ansible | ok: [test-k8s-w1.musubram.internal] => {
+    "msg": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the \"kubeadm-config\" ConfigMap in namespace \"kube-system\"...",
+        "[preflight] Use 'kubeadm init phase upload-config kubeadm --config your-config-file' to re-upload it.",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/instance-config.yaml\"",
+        "[patches] Applied patch of type \"application/strategic-merge-patch+json\" to target \"kubeletconfiguration\"",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s",
+        "[kubelet-check] The kubelet is healthy after 504.799965ms",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+2026-07-25 21:43:38,795 p=673064 u=musubram n=ansible | ok: [test-k8s-w2.musubram.internal] => {
+    "msg": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the \"kubeadm-config\" ConfigMap in namespace \"kube-system\"...",
+        "[preflight] Use 'kubeadm init phase upload-config kubeadm --config your-config-file' to re-upload it.",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/instance-config.yaml\"",
+        "[patches] Applied patch of type \"application/strategic-merge-patch+json\" to target \"kubeletconfiguration\"",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s",
+        "[kubelet-check] The kubelet is healthy after 507.664602ms",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+2026-07-25 21:43:38,797 p=673064 u=musubram n=ansible | ok: [test-k8s-w3.musubram.internal] => {
+    "msg": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the \"kubeadm-config\" ConfigMap in namespace \"kube-system\"...",
+        "[preflight] Use 'kubeadm init phase upload-config kubeadm --config your-config-file' to re-upload it.",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/instance-config.yaml\"",
+        "[patches] Applied patch of type \"application/strategic-merge-patch+json\" to target \"kubeletconfiguration\"",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s",
+        "[kubelet-check] The kubelet is healthy after 502.660365ms",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+2026-07-25 21:43:38,808 p=673064 u=musubram n=ansible | ok: [test-k8s-w4.musubram.internal] => {
+    "msg": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the \"kubeadm-config\" ConfigMap in namespace \"kube-system\"...",
+        "[preflight] Use 'kubeadm init phase upload-config kubeadm --config your-config-file' to re-upload it.",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/instance-config.yaml\"",
+        "[patches] Applied patch of type \"application/strategic-merge-patch+json\" to target \"kubeletconfiguration\"",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s",
+        "[kubelet-check] The kubelet is healthy after 504.466172ms",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+2026-07-25 21:43:38,840 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Include tasks for kubeadm config images pull] ***************************************************************************************************************************
+2026-07-25 21:43:38,854 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:38,867 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:38,879 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:38,890 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:38,897 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:38,903 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Check whether the control plane node has joined the cluster already] ****************************************************************************************************
+2026-07-25 21:43:38,919 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:38,933 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:38,944 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:38,958 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:38,964 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:38,970 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Notify about the control plane nodes that has joined the cluster already] ***********************************************************************************************
+2026-07-25 21:43:38,984 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:38,994 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,004 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,016 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,023 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:39,029 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Notify about the control plane nodes that has not joined the cluster yet] ***********************************************************************************************
+2026-07-25 21:43:39,044 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:39,055 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,065 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,076 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,082 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:39,088 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Join the available control plane nodes with the cluster] ****************************************************************************************************************
+2026-07-25 21:43:39,102 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:39,113 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,123 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,135 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,142 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:39,147 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Notify join command results from control plane nodes that has joined the cluster] ***************************************************************************************
+2026-07-25 21:43:39,162 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:39,173 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,183 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,193 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,200 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:39,207 p=673064 u=musubram n=ansible | TASK [join_ctrl_plane_nodes_to_the_cluster : Include tasks for creating Kubernetes config for user musubram] *********************************************************************************************************
+2026-07-25 21:43:39,223 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:39,235 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,247 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,263 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,270 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:39,309 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Get the current status of all the cluster nodes] **********************************************************************************************************************************
+2026-07-25 21:43:39,335 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:39,346 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:39,358 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:39,365 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:40,759 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:43:40,766 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Notify the current status of all the cluster nodes] *******************************************************************************************************************************
+2026-07-25 21:43:40,797 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "NAME                             STATUS     ROLES           AGE   VERSION",
+        "test-k8s-cp1.musubram.internal   Ready      control-plane   36s   v1.36.3",
+        "test-k8s-w1.musubram.internal    NotReady   <none>          3s    v1.36.3",
+        "test-k8s-w2.musubram.internal    NotReady   <none>          3s    v1.36.3",
+        "test-k8s-w3.musubram.internal    NotReady   <none>          3s    v1.36.3",
+        "test-k8s-w4.musubram.internal    NotReady   <none>          3s    v1.36.3"
+    ]
+}
+2026-07-25 21:43:40,808 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:40,820 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:40,821 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:40,827 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:43:40,835 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Waiting for all the worker nodes to get Ready (This might take some time)] ********************************************************************************************************
+2026-07-25 21:43:40,866 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:43:40,880 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:43:40,891 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:43:40,899 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:08,769 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:08,775 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Get the list of worker nodes with label details] **********************************************************************************************************************************
+2026-07-25 21:44:08,803 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:08,817 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:08,828 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:08,836 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:09,774 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:09,780 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Segregate worker nodes into those with and without the worker role label] *********************************************************************************************************
+2026-07-25 21:44:09,817 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:09,827 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:09,828 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:09,829 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:09,836 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:09,842 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Notify the names of the worker nodes to which the worker role label has been assigned already] ************************************************************************************
+2026-07-25 21:44:09,870 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:09,883 p=673064 u=musubram n=ansible | skipping: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:09,894 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:09,895 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:09,901 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:09,908 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Notify the names of the worker nodes to which the worker role label hasn't been assigned yet] *************************************************************************************
+2026-07-25 21:44:09,932 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:09,943 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "test-k8s-w1.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w1.musubram.internal,kubernetes.io/os=linux",
+        "test-k8s-w2.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w2.musubram.internal,kubernetes.io/os=linux",
+        "test-k8s-w3.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w3.musubram.internal,kubernetes.io/os=linux",
+        "test-k8s-w4.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w4.musubram.internal,kubernetes.io/os=linux"
+    ]
+}
+2026-07-25 21:44:09,954 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:09,955 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:09,961 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:09,967 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Add worker role label to unlabeled worker nodes] **********************************************************************************************************************************
+2026-07-25 21:44:10,002 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:10,015 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:10,015 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:10,023 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:11,245 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w1.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w1.musubram.internal,kubernetes.io/os=linux)
+2026-07-25 21:44:14,960 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w2.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w2.musubram.internal,kubernetes.io/os=linux)
+2026-07-25 21:44:16,817 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w3.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w3.musubram.internal,kubernetes.io/os=linux)
+2026-07-25 21:44:18,939 p=673064 u=musubram n=ansible | changed: [test-k8s-cp1.musubram.internal] => (item=test-k8s-w4.musubram.internal    Ready   <none>          32s   v1.36.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=test-k8s-w4.musubram.internal,kubernetes.io/os=linux)
+2026-07-25 21:44:18,947 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Get the status of cluster nodes] **************************************************************************************************************************************************
+2026-07-25 21:44:18,994 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:19,009 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:19,010 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:19,019 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:20,429 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:20,435 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : All the cluster nodes are Ready!] *************************************************************************************************************************************************
+2026-07-25 21:44:20,459 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "NAME                             STATUS   ROLES           AGE   VERSION",
+        "test-k8s-cp1.musubram.internal   Ready    control-plane   76s   v1.36.3",
+        "test-k8s-w1.musubram.internal    Ready    worker          43s   v1.36.3",
+        "test-k8s-w2.musubram.internal    Ready    worker          43s   v1.36.3",
+        "test-k8s-w3.musubram.internal    Ready    worker          43s   v1.36.3",
+        "test-k8s-w4.musubram.internal    Ready    worker          43s   v1.36.3"
+    ]
+}
+2026-07-25 21:44:20,473 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:20,483 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:20,484 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:20,490 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:20,496 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Wait for all the k8s system pods to come online (This might take some time)] ******************************************************************************************************
+2026-07-25 21:44:20,529 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:20,543 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:20,555 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:20,562 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:42,550 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:42,557 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Your kubernetes cluster is Ready!] ************************************************************************************************************************************************
+2026-07-25 21:44:42,582 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:42,593 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:42,603 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:42,610 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:43,596 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal]
+2026-07-25 21:44:43,603 p=673064 u=musubram n=ansible | TASK [check_cluster_ready_status : Manage this cluster from test-k8s-cp1.musubram.internal with user musubram] *******************************************************************************************************
+2026-07-25 21:44:43,629 p=673064 u=musubram n=ansible | ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "NAME                             STATUS   ROLES           AGE   VERSION",
+        "test-k8s-cp1.musubram.internal   Ready    control-plane   99s   v1.36.3",
+        "test-k8s-w1.musubram.internal    Ready    worker          66s   v1.36.3",
+        "test-k8s-w2.musubram.internal    Ready    worker          66s   v1.36.3",
+        "test-k8s-w3.musubram.internal    Ready    worker          66s   v1.36.3",
+        "test-k8s-w4.musubram.internal    Ready    worker          66s   v1.36.3"
+    ]
+}
+2026-07-25 21:44:43,640 p=673064 u=musubram n=ansible | skipping: [test-k8s-w1.musubram.internal]
+2026-07-25 21:44:43,652 p=673064 u=musubram n=ansible | skipping: [test-k8s-w2.musubram.internal]
+2026-07-25 21:44:43,652 p=673064 u=musubram n=ansible | skipping: [test-k8s-w3.musubram.internal]
+2026-07-25 21:44:43,658 p=673064 u=musubram n=ansible | skipping: [test-k8s-w4.musubram.internal]
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | PLAY RECAP ***********************************************************************************************************************************************************************************************************
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | test-k8s-cp1.musubram.internal : ok=112  changed=33   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0   
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | test-k8s-w1.musubram.internal : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0   
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | test-k8s-w2.musubram.internal : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0   
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | test-k8s-w3.musubram.internal : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0   
+2026-07-25 21:44:43,769 p=673064 u=musubram n=ansible | test-k8s-w4.musubram.internal : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0   

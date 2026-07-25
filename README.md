@@ -55,36 +55,63 @@ While Kubespray provides extensive features and customization options, this play
 Use a single control plane node for a single control plane setup. For HA cluster setups, ensure a minimum of 3 control plane nodes, and always use an odd number of nodes.
 
 ##### Single Control Plane Setup
-   
-   <img width="362" alt="Screenshot-host-control-plane-file" src="https://github.com/user-attachments/assets/ff689ceb-554a-438b-83e4-efd0b19e0170">
-   
-   
+
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat host-control-plane
+   test-k8s-cp1.musubram.internal
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
+
 ##### HA Control Plane Setup
 
-   <img width="550" height="120" alt="Screenshot 2025-08-15 at 10 07 01 PM" src="https://github.com/user-attachments/assets/fd7e1fd4-e240-40e4-8b52-ac8aedf9871a" />
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat host-control-plane
+   test-k8s-cp1.musubram.internal
+   test-k8s-cp2.musubram.internal
+   test-k8s-cp3.musubram.internal
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
 
 ##### Additional Step for HA Control Plane Setup  
 
-* Update the file** `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.  
+* Update the file `control-plane-endpoint` with the endpoint behind the load balancer that has all the control planes in the backend pool.  
 
 * Port configuration:  
   If only `<FQDN of control-plane-endpoint>` is provided, the default port `6443` will be used.  
   Alternatively, provide a specific port as `<FQDN of control-plane-endpoint>:<port-number>`.   
 
-   <img width="572" height="78" alt="Screenshot 2025-08-15 at 10 09 09 PM" src="https://github.com/user-attachments/assets/8e4d4ba2-fe67-40e0-99b3-87e44b1504ea" />
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat control-plane-endpoint
+   test-k8s-cp.musubram.internal
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
 
-    ( Or )
+   ( Or )
 
-   <img width="577" height="71" alt="Screenshot 2025-08-15 at 10 10 17 PM" src="https://github.com/user-attachments/assets/a46cd99a-2c59-4333-8b92-4479a8c42f9b" />
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat control-plane-endpoint
+   test-k8s-cp.musubram.internal:6443
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
 
-  
 #### Step 3) Update the host-workers file with the necessary hostnames.  
    
-   <img width="340" alt="Screenshot-host-workers-file" src="https://github.com/user-attachments/assets/ec9b0598-9502-4ba2-ac52-9254e9093500">
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat host-workers
+   test-k8s-w1.musubram.internal
+   test-k8s-w2.musubram.internal
+   test-k8s-w3.musubram.internal
+   test-k8s-w4.musubram.internal
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
 
 #### Step 4) Update the pod-network-cidr file with the desired pod network CIDR.  
    
-   <img width="354" alt="Screenshot-pod-network-cidr-file" src="https://github.com/user-attachments/assets/92aaab26-f9a1-43fe-830f-a56ed19eba0a">
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ cat pod-network-cidr
+   10.8.0.0/16
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
   
    * Only private IP addresses, as defined in [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) are allowed.  
    * The deployment is configured to accept CIDR prefixes exclusively within the /16 to /28 range.   
@@ -96,7 +123,84 @@ Use a single control plane node for a single control plane setup. For HA cluster
    ```
    ./setup.py
    ```
-   <img width="497" alt="Screenshot-setup-script-run" src="https://github.com/user-attachments/assets/40cd5400-457b-4428-89b4-8d5d43690f6c">
+   ```text
+   [JARVIS](⊛)[inst-k8s-ansible]▶ ./setup.py
+   Check the required files . . . [done]
+   HA Cluster Setup is not detected!
+   Checking If Single Control Plane Setup is applicable  . . .[done]
+   Validate the pod network CIDR . . .[done]
+
+   [CNI Plugin Selection]
+   Select the CNI plugin to install:
+     1) Calico
+     2) Cilium
+   Enter your choice (1 or 2): 1
+   CNI plugin selected: calico
+
+   [OS Upgrade Option]
+   Do you want to upgrade the OS packages on all nodes before installing Kubernetes?
+     (This will run a full system upgrade and reboot if changes are applied)
+   Upgrade OS packages? (y/N):
+   OS upgrade: false
+   [done]
+   Updating the playbook for Single Control Plan Setup . . . [done]
+   Updating pod network CIDR as 10.8.0.0/16 . . . [done]
+   Updating CNI plugin selection as calico . . . [done]
+   Updating OS upgrade setting as false . . . [done]
+   Updating all the nodes in ansible inventory . . . [done]
+
+   [User to manage the k8s cluster]
+   Enter the remote username (ansible_user): musubram
+
+   Run ansible ping test for control plane nodes . . .
+   test-k8s-cp1.musubram.internal | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+
+   Run ansible ping test for worker nodes . . .
+   test-k8s-w1.musubram.internal | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+   test-k8s-w2.musubram.internal | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+   test-k8s-w3.musubram.internal | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+   test-k8s-w4.musubram.internal | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+   Update ansible.cfg with remote user . . . [done]
+
+   All set, you are good to go!
+
+   Cluster Setup Type : Single Control Plane
+
+   You can now run the playbook whenever you are ready!
+   ./inst-k8s-ansible.yaml
+
+   [JARVIS](⊛)[inst-k8s-ansible]▶
+   ```
 
 #### Step 6) Run the playbook if the setup.py script completes successfully.  
    ```
@@ -106,7 +210,7 @@ Use a single control plane node for a single control plane setup. For HA cluster
    **Optional: Pin specific component versions**  
    By default, the playbook installs the latest stable versions. To pin specific versions, pass them as extra variables:
    ```
-   ./inst-k8s-ansible.yaml -e "k8s_version=v1.35.7" -e "containerd_version=v1.7.28"
+   ./inst-k8s-ansible.yaml -e "runc_version=v1.4.3" -e "containerd_version=v1.7.28" -e "k8s_version=v1.34.10" -e "calico_version=v3.32.1"
    ```
    Available version overrides: `runc_version`, `containerd_version`, `k8s_version`, `calico_version`, `cilium_cli_version`  
    Any variable not specified will default to the latest stable release.  
@@ -114,44 +218,134 @@ Use a single control plane node for a single control plane setup. For HA cluster
 
    Expected Outcome:  
 
-   <img width="695" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/363a8107-0a08-4cda-996f-cb5e8fb9e7bd" />
+   ```text
+   TASK [check_cluster_ready_status : Manage this cluster from test-k8s-cp1.musubram.internal with user musubram]
+
+   ok: [test-k8s-cp1.musubram.internal] => {
+       "msg": [
+           "NAME                             STATUS   ROLES           AGE   VERSION",
+           "test-k8s-cp1.musubram.internal   Ready    control-plane   99s   v1.36.3",
+           "test-k8s-w1.musubram.internal    Ready    worker          66s   v1.36.3",
+           "test-k8s-w2.musubram.internal    Ready    worker          66s   v1.36.3",
+           "test-k8s-w3.musubram.internal    Ready    worker          66s   v1.36.3",
+           "test-k8s-w4.musubram.internal    Ready    worker          66s   v1.36.3"
+       ]
+   }
+
+   PLAY RECAP *********************************************************************
+   test-k8s-cp1.musubram.internal : ok=112  changed=33   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0
+   test-k8s-w1.musubram.internal  : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0
+   test-k8s-w2.musubram.internal  : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0
+   test-k8s-w3.musubram.internal  : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0
+   test-k8s-w4.musubram.internal  : ok=54   changed=23   unreachable=0    failed=0    skipped=49   rescued=0    ignored=0
+   ```
+
+   For full playbook output, see [docs/example-playbook-output.txt](docs/example-playbook-output.txt)
 
 ### Great work! Your cluster is now ready to use.  
    
-#### Optional Step 1) To install CSI NFS Driver for the kubernetes cluster if required.
+#### Optional Step 1) To install CSI NFS Driver for the Kubernetes cluster if required.
    ```
    ./optional-k8s-csi-nfs-driver.yaml
    ```
-  Expected Outcome:  
-  
-  <img width="702" alt="Screenshot-csi-driver-nfs" src="https://github.com/user-attachments/assets/40732420-acd2-4a09-94d8-128ac44634ce">  
+   Expected Outcome:  
 
-#### Optional Step 2) To install CSI SMB Driver for the kubernetes cluster if required.  
+   ```text
+   TASK [install_k8s_csi_nfs_driver : Successfully deployed csi-nfs-driver pods for k8s cluster]
+
+   ok: [test-k8s-cp1.musubram.internal] => {
+       "msg": [
+           "csi-nfs-controller-65b4f9877-bvhch   5/5   Running   1 (4s ago)   42s",
+           "csi-nfs-node-8bxxb                   3/3   Running   0            41s",
+           "csi-nfs-node-fbdck                   3/3   Running   0            41s",
+           "csi-nfs-node-l7fxj                   3/3   Running   0            41s",
+           "csi-nfs-node-qtlts                   3/3   Running   0            41s",
+           "csi-nfs-node-s4x8f                   3/3   Running   0            41s"
+       ]
+   }
+
+   PLAY RECAP *******************************************************************************************
+   test-k8s-cp1.musubram.internal : ok=14   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+   ```
+
+   For full output, see [docs/example-optional-csi-nfs-driver-output.txt](docs/example-optional-csi-nfs-driver-output.txt)  
+
+#### Optional Step 2) To install CSI SMB Driver for the Kubernetes cluster if required.  
    ```
    ./optional-k8s-csi-smb-driver.yaml
    ```
    Expected Outcome:  
 
-   <img width="694" alt="Screenshot-csi-driver-smb" src="https://github.com/user-attachments/assets/595d50a9-19d8-474c-97bd-e6ee72c09584">
+   ```text
+   TASK [install_k8s_csi_smb_driver : Successfully deployed csi-smb-driver pods for k8s cluster]
 
-#### Optional Step 3) To install MetalLB loadbalancer for the kubernetes cluster if required.    
+   ok: [test-k8s-cp1.musubram.internal] => {
+       "msg": [
+           "csi-smb-controller-79bf65f474-lzfwf   4/4   Running   0     24s",
+           "csi-smb-node-dtqrb                    3/3   Running   0     24s",
+           "csi-smb-node-gzl44                    3/3   Running   0     24s",
+           "csi-smb-node-l6br6                    3/3   Running   0     24s",
+           "csi-smb-node-ncgz5                    3/3   Running   0     24s",
+           "csi-smb-node-r2z9d                    3/3   Running   0     24s"
+       ]
+   }
+
+   PLAY RECAP *******************************************************************************************
+   test-k8s-cp1.musubram.internal : ok=14   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+   ```
+
+   For full output, see [docs/example-optional-csi-smb-driver-output.txt](docs/example-optional-csi-smb-driver-output.txt)
+
+#### Optional Step 3) To install MetalLB LoadBalancer for the Kubernetes cluster if required.    
    Note: Please make sure to change the address pool range in the playbook as per your environment and requirement. 
 
-   <img width="634" alt="Screenshot-metallb-ip-pool" src="https://github.com/user-attachments/assets/c59970f3-c28d-41d2-b906-ca891dce0ce1">
+   ```yaml
+   # optional-install-metallb.yaml
+   vars:
+     k8s_metallb_ip_pool_range: "10.28.31.101-10.28.31.155" # Change it as per your environment
+   ```
 
    ```
    ./optional-install-metallb.yaml
    ```
    Expected Outcome:  
 
-   <img width="699" alt="Screenshot-metallb" src="https://github.com/user-attachments/assets/ca42347a-9b44-43af-9aa2-229713a11192">
+   ```text
+   TASK [install_and_configure_metallb : Notify MetalLB IPAddressPool details]
 
-#### Optional Step 4) To enable Cilium Hubble observability for the kubernetes cluster if required ( only applicable when Cilium CNI is selected ).
+   ok: [test-k8s-cp1.musubram.internal] => {
+       "msg": [
+           "NAME                  AUTO ASSIGN   AVOID BUGGY IPS   ADDRESSES",
+           "k8s-metallb-ip-pool   true          false             [\"10.28.31.101-10.28.31.155\"]"
+       ]
+   }
+
+   TASK [install_and_configure_metallb : Successfully deployed MetalLB LoadBalancer for the k8s cluster]
+
+   ok: [test-k8s-cp1.musubram.internal] => {
+       "msg": [
+           "NAME                          READY   STATUS    RESTARTS   AGE",
+           "controller-545b968bd8-jsbxl   1/1     Running   0          39s",
+           "speaker-7kftj                 1/1     Running   0          39s",
+           "speaker-7m72v                 1/1     Running   0          39s",
+           "speaker-fm4jx                 1/1     Running   0          39s",
+           "speaker-pxkkm                 1/1     Running   0          39s",
+           "speaker-v4sts                 1/1     Running   0          39s"
+       ]
+   }
+
+   PLAY RECAP *******************************************************************************************
+   test-k8s-cp1.musubram.internal : ok=16   changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+   ```
+
+   For full output, see [docs/example-optional-install-metallb-output.txt](docs/example-optional-install-metallb-output.txt)
+
+#### Optional Step 4) To enable Cilium Hubble observability for the Kubernetes cluster if required ( only applicable when Cilium CNI is selected ).
    ```
    ./optional-install-cilium-hubble.yaml
    ```
 
-### That's all for now! Your trust and engagement means a lot, and we hope you find the playbook useful.
+### That's all for now! Your trust and engagement mean a lot, and we hope you find the playbook useful.
 
 ### Kindly note:  
 * This playbook is a useful resource for experimenting with Kubernetes and can be customized to meet your specific requirements.    

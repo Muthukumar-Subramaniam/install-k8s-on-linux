@@ -1,0 +1,98 @@
+[JARVIS](⊛)[inst-k8s-ansible]▶ ./optional-k8s-csi-nfs-driver.yaml
+
+PLAY [Install CSI NFS Driver for k8s cluster] ************************************************************************************************************************************************************************
+
+TASK [install_k8s_csi_nfs_driver : Check if csi-nfs-driver pods already exist] ***************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : set_fact] *************************************************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Notify if csi-nfs-driver is already installed] ************************************************************************************************************************************
+skipping: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Get latest version information of csi-nfs-driver from GitHub API] *****************************************************************************************************************
+[WARNING]: Platform linux on host test-k8s-cp1.musubram.internal is using the discovered Python interpreter at /bin/python3.9, but future installation of another Python interpreter could change the meaning of that
+path. See https://docs.ansible.com/ansible-core/2.15/reference_appendices/interpreter_discovery.html for more information.
+ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)]
+
+TASK [install_k8s_csi_nfs_driver : set_fact] *************************************************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Notify the version to be installed of k8s csi-driver-nfs] *************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal -> local-ansible-control-host(localhost)] => {
+    "msg": "Latest stable version to be installed of k8s csi-driver-nfs is v4.13.4"
+}
+
+TASK [install_k8s_csi_nfs_driver : Download the install-driver.sh script for csi-driver-nfs from GitHub] *************************************************************************************************************
+changed: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Install csi-nfs-driver] ***********************************************************************************************************************************************************
+changed: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Notify the results from csi-nfs-driver installation] ******************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "Installing NFS CSI driver, version: v4.13.4 ...",
+        "serviceaccount/csi-nfs-controller-sa created",
+        "serviceaccount/csi-nfs-node-sa created",
+        "clusterrole.rbac.authorization.k8s.io/nfs-external-provisioner-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/nfs-csi-provisioner-binding created",
+        "clusterrole.rbac.authorization.k8s.io/nfs-external-resizer-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/nfs-csi-resizer-role created",
+        "csidriver.storage.k8s.io/nfs.csi.k8s.io created",
+        "deployment.apps/csi-nfs-controller created",
+        "daemonset.apps/csi-nfs-node created",
+        "NFS CSI driver installed successfully."
+    ]
+}
+
+TASK [install_k8s_csi_nfs_driver : Gather current status of pods from all namespaces] ********************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Get the status csi-nfs-driver pods being deployed] ********************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Notify creation of csi-nfs-driver pods] *******************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "kube-system   csi-nfs-controller-65b4f9877-bvhch                       0/5   ContainerCreating   0     2s",
+        "kube-system   csi-nfs-node-8bxxb                                       0/3   ContainerCreating   0     1s",
+        "kube-system   csi-nfs-node-fbdck                                       0/3   ContainerCreating   0     1s",
+        "kube-system   csi-nfs-node-l7fxj                                       0/3   ContainerCreating   0     1s",
+        "kube-system   csi-nfs-node-qtlts                                       0/3   ContainerCreating   0     1s",
+        "kube-system   csi-nfs-node-s4x8f                                       0/3   ContainerCreating   0     1s"
+    ]
+}
+
+TASK [install_k8s_csi_nfs_driver : Waiting for all the csi-nfs-driver pods to be Ready] ******************************************************************************************************************************
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (500 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (499 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (498 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (497 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (496 retries left).
+FAILED - RETRYING: [test-k8s-cp1.musubram.internal]: Waiting for all the csi-nfs-driver pods to be Ready (495 retries left).
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Get the current status of csi-nfs-driver pods] ************************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Status of csi-nfs-driver pods if already installed] *******************************************************************************************************************************
+skipping: [test-k8s-cp1.musubram.internal]
+
+TASK [install_k8s_csi_nfs_driver : Successfully deployed csi-nfs-driver pods for k8s cluster] ************************************************************************************************************************
+ok: [test-k8s-cp1.musubram.internal] => {
+    "msg": [
+        "csi-nfs-controller-65b4f9877-bvhch   5/5   Running   1 (4s ago)   42s",
+        "csi-nfs-node-8bxxb                   3/3   Running   0            41s",
+        "csi-nfs-node-fbdck                   3/3   Running   0            41s",
+        "csi-nfs-node-l7fxj                   3/3   Running   0            41s",
+        "csi-nfs-node-qtlts                   3/3   Running   0            41s",
+        "csi-nfs-node-s4x8f                   3/3   Running   0            41s"
+    ]
+}
+
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
+test-k8s-cp1.musubram.internal : ok=14   changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+[JARVIS](⊛)[inst-k8s-ansible]▶
