@@ -163,6 +163,23 @@ while True:
 
 fn_print_success(f"CNI plugin selected: {k8s_cni_plugin}\n")
 
+# OS Upgrade Option
+fn_print_note("\n[OS Upgrade Option]\n")
+fn_print_msg("Do you want to upgrade the OS packages on all nodes before installing Kubernetes?\n")
+fn_print_msg("  (This will run a full system upgrade and reboot if changes are applied)\n")
+while True:
+    upgrade_choice = input("Upgrade OS packages? (y/N): ").strip().lower()
+    if upgrade_choice in ('', 'n', 'no'):
+        upgrade_os = 'false'
+        break
+    elif upgrade_choice in ('y', 'yes'):
+        upgrade_os = 'true'
+        break
+    else:
+        fn_print_fail("Invalid choice. Please enter y or n.\n")
+
+fn_print_success(f"OS upgrade: {upgrade_os}\n")
+
 vars_file = './roles/install_and_configure_the_cluster/vars/main.yaml'
 if len(cp_hosts) > 1:
     # Update vars/main.yaml with control-plane-endpoint
@@ -218,6 +235,17 @@ with open(vars_file, 'r+') as f:
     f.seek(0)
     f.writelines(line for line in lines if 'k8s_cni_plugin' not in line)
     f.write(f'k8s_cni_plugin: "{k8s_cni_plugin}"\n')
+    f.truncate()
+fn_print_success("[done]\n")
+
+# Update prepare_all_the_cluster_nodes vars with upgrade_os setting
+fn_print_msg(f"Updating OS upgrade setting as {upgrade_os} . . . ")
+prepare_vars_file = './roles/prepare_all_the_cluster_nodes/vars/main.yaml'
+with open(prepare_vars_file, 'r+') as f:
+    lines = f.readlines()
+    f.seek(0)
+    f.writelines(line for line in lines if 'upgrade_os' not in line)
+    f.write(f'upgrade_os: {upgrade_os}\n')
     f.truncate()
 fn_print_success("[done]\n")
 

@@ -25,6 +25,14 @@ for file_path in files_to_empty:
     else:
         print(f'File not found: {file_path}')
 
+# Reset prepare_all_the_cluster_nodes vars to defaults
+prepare_vars_file = "./inst-k8s-ansible/roles/prepare_all_the_cluster_nodes/vars/main.yaml"
+with open(prepare_vars_file, 'w') as f:
+    f.write('containerd_temp_binary_tarball: "/tmp/temp-containerd.tar.gz"\n')
+    f.write('runc_temp_binary: "/tmp/temp-runc"\n')
+    f.write('upgrade_os: false\n')
+print(f'Reset file to defaults: {prepare_vars_file}')
+
 
 playbook_file = "./inst-k8s-ansible/inst-k8s-ansible.yaml"
 with open(playbook_file, "r") as f:

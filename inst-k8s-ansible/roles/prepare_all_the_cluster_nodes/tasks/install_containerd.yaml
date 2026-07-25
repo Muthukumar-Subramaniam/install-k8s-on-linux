@@ -1,14 +1,41 @@
+- name: Detect glibc version on cluster node
+  command: ldd --version
+  register: glibc_version_output_raw
+  changed_when: false
+  run_once: true
+
+- name: Set glibc version fact
+  set_fact:
+    glibc_version_detected: "{{ glibc_version_output_raw.stdout_lines[0] | regex_search('[0-9]+\\.[0-9]+$') }}"
+  run_once: true
+
+- name: Set containerd tarball type based on glibc version
+  set_fact:
+    containerd_tarball_type: "{{ 'containerd' if (glibc_version_detected | default('0.0')) is version('2.35', '>=') else 'containerd-static' }}"
+  run_once: true
+
+- name: Notify containerd tarball type
+  debug:
+    msg: "Using {{ containerd_tarball_type }} tarball (glibc {{ glibc_version_detected }} detected)"
+  run_once: true
+
+- name: Set containerd tarball filename
+  set_fact:
+    containerd_download_tarball: "/tmp/temp-{{ containerd_tarball_type }}.tar.gz"
+  run_once: true
+
 - name: Download official binary tarball of latest containerd ( {{ containerd_version  }} ) to local-ansible-control-host
   delegate_to: local-ansible-control-host
   run_once: true
   get_url:
-    url: https://github.com/containerd/containerd/releases/download/{{ containerd_version }}/containerd-{{ containerd_version | regex_replace('v', '') }}-linux-amd64.tar.gz
-    dest: "{{ containerd_temp_binary_tarball }}"
+    url: https://github.com/containerd/containerd/releases/download/{{ containerd_version }}/{{ containerd_tarball_type }}-{{ containerd_version | regex_replace('v', '') }}-linux-amd64.tar.gz
+    dest: "{{ containerd_download_tarball }}"
+    force: true
 
 - name: Copy downloaded containerd binary tarball from local-ansible-control-host to cluster nodes
   copy:
-    src: "{{ containerd_temp_binary_tarball }}"
-    dest: "{{ containerd_temp_binary_tarball }}"
+    src: "{{ containerd_download_tarball }}"
+    dest: "{{ containerd_download_tarball }}"
     mode: '0755'
 
 - name: Create extraction directory /root/containerd-bin-tmp
@@ -22,7 +49,7 @@
   become: true
   unarchive:
     remote_src: true
-    src: "{{ containerd_temp_binary_tarball }}"
+    src: "{{ containerd_download_tarball }}"
     dest: /root/containerd-bin-tmp 
     owner: root
     group: root

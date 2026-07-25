@@ -9,11 +9,12 @@
     return_content: true
   register: runc_release
   changed_when: false
+  when: runc_version is not defined
 
 - name: Notify the runc version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of runc is {{ runc_release.json.tag_name }}
+      {{ 'User specified' if runc_version is defined else 'Latest stable' }} version to be installed of runc is {{ runc_version | default(runc_release.json.tag_name) }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -28,11 +29,12 @@
     return_content: true
   register: containerd_release
   changed_when: false
+  when: containerd_version is not defined
 
 - name: Notify the containerd version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of containerd is {{ containerd_release.json.tag_name }}
+      {{ 'User specified' if containerd_version is defined else 'Latest stable' }} version to be installed of containerd is {{ containerd_version | default(containerd_release.json.tag_name) }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -47,11 +49,12 @@
     return_content: true
   register: k8s_release
   changed_when: false
+  when: k8s_version is not defined
 
 - name: Notify the kubernetes version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of kubernetes is {{ k8s_release.json.tag_name }}
+      {{ 'User specified' if k8s_version is defined else 'Latest stable' }} version to be installed of kubernetes is {{ k8s_version | default(k8s_release.json.tag_name) }}
   delegate_to: local-ansible-control-host
   run_once: true
 
@@ -66,12 +69,12 @@
     return_content: true
   register: calico_release
   changed_when: false
-  when: k8s_cni_plugin == "calico"
+  when: k8s_cni_plugin == "calico" and calico_version is not defined
 
 - name: Notify the calico CNI version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of calico CNI is {{ calico_release.json.tag_name }}
+      {{ 'User specified' if calico_version is defined else 'Latest stable' }} version to be installed of calico CNI is {{ calico_version | default(calico_release.json.tag_name) }}
   delegate_to: local-ansible-control-host
   run_once: true
   when: k8s_cni_plugin == "calico"
@@ -87,33 +90,95 @@
     return_content: true
   register: cilium_cli_release
   changed_when: false
-  when: k8s_cni_plugin == "cilium"
+  when: k8s_cni_plugin == "cilium" and cilium_cli_version is not defined
 
 - name: Notify the cilium CLI version to be installed
   debug:
     msg: |-
-      Latest stable version to be installed of cilium CLI is {{ cilium_cli_release.content | trim }}
+      {{ 'User specified' if cilium_cli_version is defined else 'Latest stable' }} version to be installed of cilium CLI is {{ cilium_cli_version | default(cilium_cli_release.content | trim) }}
   delegate_to: local-ansible-control-host
   run_once: true
   when: k8s_cni_plugin == "cilium"
 
 
+### Validate user-specified versions exist on GitHub
+- name: Validate user-specified runc version exists on GitHub
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: "https://api.github.com/repos/opencontainers/runc/releases/tags/{{ runc_version }}"
+    method: GET
+    status_code: [200]
+    return_content: false
+  register: runc_version_check
+  failed_when: runc_version_check.status != 200
+  when: runc_version is defined and runc_release is skipped
+
+- name: Validate user-specified containerd version exists on GitHub
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: "https://api.github.com/repos/containerd/containerd/releases/tags/{{ containerd_version }}"
+    method: GET
+    status_code: [200]
+    return_content: false
+  register: containerd_version_check
+  failed_when: containerd_version_check.status != 200
+  when: containerd_version is defined and containerd_release is skipped
+
+- name: Validate user-specified kubernetes version exists on GitHub
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: "https://api.github.com/repos/kubernetes/kubernetes/releases/tags/{{ k8s_version }}"
+    method: GET
+    status_code: [200]
+    return_content: false
+  register: k8s_version_check
+  failed_when: k8s_version_check.status != 200
+  when: k8s_version is defined and k8s_release is skipped
+
+- name: Validate user-specified calico version exists on GitHub
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: "https://api.github.com/repos/projectcalico/calico/releases/tags/{{ calico_version }}"
+    method: GET
+    status_code: [200]
+    return_content: false
+  register: calico_version_check
+  failed_when: calico_version_check.status != 200
+  when: k8s_cni_plugin == "calico" and calico_version is defined and calico_release is skipped
+
+- name: Validate user-specified cilium CLI version exists
+  delegate_to: local-ansible-control-host
+  run_once: true
+  uri:
+    url: "https://github.com/cilium/cilium-cli/releases/tags/{{ cilium_cli_version }}"
+    method: GET
+    status_code: [200]
+    return_content: false
+  register: cilium_version_check
+  failed_when: cilium_version_check.status != 200
+  when: k8s_cni_plugin == "cilium" and cilium_cli_version is defined and cilium_cli_release is skipped
+
+
 - name: Set captured version information as global variables for all nodes
   set_fact:
-    runc_version: "{{ runc_release.json.tag_name }}"
-    containerd_version: "{{ containerd_release.json.tag_name }}"
-    k8s_version: "{{ k8s_release.json.tag_name }}"
-    k8s_version_major_minor: "{{ k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
-    calico_version: "{{ calico_release.json.tag_name }}"
+    runc_version: "{{ runc_version | default(runc_release.json.tag_name) }}"
+    containerd_version: "{{ containerd_version | default(containerd_release.json.tag_name) }}"
+    k8s_version: "{{ k8s_version | default(k8s_release.json.tag_name) }}"
+    k8s_version_major_minor: "{{ (k8s_version | default(k8s_release.json.tag_name)) | regex_replace('.[0-9]+$', '') }}"
+    calico_version: "{{ calico_version | default(calico_release.json.tag_name) }}"
   when: k8s_cni_plugin == "calico"
 
 - name: Set captured version information as global variables for all nodes
   set_fact:
-    runc_version: "{{ runc_release.json.tag_name }}"
-    containerd_version: "{{ containerd_release.json.tag_name }}"
-    k8s_version: "{{ k8s_release.json.tag_name }}"
-    k8s_version_major_minor: "{{ k8s_release.json.tag_name | regex_replace('.[0-9]+$', '') }}"
-    cilium_cli_version: "{{ cilium_cli_release.content | trim }}"
+    runc_version: "{{ runc_version | default(runc_release.json.tag_name) }}"
+    containerd_version: "{{ containerd_version | default(containerd_release.json.tag_name) }}"
+    k8s_version: "{{ k8s_version | default(k8s_release.json.tag_name) }}"
+    k8s_version_major_minor: "{{ (k8s_version | default(k8s_release.json.tag_name)) | regex_replace('.[0-9]+$', '') }}"
+    cilium_cli_version: "{{ cilium_cli_version | default(cilium_cli_release.content | trim) }}"
   when: k8s_cni_plugin == "cilium"
 
 - name: Write captured version info to /etc/inst-k8s-ansible-vars on control plane node (Calico)

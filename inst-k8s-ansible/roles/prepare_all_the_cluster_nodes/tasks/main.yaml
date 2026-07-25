@@ -6,7 +6,8 @@
 
 ###Tasks to upgrade the system packages
 - name: Include tasks to upgrade the system packages
-  include_tasks: upgrade_os.yaml 
+  include_tasks: upgrade_os.yaml
+  when: upgrade_os | bool
 
 
 ###Tasks to disable swap memory

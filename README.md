@@ -102,6 +102,16 @@ Use a single control plane node for a single control plane setup. For HA cluster
    ```
    ./inst-k8s-ansible.yaml
    ```
+
+   **Optional: Pin specific component versions**  
+   By default, the playbook installs the latest stable versions. To pin specific versions, pass them as extra variables:
+   ```
+   ./inst-k8s-ansible.yaml -e "k8s_version=v1.35.7" -e "containerd_version=v1.7.28"
+   ```
+   Available version overrides: `runc_version`, `containerd_version`, `k8s_version`, `calico_version`, `cilium_cli_version`  
+   Any variable not specified will default to the latest stable release.  
+   All user-specified versions are validated against GitHub before installation.
+
    Expected Outcome:  
 
    <img width="695" alt="Screenshot-end-output-of-playbook-run" src="https://github.com/user-attachments/assets/363a8107-0a08-4cda-996f-cb5e8fb9e7bd" />

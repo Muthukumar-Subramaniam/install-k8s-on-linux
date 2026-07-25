@@ -1,7 +1,7 @@
 - name: Install kernel-modules-extra for br_netfilter (RedHat based systems)
   become: true
   dnf:
-    name: kernel-modules-extra
+    name: "kernel-modules-extra-{{ ansible_kernel }}"
     state: present
   when: ansible_os_family == "RedHat"
 
