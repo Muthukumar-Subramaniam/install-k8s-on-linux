@@ -1,3 +1,10 @@
+- name: Install kernel-modules-extra for br_netfilter (RedHat based systems)
+  become: true
+  dnf:
+    name: kernel-modules-extra
+    state: present
+  when: ansible_os_family == "RedHat"
+
 - name: Load the required kernel modules
   become: true
   modprobe:
